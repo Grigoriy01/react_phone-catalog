@@ -1,1 +1,10 @@
-// not empty
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fafbfc; // Базовый цвет фона по макету
+}
+
+.main {
+  flex-grow: 1; // Растягивает контентную часть, прижимая footer к низу страницы
+}

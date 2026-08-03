@@ -1,0 +1,15 @@
+@use '../utils/' as *;
+
+.container {
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include on-tablet {
+    padding: 0 24px;
+  }
+
+  @include on-desktop {
+    padding: 0 32px;
+  }
+}

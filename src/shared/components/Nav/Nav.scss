@@ -1,0 +1,29 @@
+@use '../../../styles/utils/mixins' as *;
+@use '../../../styles/utils/variables' as *;
+
+.nav-site {
+  height: 100%;
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    gap: clamp(32px, 3vw, 64px);
+    height: 100%;
+  }
+  &__item {
+    height: 100%;
+  }
+
+  &__link {
+    display: flex;
+    text-transform: uppercase;
+    height: 100%;
+    align-items: center;
+
+    &:hover {
+      color: $color-primary;
+    }
+
+    @include active-underline;
+  }
+}

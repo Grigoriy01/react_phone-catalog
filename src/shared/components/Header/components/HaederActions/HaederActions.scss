@@ -1,0 +1,23 @@
+@use '../../../../../styles/utils/mixins' as *;
+
+.header-actions {
+  display: flex;
+
+  &__link {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-left: 1px solid #e2e6e9;
+    border-right: 1px solid #e2e6e9;
+
+    @include active-underline;
+  }
+
+  &__badge-counter {
+    // -
+  }
+}

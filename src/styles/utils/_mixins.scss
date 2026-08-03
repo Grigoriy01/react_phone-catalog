@@ -1,0 +1,65 @@
+@use '../utils/variables' as *;
+
+@mixin on-tablet {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin on-desktop {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin hover($_property, $_toValue) {
+  transition: #{$_property} 0.3s;
+  &:hover {
+    #{$_property}: $_toValue;
+  }
+}
+
+@mixin hover-scale {
+  transition: $transition-duration;
+  &:hover {
+    transform: scale(1.08);
+  }
+}
+
+@mixin hover-shadow {
+  transition:
+    transform $transition-3,
+    box-shadow $transition-3;
+
+  &:hover {
+    transform: scale(1.08);
+    box-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+    @content;
+  }
+}
+
+@mixin active-underline($color: $color-primary, $height: 2px) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: $height;
+    background-color: $color;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  // Применится к элементу, когда на нем появится класс is-active
+  &.is-active {
+    &::after {
+      opacity: 1;
+    }
+  }
+}

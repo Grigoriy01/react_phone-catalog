@@ -1,0 +1,27 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: z('header');
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  width: 100%;
+
+  &__container {
+    padding: 0 ;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .nav-site {
+     margin-inline: 16px;
+  }
+  .logo {
+    flex-shrink: 0;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+}
