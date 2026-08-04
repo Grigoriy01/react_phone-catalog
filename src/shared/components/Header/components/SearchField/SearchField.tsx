@@ -1,4 +1,9 @@
+
+import './SearchField.scss'
+
+
 export const SearchField = () => {
+
   return (
     <form
       className="search"
@@ -7,7 +12,7 @@ export const SearchField = () => {
         <input
           className="search__input"
           type="text"
-          placeholder="Search..."
+          placeholder="Search ..."
         />
         <button type="button" >x</button>
       </label>

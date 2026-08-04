@@ -1,0 +1,55 @@
+@use '../../../../../styles/utils/' as *;
+
+.burger {
+  @extend %square-action-btn;
+
+  cursor: pointer;
+  border-bottom: none;
+
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &__line {
+    position: relative;
+    width: 14px;
+    height: 1.5px;
+    background-color: $color-primary;
+    border-radius: 1rem;
+
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 14px;
+      height: 1.5px;
+      background-color: currentColor;
+      border-radius: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    &::after {
+      transform: translateY(4px);
+    }
+
+    &::before {
+      transform: translateY(-4px);
+    }
+  }
+
+  &[aria-expanded='true'] {
+    .burger__line {
+      background-color: transparent;
+
+      &::before {
+        transform: translateY(0) rotate(45deg);
+      }
+
+      &::after {
+        transform: translateY(0) rotate(-45deg);
+      }
+    }
+  }
+}

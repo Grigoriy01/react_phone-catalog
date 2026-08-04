@@ -1,0 +1,13 @@
+// Template for square interactive buttons (48x48, centered)
+@use './variables' as *;
+
+%square-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid $color-elements;
+  
+}

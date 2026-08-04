@@ -1,1 +1,26 @@
-// -
+@use '../../../../../styles/utils/' as *;
+
+.search {
+  height: 100%;
+  width: 100%;
+  display: none;
+
+  @include on-tablet {
+    display: flex;
+  }
+  
+  &__label {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  ::placeholder {
+    text-transform: uppercase;
+
+  }
+}

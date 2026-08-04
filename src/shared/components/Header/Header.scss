@@ -1,3 +1,5 @@
+@use '../../../styles/utils/' as *;
+
 .header {
   position: sticky;
   top: 0;
@@ -8,13 +10,31 @@
   width: 100%;
 
   &__container {
-    padding: 0 ;
+    padding: 0;
     height: 100%;
     display: flex;
     align-items: center;
   }
+
+  &__desktop-nav {
+    display: none;
+
+    @include on-tablet {
+      display: flex;
+    }
+
+  }
+
+  &__desktop-actions {
+    display: none;
+
+    @include on-tablet {
+      display: flex;
+    }
+  }
+
   .nav-site {
-     margin-inline: 16px;
+    margin-inline: 16px;
   }
   .logo {
     flex-shrink: 0;
@@ -23,5 +43,17 @@
   .header-actions {
     margin-left: auto;
     flex-shrink: 0;
+
+    @include on-tablet {
+      // -
+    }
+
+  }
+  .burger {
+    margin-left: auto;
+
+    @include on-tablet {
+      display: none;
+    }
   }
 }

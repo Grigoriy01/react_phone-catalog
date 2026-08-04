@@ -1,8 +1,8 @@
 $z-indexes: (
   'dropdown': 100,
-  'header': 500,
+  'modal': 500,
   'overlay': 900,
-  'modal': 1000,
+  'header': 1000,
 );
 
 @function z($layer) {
@@ -37,4 +37,4 @@ $color-surface-2: #fafbfc;     // Общий светлый фон всего п
 $transition-duration: 0.3s;
 $transition-effect: ease-in-out;
 
-// ==================== 
+// ====================

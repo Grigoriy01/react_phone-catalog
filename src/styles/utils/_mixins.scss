@@ -12,12 +12,12 @@
   }
 }
 
-@mixin hover($_property, $_toValue) {
-  transition: #{$_property} 0.3s;
-  &:hover {
-    #{$_property}: $_toValue;
-  }
-}
+// @mixin hover($_property, $_toValue) {
+//   transition: #{$_property} 0.3s;
+//   &:hover {
+//     #{$_property}: $_toValue;
+//   }
+// }
 
 @mixin hover-scale {
   transition: $transition-duration;
@@ -26,19 +26,19 @@
   }
 }
 
-@mixin hover-shadow {
-  transition:
-    transform $transition-3,
-    box-shadow $transition-3;
+// @mixin hover-shadow {
+//   transition:
+//     transform $transition-3,
+//     box-shadow $transition-3;
 
-  &:hover {
-    transform: scale(1.08);
-    box-shadow:
-      0 2px 4px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.1);
-    @content;
-  }
-}
+//   &:hover {
+//     transform: scale(1.08);
+//     box-shadow:
+//       0 2px 4px rgba(0, 0, 0, 0.1),
+//       0 2px 4px rgba(0, 0, 0, 0.1);
+//     @content;
+//   }
+// }
 
 @mixin active-underline($color: $color-primary, $height: 2px) {
   position: relative;
