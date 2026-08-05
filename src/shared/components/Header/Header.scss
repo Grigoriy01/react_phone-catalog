@@ -10,7 +10,6 @@
   width: 100%;
 
   &__container {
-    padding: 0;
     height: 100%;
     display: flex;
     align-items: center;
@@ -19,10 +18,12 @@
   &__desktop-nav {
     display: none;
 
+
     @include on-tablet {
       display: flex;
+      height: 100%;
+      margin-inline: 16px;
     }
-
   }
 
   &__desktop-actions {
@@ -30,25 +31,14 @@
 
     @include on-tablet {
       display: flex;
+      margin-left: auto;
     }
   }
 
-  .nav-site {
-    margin-inline: 16px;
-  }
   .logo {
     flex-shrink: 0;
   }
 
-  .header-actions {
-    margin-left: auto;
-    flex-shrink: 0;
-
-    @include on-tablet {
-      // -
-    }
-
-  }
   .burger {
     margin-left: auto;
 

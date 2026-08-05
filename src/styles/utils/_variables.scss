@@ -15,7 +15,7 @@ $z-indexes: (
 
 // --- Текст и глобальные цвета ---
 $color-primary: #0f0f11;       // Основной темный цвет текста и заголовков
-$color-secondary: #89939a;     // Вторичный серый цвет (подзаголовки, описания)
+$color-secondary-glob: #89939a;     // Вторичный серый цвет (подзаголовки, описания)
 $color-white: #ffff;         // Белый цвет
 
 // --- Акценты и статусы ---
@@ -37,4 +37,5 @@ $color-surface-2: #fafbfc;     // Общий светлый фон всего п
 $transition-duration: 0.3s;
 $transition-effect: ease-in-out;
 
-// ====================
+// ==================== FONTS ==============
+$font-family-base: 'Mont', sans-serif;

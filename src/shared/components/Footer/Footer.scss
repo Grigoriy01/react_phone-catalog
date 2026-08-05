@@ -1,0 +1,20 @@
+@use '../../../styles/utils/variables' as *;
+
+.footer {
+  height: auto;
+      width: 100%;
+      border-top: 1px solid $color-elements;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100%;
+    padding: 32px 16px;
+  }
+
+  &__logo {
+    height: auto;
+    justify-content: left;
+  }
+}

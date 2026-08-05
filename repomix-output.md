@@ -85,6 +85,7 @@ src/
   styles/
     base/
       _container.scss
+      _fonts.scss
       _helpers.scss
       _normalize.scss
       _typography.scss
@@ -103,13 +104,61 @@ src/
 <files>
 This section contains the contents of the repository's files.
 
+<file path="src/styles/base/_fonts.scss">
+@font-face {
+  font-family: Mont;
+  src: url(/public/fonts/Mont-Regular.otf);
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Mont;
+  src: url(/public/fonts/Mont-Bold.otf);
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Mont;
+  src: url(/public/fonts/Mont-SemiBold.otf);
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+</file>
+
+<file path="src/modules/FavoritesPage/components/FavoritesPage.scss">
+// -
+</file>
+
+<file path="src/modules/FavoritesPage/components/FavoritesPage.tsx">
+export const FavoritesPage = () => {
+  return (
+
+  );
+};
+</file>
+
+<file path="src/modules/FavoritesPage/components/index.ts">
+export * from './FavoritesPage'
+</file>
+
+<file path="src/modules/HomePage/components/HomePage.tsx">
+
+</file>
+
 <file path="src/shared/components/Header/components/Burger/Burger.scss">
 @use '../../../../../styles/utils/' as *;
 
 .burger {
-  cursor: pointer;
-
   @extend %square-action-btn;
+
+  cursor: pointer;
+  border-bottom: none;
+
 
   &:active {
     transform: scale(0.95);
@@ -191,35 +240,36 @@ export * from './Burger'
 
 .burger-menu {
   position: fixed;
-
-  // Отступаем ровно от нижнего края хедера
-
   top: 48px;
   left: 0;
-  width: 100vw;
+  right: 0;
 
-  // Высота ровно на оставшийся экран
-
+  width: 100%;
   height: calc(100vh - 48px);
 
+  border-top: 1px solid $color-elements;
   background-color: $color-surface-1;
-  z-index: z('modal'); // Перекрывает основной контент страницы
 
-  // --- Настройки анимации выезда ---
-  transform: translateX(-100%); // По умолчанию убрано влево за экран
+  z-index: z('modal');
+
+  transform: translateX(100%);
   transition: transform 0.3s ease;
 
-  // --- Состояние ОТКРЫТО ---
   &.is-open {
-    transform: translateX(0); // Плавно выезжает на весь экран
+    transform: translateX(0);
   }
+
+  @include on-tablet {
+    display: none;
+  }
+
+
 
   &__content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    padding: 24px 16px;
   }
 }
 </file>
@@ -238,7 +288,7 @@ type Props = {
 
 export const BurgerMenu: React.FC<Props> = ({ isBurgerMenuOpen }) => {
   return (
-    <div className={cn('burger-menu', { 'is-hidden': !isBurgerMenuOpen })}>
+    <div className={cn('burger-menu', { 'is-open': isBurgerMenuOpen })}>
       <div className="burger-menu__content">
         <Nav />
         <HaederActions />
@@ -250,61 +300,6 @@ export const BurgerMenu: React.FC<Props> = ({ isBurgerMenuOpen }) => {
 
 <file path="src/shared/components/Header/components/BurgerMenu/index.ts">
 export * from './BurgerMenu'
-</file>
-
-<file path="src/styles/utils/_placeholder.scss">
-// Template for square interactive buttons (48x48, centered)
-@use './variables' as *;
-
-%square-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border-left: 1px solid $color-elements;
-  border-right: 1px solid $color-elements;
-}
-</file>
-
-<file path="src/modules/FavoritesPage/components/FavoritesPage.scss">
-// -
-</file>
-
-<file path="src/modules/FavoritesPage/components/FavoritesPage.tsx">
-export const FavoritesPage = () => {
-  return (
-
-  );
-};
-</file>
-
-<file path="src/modules/FavoritesPage/components/index.ts">
-export * from './FavoritesPage'
-</file>
-
-<file path="src/modules/HomePage/components/HomePage.tsx">
-
-</file>
-
-<file path="src/shared/components/Header/components/HaederActions/HaederActions.scss">
-@use '../../../../../styles/utils' as *;
-
-.header-actions {
-  display: flex;
-
-  &__link {
-    position: relative;
-
-    @extend %square-action-btn;
-    @include active-underline;
-  }
-
-  &__badge-counter {
-    // -
-  }
-}
 </file>
 
 <file path="src/shared/components/Header/components/HaederActions/HaederActions.tsx">
@@ -353,167 +348,6 @@ export * from './HaederActions'
 export * from  '../SearchField';
 </file>
 
-<file path="src/shared/components/Header/components/SearchField/SearchField.scss">
-.search {
-  height: 100%;
-  width: 100%;
-  &__label {
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-
-  &__input {
-    width: 100%;
-  }
-
-  ::placeholder {
-    text-transform: uppercase;
-    
-  }
-}
-</file>
-
-<file path="src/shared/components/Header/components/SearchField/SearchField.tsx">
-import './SearchField.scss'
-
-
-export const SearchField = () => {
-
-  return (
-    <form
-      className="search"
-    >
-      <label className="search__label">
-        <input
-          className="search__input"
-          type="text"
-          placeholder="Search ..."
-        />
-        <button type="button" >x</button>
-      </label>
-
-    </form>
-  );
-};
-</file>
-
-<file path="src/shared/components/Header/Header.scss">
-@use '../../../styles/utils/' as *;
-
-.header {
-  position: sticky;
-  top: 0;
-  z-index: z('header');
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 48px;
-  width: 100%;
-
-  &__container {
-    padding: 0;
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  &__desktop-nav {
-    display: none;
-
-    @include on-tablet {
-      display: flex;
-    }
-
-  }
-
-  &__desktop-actions {
-    display: none;
-
-    @include on-tablet {
-      display: flex;
-    }
-  }
-
-  .nav-site {
-    margin-inline: 16px;
-  }
-  .logo {
-    flex-shrink: 0;
-  }
-
-  .header-actions {
-    margin-left: auto;
-    flex-shrink: 0;
-
-    @include on-tablet {
-      // -
-    }
-
-  }
-  .burger {
-    margin-left: auto;
-
-    @include on-tablet {
-      display: none;
-    }
-  }
-}
-</file>
-
-<file path="src/shared/components/Header/Header.tsx">
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-
-import { Logo } from '../Logo/Logo';
-import { HaederActions } from './components/HaederActions';
-import { SearchField } from './components/SearchField/SearchField';
-import { Burger } from './components/Burger';
-import { BurgerMenu } from './components/BurgerMenu';
-import { Nav } from '../Nav';
-
-import './Header.scss';
-
-const SEARCH_ALLOWED_ROUTES = [
-  '/phones',
-  '/tablets',
-  '/accessories',
-  '/favorites',
-] as const;
-
-export const Header = () => {
-  const { pathname } = useLocation();
-
-  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-  console.log('toggle', isBurgerMenuOpen);
-  const isSearchVisible = (SEARCH_ALLOWED_ROUTES as readonly string[]).includes(
-    pathname,
-  );
-
-  return (
-    <header className="header">
-      {/* Header content */}
-      <div className="container header__container">
-        <Logo />
-        <div className="header__desktop-nav">
-          <Nav />
-        </div>
-        {isSearchVisible && <SearchField />}
-        <div className="header__desktop-actions">
-          <HaederActions />
-        </div>
-
-        <Burger
-          onIsBurgerMenuOpen={setIsBurgerMenuOpen}
-          isBurgerMenuOpen={isBurgerMenuOpen}
-        />
-
-        <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} />
-      </div>
-    </header>
-  );
-};
-</file>
-
 <file path="src/shared/components/Header/index.ts">
 export * from './Header'
 </file>
@@ -558,38 +392,6 @@ export const Logo = () => {
 export * from './Nav'
 </file>
 
-<file path="src/shared/components/Nav/Nav.scss">
-@use '../../../styles/utils/mixins' as *;
-@use '../../../styles/utils/variables' as *;
-
-.nav-site {
-  height: 100%;
-
-  &__list {
-    display: flex;
-    flex-direction: row;
-    gap: clamp(32px, 3vw, 64px);
-    height: 100%;
-  }
-  &__item {
-    height: 100%;
-  }
-
-  &__link {
-    display: flex;
-    text-transform: uppercase;
-    height: 100%;
-    align-items: center;
-
-    &:hover {
-      color: $color-primary;
-    }
-
-    @include active-underline;
-  }
-}
-</file>
-
 <file path="src/shared/components/Nav/Nav.tsx">
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
@@ -606,22 +408,22 @@ export const Nav = () => {
   return (
     <nav className="nav-site" role="navigation" aria-label="main navigation">
       <ul className="nav-site__list">
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/" className={isActiveClass}>
             Home
           </NavLink>
         </li>
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/phones" className={isActiveClass}>
             Phones
           </NavLink>
         </li>
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/tablets" className={isActiveClass}>
             Tablets
           </NavLink>
         </li>
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/accessories" className={isActiveClass}>
             Accessories
           </NavLink>
@@ -762,6 +564,408 @@ p {
 }
 </file>
 
+<file path="src/styles/utils/_placeholder.scss">
+// Template for square interactive buttons (48x48, centered)
+@use './variables' as *;
+@use './mixins' as *;
+
+%square-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid $color-elements;
+
+
+  @include on-tablet {
+    border-bottom: 0;
+
+  }
+}
+
+// ======================================
+// TYPOGRAPHY PLACEHOLDERS (Мкет UI Kit)
+// ======================================
+
+// H1
+%h1-title {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 41px;
+  letter-spacing: -0.01em;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
+
+// H2
+%h2-title {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 31px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 32px;
+    line-height: 41px;
+    letter-spacing: -0.01em;
+  }
+}
+
+// H3 (Subtitle / Section Header)
+%h3-title {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 31px;
+  }
+}
+
+// H4
+%h4-title {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
+// Uppercase (Links, Navigation)
+%uppercase-text {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $color-secondary-glob;
+}
+
+// Buttons
+%button-text {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+// Body Text
+%body-text {
+  font-family: $font-family-base;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: $color-primary;
+}
+
+// Small Text
+%small-text {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  color: $color-secondary;
+}
+</file>
+
+<file path="src/styles/index.scss">
+@use './utils/' as *;
+@use './base/normalize';
+@use './base/fonts';
+@use './base/typography';
+@use './base/helpers';
+@use './base/container';
+</file>
+
+<file path="src/vite-env.d.ts">
+/// <reference types="vite/client" />
+</file>
+
+<file path="src/shared/components/Header/components/HaederActions/HaederActions.scss">
+@use '../../../../../styles/utils' as *;
+
+.header-actions {
+  display: flex;
+  width: 100%;
+
+  &__link {
+    @extend %square-action-btn;
+    @include active-underline;
+
+    width: 50%;
+
+    @include on-tablet {
+      width: 48px;
+    }
+  }
+
+  &__badge-counter {
+    // -
+  }
+}
+</file>
+
+<file path="src/shared/components/Header/components/SearchField/SearchField.scss">
+@use '../../../../../styles/utils/' as *;
+
+.search {
+  height: 100%;
+  width: 100%;
+  display: none;
+
+  @include on-tablet {
+    display: flex;
+  }
+  
+  &__label {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  &__input {
+    width: 100%;
+  }
+
+  ::placeholder {
+    text-transform: uppercase;
+
+  }
+}
+</file>
+
+<file path="src/shared/components/Header/components/SearchField/SearchField.tsx">
+import './SearchField.scss'
+
+
+export const SearchField = () => {
+
+  return (
+    <form
+      className="search"
+    >
+      <label className="search__label">
+        <input
+          className="search__input"
+          type="text"
+          placeholder="Search ..."
+        />
+        <button type="button" >x</button>
+      </label>
+
+    </form>
+  );
+};
+</file>
+
+<file path="src/shared/components/Header/Header.scss">
+@use '../../../styles/utils/' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: z('header');
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  width: 100%;
+
+  &__container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__desktop-nav {
+    display: none;
+
+
+    @include on-tablet {
+      display: flex;
+      height: 100%;
+      margin-inline: 16px;
+    }
+  }
+
+  &__desktop-actions {
+    display: none;
+
+    @include on-tablet {
+      display: flex;
+      margin-left: auto;
+    }
+  }
+
+  .logo {
+    flex-shrink: 0;
+  }
+
+  .burger {
+    margin-left: auto;
+
+    @include on-tablet {
+      display: none;
+    }
+  }
+}
+</file>
+
+<file path="src/shared/components/Header/Header.tsx">
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import { Logo } from '../Logo/Logo';
+import { HaederActions } from './components/HaederActions';
+import { SearchField } from './components/SearchField/SearchField';
+import { Burger } from './components/Burger';
+import { BurgerMenu } from './components/BurgerMenu';
+import { Nav } from '../Nav';
+
+import './Header.scss';
+
+/**
+ * Defines the routes where the search field is allowed to be visible.
+ * @type {readonly string[]}
+ */
+const SEARCH_ALLOWED_ROUTES = [
+  '/phones',
+  '/tablets',
+  '/accessories',
+  '/favorites',
+] as const;
+
+/**
+ * Header component that displays the application's navigation, logo, search field, and user actions.
+ * It also manages the state of a burger menu for mobile navigation and its behavior based on screen size.
+ *
+ * @returns {JSX.Element} The rendered header component.
+ */
+export const Header = () => {
+  const { pathname } = useLocation();
+
+  /**
+   * State to control the visibility of the burger menu.
+   * @type {[boolean, React.Dispatch<React.SetStateAction<boolean>>]}
+   */
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsBurgerMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 640px)');
+
+    /**
+     * Handles the closing of the burger menu when the screen size changes to a wider view.
+     * @param {MediaQueryListEvent} e - The media query list event.
+     */
+    const handleCloseBurger = (e: MediaQueryListEvent) => {
+      if (e.matches) {
+        return setIsBurgerMenuOpen(false);
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleCloseBurger);
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleCloseBurger);
+    };
+  }, []);
+
+  /**
+   * Determines if the search field should be visible based on the current pathname.
+   * @type {boolean}
+   */
+  const isSearchVisible = (SEARCH_ALLOWED_ROUTES as readonly string[]).includes(
+    pathname,
+  );
+
+  return (
+    <header className="header">
+      {/* Header content */}
+      <div className="header__container">
+        <Logo />
+        <div className="header__desktop-nav">
+          <Nav />
+        </div>
+        {isSearchVisible && <SearchField />}
+        <div className="header__desktop-actions">
+          <HaederActions />
+        </div>
+
+        <Burger
+          onIsBurgerMenuOpen={setIsBurgerMenuOpen}
+          isBurgerMenuOpen={isBurgerMenuOpen}
+        />
+
+        <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} />
+      </div>
+    </header>
+  );
+};
+</file>
+
+<file path="src/shared/components/Nav/Nav.scss">
+@use '../../../styles/utils/mixins' as *;
+@use '../../../styles/utils/placeholder' as *;
+
+.nav-site {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    height: 100%;
+    padding-top: 24px;
+
+    @include on-tablet {
+      flex-direction: row;
+      padding: 0;
+      gap: clamp(32px, 3vw, 64px);
+    }
+  }
+  &__item {
+    height: 27px;
+
+    @include on-tablet {
+      height: 100%;
+    }
+  }
+
+  &__link {
+    display: flex;
+    height: 100%;
+    align-items: center;
+
+    // &:hover {
+    //   color: $color-primary;
+    // }
+
+    @extend %uppercase-text;
+    @include active-underline;
+  }
+}
+</file>
+
 <file path="src/styles/utils/_index.scss">
 @forward './variables';
 @forward './mixins';
@@ -854,7 +1058,7 @@ $z-indexes: (
 
 // --- Текст и глобальные цвета ---
 $color-primary: #0f0f11;       // Основной темный цвет текста и заголовков
-$color-secondary: #89939a;     // Вторичный серый цвет (подзаголовки, описания)
+$color-secondary-glob: #89939a;     // Вторичный серый цвет (подзаголовки, описания)
 $color-white: #ffff;         // Белый цвет
 
 // --- Акценты и статусы ---
@@ -876,19 +1080,8 @@ $color-surface-2: #fafbfc;     // Общий светлый фон всего п
 $transition-duration: 0.3s;
 $transition-effect: ease-in-out;
 
-// ====================
-</file>
-
-<file path="src/styles/index.scss">
-@use './utils/' as *;
-@use './base/normalize';
-@use './base/typography';
-@use './base/helpers';
-@use './base/container';
-</file>
-
-<file path="src/vite-env.d.ts">
-/// <reference types="vite/client" />
+// ==================== FONTS ==============
+$font-family-base: 'Mont', sans-serif;
 </file>
 
 <file path="src/App.scss">

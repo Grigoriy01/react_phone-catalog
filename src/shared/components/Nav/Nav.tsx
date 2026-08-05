@@ -13,22 +13,22 @@ export const Nav = () => {
   return (
     <nav className="nav-site" role="navigation" aria-label="main navigation">
       <ul className="nav-site__list">
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/" className={isActiveClass}>
             Home
           </NavLink>
         </li>
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/phones" className={isActiveClass}>
             Phones
           </NavLink>
         </li>
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/tablets" className={isActiveClass}>
             Tablets
           </NavLink>
         </li>
-        <li className='nav-site__item'>
+        <li className="nav-site__item">
           <NavLink to="/accessories" className={isActiveClass}>
             Accessories
           </NavLink>

@@ -1,9 +1,7 @@
 @use '../../../styles/utils/mixins' as *;
-@use '../../../styles/utils/variables' as *;
+@use '../../../styles/utils/placeholder' as *;
 
 .nav-site {
-  height: 100%;
-
   &__list {
     display: flex;
     flex-direction: column;
@@ -13,17 +11,21 @@
     padding-top: 24px;
 
     @include on-tablet {
+      flex-direction: row;
+      padding: 0;
       gap: clamp(32px, 3vw, 64px);
-
     }
   }
   &__item {
     height: 27px;
+
+    @include on-tablet {
+      height: 100%;
+    }
   }
 
   &__link {
     display: flex;
-    text-transform: uppercase;
     height: 100%;
     align-items: center;
 
@@ -31,6 +33,7 @@
     //   color: $color-primary;
     // }
 
+    @extend %uppercase-text;
     @include active-underline;
   }
 }

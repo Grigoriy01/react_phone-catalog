@@ -1,5 +1,6 @@
 // Template for square interactive buttons (48x48, centered)
 @use './variables' as *;
+@use './mixins' as *;
 
 %square-action-btn {
   display: flex;
@@ -9,5 +10,124 @@
   height: 48px;
   flex-shrink: 0;
   border: 1px solid $color-elements;
-  
+
+
+  @include on-tablet {
+    border-bottom: 0;
+
+  }
+}
+
+// #region typografy
+
+// H1
+%h1-title {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 41px;
+  letter-spacing: -0.01em;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
+
+// H2
+%h2-title {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 31px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 32px;
+    line-height: 41px;
+    letter-spacing: -0.01em;
+  }
+}
+
+// H3 (Subtitle / Section Header)
+%h3-title {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 31px;
+  }
+}
+
+// H4
+%h4-title {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
+// Uppercase (Links, Navigation)
+%uppercase-text {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $color-secondary-glob;
+}
+
+// Buttons
+%button-text {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+// Body Text
+%body-text {
+  font-family: $font-family-base;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: $color-primary;
+}
+
+// Small Text
+%small-text {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  color: $color-secondary;
+}
+
+// Заготовка для ВСЕХ круглых/квадратных кнопок с иконками (48x48)
+%icon-button {
+  @extend %square-action-btn;
+
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: all $transition-duration ease;
+
+  &:hover {
+    border-color: $color-primary;
+    
+    @include hover-scale;
+  }
 }
