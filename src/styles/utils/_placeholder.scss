@@ -2,23 +2,23 @@
 @use './variables' as *;
 @use './mixins' as *;
 
-%square-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border: 1px solid $color-elements;
+// %square-action-btn {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 48px;
+//   height: 48px;
+//   flex-shrink: 0;
+//   border: 1px solid $color-elements;
 
 
-  @include on-tablet {
-    border-bottom: 0;
+//   @include on-tablet {
+//     border-bottom: 0;
 
-  }
-}
+//   }
+// }
 
-// #region typografy
+/* #region Tiphografe */
 
 // H1
 %h1-title {
@@ -116,18 +116,6 @@
   color: $color-secondary;
 }
 
-// Заготовка для ВСЕХ круглых/квадратных кнопок с иконками (48x48)
-%icon-button {
-  @extend %square-action-btn;
+/* #endregion */
 
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  transition: all $transition-duration ease;
 
-  &:hover {
-    border-color: $color-primary;
-    
-    @include hover-scale;
-  }
-}

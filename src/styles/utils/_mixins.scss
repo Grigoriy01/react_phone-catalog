@@ -63,3 +63,27 @@
     }
   }
 }
+
+@mixin base-button(
+  $width: 48px,
+  $height: 48px,
+  $radius: 0,
+  $has-border: true
+) {
+  // --- Global style ---
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $width;
+  height: $height;
+  flex-shrink: 0;
+  border-radius: $radius;
+  transition: all $transition-duration ease;
+
+  @if $has-border {
+    border: 1px solid $color-elements;
+  } @else {
+    border: none;
+  }
+  @content;
+}

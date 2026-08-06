@@ -1,7 +1,7 @@
 @use '../../../../../styles/utils/' as *;
 
 .burger {
-  @extend %square-action-btn;
+  @include base-button;
 
   cursor: pointer;
   border-bottom: none;

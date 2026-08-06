@@ -1,3 +1,4 @@
+import { IconButton } from '../../../Button/components/IconButton';
 import './ButtonTop.scss';
 
 export const ButtonTop = () => {
@@ -10,20 +11,19 @@ export const ButtonTop = () => {
 };
 
   return (
-    <div className="footer__back-to-top">
-      <span className="footer__back-to-top-text">Back to top</span>
-      <button
-        type="button"
-        className="footer__back-to-top-button"
+    <div className="back-to-top">
+      <span className="back-to-top__text">Back to top</span>
+      <IconButton
+        className="back-to-top__button"
         aria-label="Back to top"
         onClick={scrollToTop}
       >
         <img
-          className="footer__back-to-top-icon"
+          className="back-to-top__icon"
           src="/public/img/icons/Buttons/Icons/arrow-top.svg"
           alt="button back to top"
         />
-      </button>
+      </IconButton>
     </div>
   );
 };

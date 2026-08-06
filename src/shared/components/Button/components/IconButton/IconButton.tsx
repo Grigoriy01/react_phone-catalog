@@ -16,7 +16,6 @@ export const IconButton: React.FC<Props> = ({
       type="button"
       className={cn(`icon-button ${className || ''}`)}
       {...props}
-      aria-label=""
       >
       {children}
     </button>
