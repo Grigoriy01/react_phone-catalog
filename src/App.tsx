@@ -1,4 +1,5 @@
 import './App.scss';
+import { HomePage } from './modules/HomePage/components';
 import { Footer } from './shared/components/Footer';
 import { Header } from './shared/components/Header/Header';
 
@@ -8,10 +9,9 @@ export const App = () => {
       <Header />
 
       <main className="main">
-        <div className="container">
-          {/* Page content / Router Outlet */}
-          Page content / Router Outlet
-        </div>
+        <h1 className="visually-hidden">Product Catalog</h1>
+
+        <HomePage />
       </main>
 
       <Footer />

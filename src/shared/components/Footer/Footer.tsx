@@ -9,9 +9,9 @@ export const Footer = () => {
       <div className="footer__container">
         {/* Footer content */}
 
-        <Logo className='footer__logo' />
+        <Logo className="footer__logo" />
         <NavFooter />
-      <ButtonTop />
+        <ButtonTop />
       </div>
     </footer>
   );

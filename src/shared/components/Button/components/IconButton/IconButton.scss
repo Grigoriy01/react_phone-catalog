@@ -2,4 +2,8 @@
 
 .icon-button {
   @include base-button(32px, 32px, 50%);
+
+  &:hover {
+    @include hover-scale;
+  }
 }

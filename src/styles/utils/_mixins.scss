@@ -24,6 +24,10 @@
   &:hover {
     transform: scale(1.08);
   }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 // @mixin hover-shadow {
@@ -64,12 +68,7 @@
   }
 }
 
-@mixin base-button(
-  $width: 48px,
-  $height: 48px,
-  $radius: 0,
-  $has-border: true
-) {
+@mixin base-button($width: 48px, $height: 48px, $radius: 0, $has-border: true) {
   // --- Global style ---
   display: flex;
   align-items: center;
@@ -78,10 +77,12 @@
   height: $height;
   flex-shrink: 0;
   border-radius: $radius;
-  transition: all $transition-duration ease;
+  transition:
+    border-color $transition-duration ease,
+    transform $transition-duration ease;
 
   @if $has-border {
-    border: 1px solid $color-elements;
+    border: 1px solid $color-icons;
   } @else {
     border: none;
   }

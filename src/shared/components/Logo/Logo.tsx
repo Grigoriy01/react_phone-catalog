@@ -3,7 +3,7 @@ import cn from 'classnames';
 import './Logo.scss';
 
 type Props = {
-  className: string;
+  className?: string;
 }
 export const Logo: React.FC<Props> = ({className}) => {
   return (

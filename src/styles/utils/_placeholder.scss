@@ -1,22 +1,18 @@
 // Template for square interactive buttons (48x48, centered)
 @use './variables' as *;
 @use './mixins' as *;
+%flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
 
-// %square-action-btn {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 48px;
-//   height: 48px;
-//   flex-shrink: 0;
-//   border: 1px solid $color-elements;
-
-
-//   @include on-tablet {
-//     border-bottom: 0;
-
-//   }
-// }
+  @include on-tablet {
+    flex-direction: row;
+    gap: 24px;
+  }
+}
 
 /* #region Tiphografe */
 
@@ -87,7 +83,7 @@
   line-height: 11px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: $color-secondary-glob;
+  color: $color-secondary-grau;
 }
 
 // Buttons
@@ -110,12 +106,10 @@
 // Small Text
 %small-text {
   font-family: $font-family-base;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 12px;
-  line-height: 15px;
-  color: $color-secondary;
+  line-height: 100%;
+  color: $color-secondary-grau;
 }
 
 /* #endregion */
-
-

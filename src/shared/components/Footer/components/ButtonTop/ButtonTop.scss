@@ -1,7 +1,19 @@
+@use '../../../../../styles/utils/' as *;
+
 .back-to-top {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 16px;
+
+  &__text {
+    @extend %small-text;
+  }
+
+  &__button {
+    &:hover {
+      border: 1px solid $color-primary;
+    }
+  }
 }

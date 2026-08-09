@@ -6,7 +6,6 @@
   cursor: pointer;
   border-bottom: none;
 
-
   &:active {
     transform: scale(0.95);
   }
@@ -17,7 +16,6 @@
     height: 1.5px;
     background-color: $color-primary;
     border-radius: 1rem;
-
 
     &::after,
     &::before {

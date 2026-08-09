@@ -53,6 +53,29 @@ src/
         HomePage.tsx
   shared/
     components/
+      Button/
+        components/
+          ActionButton/
+            ActionButton.scss
+            ActionButton.tsx
+            index.ts
+          IconButton/
+            IconButton.scss
+            IconButton.tsx
+            index.ts
+      Footer/
+        components/
+          ButtonTop/
+            ButtonTop.scss
+            ButtonTop.tsx
+            index.ts
+          NavFooter/
+            index.ts
+            NavFooter.scss
+            NavFooter.tsx
+        Footer.scss
+        Footer.tsx
+        index.ts
       Header/
         components/
           Burger/
@@ -104,32 +127,6 @@ src/
 <files>
 This section contains the contents of the repository's files.
 
-<file path="src/styles/base/_fonts.scss">
-@font-face {
-  font-family: Mont;
-  src: url(/public/fonts/Mont-Regular.otf);
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Mont;
-  src: url(/public/fonts/Mont-Bold.otf);
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: Mont;
-  src: url(/public/fonts/Mont-SemiBold.otf);
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-</file>
-
 <file path="src/modules/FavoritesPage/components/FavoritesPage.scss">
 // -
 </file>
@@ -150,62 +147,153 @@ export * from './FavoritesPage'
 
 </file>
 
-<file path="src/shared/components/Header/components/Burger/Burger.scss">
+<file path="src/shared/components/Button/components/ActionButton/ActionButton.scss">
+//-
+</file>
+
+<file path="src/shared/components/Button/components/ActionButton/ActionButton.tsx">
+import './ActionButton.scss'
+
+export const ActionButton = () => {
+  return (
+
+  );
+};
+</file>
+
+<file path="src/shared/components/Button/components/ActionButton/index.ts">
+export * from './ActionButton';
+</file>
+
+<file path="src/shared/components/Button/components/IconButton/index.ts">
+export * from './IconButton';
+</file>
+
+<file path="src/shared/components/Footer/components/ButtonTop/index.ts">
+export * from './ButtonTop'
+</file>
+
+<file path="src/shared/components/Footer/components/NavFooter/index.ts">
+export * from './NavFooter'
+</file>
+
+<file path="src/shared/components/Footer/components/NavFooter/NavFooter.scss">
 @use '../../../../../styles/utils/' as *;
 
-.burger {
-  @extend %square-action-btn;
-
-  cursor: pointer;
-  border-bottom: none;
-
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &__line {
-    position: relative;
-    width: 14px;
-    height: 1.5px;
-    background-color: $color-primary;
-    border-radius: 1rem;
+.nav-footer {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
 
-    &::after,
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      width: 14px;
-      height: 1.5px;
-      background-color: currentColor;
-      border-radius: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    &::after {
-      transform: translateY(4px);
+    @include on-tablet {
+      flex-direction: row;
+      gap: clamp(16px, 3vw, 106px);
     }
 
-    &::before {
-      transform: translateY(-4px);
+    @include on-desktop {
+      gap: 106px;
     }
   }
 
-  &[aria-expanded='true'] {
-    .burger__line {
-      background-color: transparent;
+  &__item{
+//-
+  }
 
-      &::before {
-        transform: translateY(0) rotate(45deg);
-      }
-
-      &::after {
-        transform: translateY(0) rotate(-45deg);
-      }
-    }
+  &__link {
+    @extend %uppercase-text;
   }
 }
+</file>
+
+<file path="src/shared/components/Footer/components/NavFooter/NavFooter.tsx">
+import { Link } from 'react-router-dom';
+
+import './NavFooter.scss';
+
+export const NavFooter = () => {
+  return (
+    <nav className="nav-footer">
+      <ul className="nav-footer__list">
+        <li className="nav-footer__item">
+          <a
+            href="https://github.com/Grigoriy01"
+            className="nav-footer__link"
+            target="blank"
+          >
+            Github
+          </a>
+        </li>
+        <li className="nav-footer__item">
+          <Link to="/contacts" className="nav-footer__link">
+            Contacts
+          </Link>
+        </li>
+        <li className="nav-footer__item">
+          <Link to="/rights" className="nav-footer__link">
+            Rights
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+</file>
+
+<file path="src/shared/components/Footer/Footer.scss">
+@use '../../../styles/utils/variables' as *;
+@use '../../../styles/utils' as *;
+
+.footer {
+  height: auto;
+      width: 100%;
+      border-top: 1px solid $color-elements;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100%;
+    padding: 32px 16px;
+
+    @include on-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-inline: 32px;
+    }
+  }
+
+  &__logo {
+    height: auto;
+    justify-content: left;
+  }
+}
+</file>
+
+<file path="src/shared/components/Footer/Footer.tsx">
+import { Logo } from '../Logo';
+import { ButtonTop } from './components/ButtonTop';
+import { NavFooter } from './components/NavFooter';
+import './Footer.scss';
+
+export const Footer = () => {
+  return (
+    <footer className="footer">
+      <div className="footer__container">
+        {/* Footer content */}
+
+        <Logo className="footer__logo" />
+        <NavFooter />
+        <ButtonTop />
+      </div>
+    </footer>
+  );
+};
+</file>
+
+<file path="src/shared/components/Footer/index.ts">
+export * from './Footer'
 </file>
 
 <file path="src/shared/components/Header/components/Burger/Burger.tsx">
@@ -233,45 +321,6 @@ export const Burger: React.FC<Props> = ({isBurgerMenuOpen, onIsBurgerMenuOpen}) 
 
 <file path="src/shared/components/Header/components/Burger/index.ts">
 export * from './Burger'
-</file>
-
-<file path="src/shared/components/Header/components/BurgerMenu/BurgerMenu.scss">
-@use '../../../../../styles/utils/' as *;
-
-.burger-menu {
-  position: fixed;
-  top: 48px;
-  left: 0;
-  right: 0;
-
-  width: 100%;
-  height: calc(100vh - 48px);
-
-  border-top: 1px solid $color-elements;
-  background-color: $color-surface-1;
-
-  z-index: z('modal');
-
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-
-  &.is-open {
-    transform: translateX(0);
-  }
-
-  @include on-tablet {
-    display: none;
-  }
-
-
-
-  &__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-}
 </file>
 
 <file path="src/shared/components/Header/components/BurgerMenu/BurgerMenu.tsx">
@@ -356,82 +405,8 @@ export * from './Header'
 export * from './Logo'
 </file>
 
-<file path="src/shared/components/Logo/Logo.scss">
-@use '../../../styles/utils/' as *;
-
-.logo {
-  width: 96px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-
-  &__img {
-    // -
-  }
-
-  @include hover-scale;
-}
-</file>
-
-<file path="src/shared/components/Logo/Logo.tsx">
-import { Link } from 'react-router-dom';
-import './Logo.scss';
-
-export const Logo = () => {
-  return (
-    <Link className="logo " to="/ ">
-      <img src="../public/img/logo/logo-light.svg" className="logo__img" alt="logo" />
-    </Link>
-  );
-};
-</file>
-
 <file path="src/shared/components/Nav/index.ts">
 export * from './Nav'
-</file>
-
-<file path="src/shared/components/Nav/Nav.tsx">
-import { NavLink } from 'react-router-dom';
-import classNames from 'classnames';
-
-import './Nav.scss';
-
-interface Options {
-  isActive: boolean;
-}
-
-export const Nav = () => {
-  const isActiveClass = ({ isActive }: Options) =>
-    classNames('nav-site__link', { 'is-active': isActive });
-  return (
-    <nav className="nav-site" role="navigation" aria-label="main navigation">
-      <ul className="nav-site__list">
-        <li className="nav-site__item">
-          <NavLink to="/" className={isActiveClass}>
-            Home
-          </NavLink>
-        </li>
-        <li className="nav-site__item">
-          <NavLink to="/phones" className={isActiveClass}>
-            Phones
-          </NavLink>
-        </li>
-        <li className="nav-site__item">
-          <NavLink to="/tablets" className={isActiveClass}>
-            Tablets
-          </NavLink>
-        </li>
-        <li className="nav-site__item">
-          <NavLink to="/accessories" className={isActiveClass}>
-            Accessories
-          </NavLink>
-        </li>
-      </ul>
-    </nav>
-  );
-};
 </file>
 
 <file path="src/styles/base/_container.scss">
@@ -449,6 +424,32 @@ export const Nav = () => {
   @include on-desktop {
     padding: 0 32px;
   }
+}
+</file>
+
+<file path="src/styles/base/_fonts.scss">
+@font-face {
+  font-family: Mont;
+  src: url(/public/fonts/Mont-Regular.otf);
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Mont;
+  src: url(/public/fonts/Mont-Bold.otf);
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Mont;
+  src: url(/public/fonts/Mont-SemiBold.otf);
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 </file>
 
@@ -564,161 +565,193 @@ p {
 }
 </file>
 
-<file path="src/styles/utils/_placeholder.scss">
-// Template for square interactive buttons (48x48, centered)
-@use './variables' as *;
-@use './mixins' as *;
-
-%square-action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border: 1px solid $color-elements;
-
-
-  @include on-tablet {
-    border-bottom: 0;
-
-  }
-}
-
-// ======================================
-// TYPOGRAPHY PLACEHOLDERS (Мкет UI Kit)
-// ======================================
-
-// H1
-%h1-title {
-  font-family: $font-family-base;
-  font-weight: 700;
-  font-size: 32px;
-  line-height: 41px;
-  letter-spacing: -0.01em;
-  color: $color-primary;
-
-  @include on-tablet {
-    font-size: 48px;
-    line-height: 56px;
-  }
-}
-
-// H2
-%h2-title {
-  font-family: $font-family-base;
-  font-weight: 700;
-  font-size: 22px;
-  line-height: 31px;
-  color: $color-primary;
-
-  @include on-tablet {
-    font-size: 32px;
-    line-height: 41px;
-    letter-spacing: -0.01em;
-  }
-}
-
-// H3 (Subtitle / Section Header)
-%h3-title {
-  font-family: $font-family-base;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 26px;
-  color: $color-primary;
-
-  @include on-tablet {
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 31px;
-  }
-}
-
-// H4
-%h4-title {
-  font-family: $font-family-base;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  color: $color-primary;
-
-  @include on-tablet {
-    font-size: 20px;
-    line-height: 26px;
-  }
-}
-
-// Uppercase (Links, Navigation)
-%uppercase-text {
-  font-family: $font-family-base;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 11px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: $color-secondary-glob;
-}
-
-// Buttons
-%button-text {
-  font-family: $font-family-base;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 21px;
-}
-
-// Body Text
-%body-text {
-  font-family: $font-family-base;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  color: $color-primary;
-}
-
-// Small Text
-%small-text {
-  font-family: $font-family-base;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 15px;
-  color: $color-secondary;
-}
-</file>
-
-<file path="src/styles/index.scss">
-@use './utils/' as *;
-@use './base/normalize';
-@use './base/fonts';
-@use './base/typography';
-@use './base/helpers';
-@use './base/container';
-</file>
-
 <file path="src/vite-env.d.ts">
 /// <reference types="vite/client" />
 </file>
 
-<file path="src/shared/components/Header/components/HaederActions/HaederActions.scss">
-@use '../../../../../styles/utils' as *;
+<file path="src/shared/components/Button/components/IconButton/IconButton.scss">
+@use '../../../../../styles/utils/' as *;
 
-.header-actions {
+.icon-button {
+  @include base-button(32px, 32px, 50%);
+
+  &:hover {
+    @include hover-scale;
+  }
+}
+</file>
+
+<file path="src/shared/components/Button/components/IconButton/IconButton.tsx">
+import React from 'react';
+import './IconButton.scss';
+import cn from 'classnames';
+
+type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  children: React.ReactNode;
+};
+
+export const IconButton: React.FC<Props> = ({
+  children,
+  className,
+  ...props
+}) => {
+  return (
+    <button
+      type="button"
+      className={cn(`icon-button ${className || ''}`)}
+      {...props}
+      >
+      {children}
+    </button>
+  );
+};
+</file>
+
+<file path="src/shared/components/Footer/components/ButtonTop/ButtonTop.scss">
+@use '../../../../../styles/utils/' as *;
+
+.back-to-top {
   display: flex;
-  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 
-  &__link {
-    @extend %square-action-btn;
-    @include active-underline;
+  &__text {
+    @extend %small-text;
+  }
 
-    width: 50%;
+  &__button {
+    &:hover {
+      border: 1px solid $color-primary;
+    }
+  }
+}
+</file>
 
-    @include on-tablet {
-      width: 48px;
+<file path="src/shared/components/Footer/components/ButtonTop/ButtonTop.tsx">
+import { IconButton } from '../../../Button/components/IconButton';
+import './ButtonTop.scss';
+
+export const ButtonTop = () => {
+
+  const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+};
+
+  return (
+    <div className="back-to-top">
+      <span className="back-to-top__text">Back to top</span>
+      <IconButton
+        className="back-to-top__button"
+        aria-label="Back to top"
+        onClick={scrollToTop}
+      >
+        <img
+          className="back-to-top__icon"
+          src="/public/img/icons/Buttons/Icons/arrow-top.svg"
+          alt="button back to top"
+        />
+      </IconButton>
+    </div>
+  );
+};
+</file>
+
+<file path="src/shared/components/Header/components/Burger/Burger.scss">
+@use '../../../../../styles/utils/' as *;
+
+.burger {
+  @include base-button;
+
+  cursor: pointer;
+  border-bottom: none;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &__line {
+    position: relative;
+    width: 14px;
+    height: 1.5px;
+    background-color: $color-primary;
+    border-radius: 1rem;
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 14px;
+      height: 1.5px;
+      background-color: currentColor;
+      border-radius: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    &::after {
+      transform: translateY(4px);
+    }
+
+    &::before {
+      transform: translateY(-4px);
     }
   }
 
-  &__badge-counter {
-    // -
+  &[aria-expanded='true'] {
+    .burger__line {
+      background-color: transparent;
+
+      &::before {
+        transform: translateY(0) rotate(45deg);
+      }
+
+      &::after {
+        transform: translateY(0) rotate(-45deg);
+      }
+    }
+  }
+}
+</file>
+
+<file path="src/shared/components/Header/components/BurgerMenu/BurgerMenu.scss">
+@use '../../../../../styles/utils/' as *;
+
+.burger-menu {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+  height: calc(100vh - 48px);
+
+  border-top: 1px solid $color-elements;
+  background-color: $color-surface-1;
+
+  z-index: z('modal');
+
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+
+  &.is-open {
+    transform: translateX(0);
+  }
+
+  @include on-tablet {
+    display: none;
+  }
+
+
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
   }
 }
 </file>
@@ -776,6 +809,106 @@ export const SearchField = () => {
 };
 </file>
 
+<file path="src/shared/components/Logo/Logo.scss">
+@use '../../../styles/utils/' as *;
+
+.logo {
+  width: 96px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include on-desktop {
+    width: 128px;
+    &__img {
+      width: 80px;
+    }
+  }
+
+
+
+  @include hover-scale;
+}
+</file>
+
+<file path="src/shared/components/Logo/Logo.tsx">
+import { Link } from 'react-router-dom';
+import cn from 'classnames';
+import './Logo.scss';
+
+type Props = {
+  className: string;
+}
+export const Logo: React.FC<Props> = ({className}) => {
+  return (
+    <Link
+    className={cn(`logo ${className || ''}`)}
+    to="/ "
+    >
+      <img src="../public/img/logo/logo-light.svg" className="logo__img" alt="logo" />
+    </Link>
+  );
+};
+</file>
+
+<file path="src/shared/components/Nav/Nav.tsx">
+import { NavLink } from 'react-router-dom';
+import classNames from 'classnames';
+
+import './Nav.scss';
+
+interface Options {
+  isActive: boolean;
+}
+
+export const Nav = () => {
+  const isActiveClass = ({ isActive }: Options) =>
+    classNames('nav-site__link', { 'is-active': isActive });
+  return (
+    <nav className="nav-site" role="navigation" aria-label="main navigation">
+      <ul className="nav-site__list">
+        <li className="nav-site__item">
+          <NavLink to="/" className={isActiveClass}>
+            Home
+          </NavLink>
+        </li>
+        <li className="nav-site__item">
+          <NavLink to="/phones" className={isActiveClass}>
+            Phones
+          </NavLink>
+        </li>
+        <li className="nav-site__item">
+          <NavLink to="/tablets" className={isActiveClass}>
+            Tablets
+          </NavLink>
+        </li>
+        <li className="nav-site__item">
+          <NavLink to="/accessories" className={isActiveClass}>
+            Accessories
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+</file>
+
+<file path="src/styles/utils/_index.scss">
+@forward './variables';
+@forward './mixins';
+@forward './placeholder';
+</file>
+
+<file path="src/styles/index.scss">
+@use './utils/' as *;
+@use './base/normalize';
+@use './base/fonts';
+@use './base/typography';
+@use './base/helpers';
+@use './base/container';
+</file>
+
 <file path="src/shared/components/Header/Header.scss">
 @use '../../../styles/utils/' as *;
 
@@ -811,6 +944,7 @@ export const SearchField = () => {
     @include on-tablet {
       display: flex;
       margin-left: auto;
+      height: 100%;
     }
   }
 
@@ -824,6 +958,10 @@ export const SearchField = () => {
     @include on-tablet {
       display: none;
     }
+  }
+
+  @include on-desktop {
+    height: 64px;
   }
 }
 </file>
@@ -966,12 +1104,6 @@ export const Header = () => {
 }
 </file>
 
-<file path="src/styles/utils/_index.scss">
-@forward './variables';
-@forward './mixins';
-@forward './placeholder';
-</file>
-
 <file path="src/styles/utils/_mixins.scss">
 @use '../utils/variables' as *;
 
@@ -999,6 +1131,11 @@ export const Header = () => {
   &:hover {
     transform: scale(1.08);
   }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
 }
 
 // @mixin hover-shadow {
@@ -1038,6 +1175,148 @@ export const Header = () => {
     }
   }
 }
+
+@mixin base-button(
+  $width: 48px,
+  $height: 48px,
+  $radius: 0,
+  $has-border: true
+) {
+  // --- Global style ---
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $width;
+  height: $height;
+  flex-shrink: 0;
+  border-radius: $radius;
+  transition: all $transition-duration ease;
+
+  @if $has-border {
+    border: 1px solid $color-icons;
+  } @else {
+    border: none;
+  }
+  @content;
+}
+</file>
+
+<file path="src/styles/utils/_placeholder.scss">
+// Template for square interactive buttons (48x48, centered)
+@use './variables' as *;
+@use './mixins' as *;
+%flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+
+  @include on-tablet {
+    flex-direction: row;
+    gap: 24px;
+  }
+}
+
+/* #region Tiphografe */
+
+// H1
+%h1-title {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 41px;
+  letter-spacing: -0.01em;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 48px;
+    line-height: 56px;
+  }
+}
+
+// H2
+%h2-title {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 31px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 32px;
+    line-height: 41px;
+    letter-spacing: -0.01em;
+  }
+}
+
+// H3 (Subtitle / Section Header)
+%h3-title {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 31px;
+  }
+}
+
+// H4
+%h4-title {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $color-primary;
+
+  @include on-tablet {
+    font-size: 20px;
+    line-height: 26px;
+  }
+}
+
+// Uppercase (Links, Navigation)
+%uppercase-text {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: $color-secondary-grau;
+}
+
+// Buttons
+%button-text {
+  font-family: $font-family-base;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+// Body Text
+%body-text {
+  font-family: $font-family-base;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: $color-primary;
+}
+
+// Small Text
+%small-text {
+  font-family: $font-family-base;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 100%;
+  color: $color-secondary-grau;
+}
+
+/* #endregion */
 </file>
 
 <file path="src/styles/utils/_variables.scss">
@@ -1058,7 +1337,7 @@ $z-indexes: (
 
 // --- Текст и глобальные цвета ---
 $color-primary: #0f0f11;       // Основной темный цвет текста и заголовков
-$color-secondary-glob: #89939a;     // Вторичный серый цвет (подзаголовки, описания)
+$color-secondary-grau: #89939a;     // Вторичный серый цвет (подзаголовки, описания)
 $color-white: #ffff;         // Белый цвет
 
 // --- Акценты и статусы ---
@@ -1097,6 +1376,45 @@ $font-family-base: 'Mont', sans-serif;
 }
 </file>
 
+<file path="src/shared/components/Header/components/HaederActions/HaederActions.scss">
+@use '../../../../../styles/utils' as *;
+
+.header-actions {
+  display: flex;
+  width: 100%;
+  height: 48px;
+
+  &__link {
+    @include base-button(48px) {
+      border-bottom: 0
+
+    };
+
+    @include active-underline;
+
+    width: 50%;
+
+     @include on-tablet {
+       width: 48px;
+     }
+
+     @include on-desktop {
+       width: 64px;
+     }
+
+     height: 100%;
+  }
+
+  &__badge-counter {
+    // -
+  }
+
+  @include on-desktop {
+    height: 100%;
+  }
+}
+</file>
+
 <file path="src/index.tsx">
 import { createRoot } from 'react-dom/client';
 import { HashRouter as Router } from 'react-router-dom';
@@ -1113,13 +1431,14 @@ createRoot(document.getElementById('root') as HTMLElement).render(
 
 <file path="src/App.tsx">
 import './App.scss';
+import { Footer } from './shared/components/Footer';
 import { Header } from './shared/components/Header/Header';
 
 export const App = () => {
   return (
     <div className="app">
       <Header />
-      
+
       <main className="main">
         <div className="container">
           {/* Page content / Router Outlet */}
@@ -1127,12 +1446,7 @@ export const App = () => {
         </div>
       </main>
 
-      <footer className="footer">
-        <div className="container">
-          {/* Footer content */}
-          Footer content
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

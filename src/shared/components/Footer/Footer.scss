@@ -1,9 +1,8 @@
 @use '../../../styles/utils/variables' as *;
+@use '../../../styles/utils' as *;
 
 .footer {
-  height: auto;
-      width: 100%;
-      border-top: 1px solid $color-elements;
+  border-top: 1px solid $color-elements;
 
   &__container {
     display: flex;
@@ -11,10 +10,16 @@
     gap: 32px;
     height: 100%;
     padding: 32px 16px;
+
+    @include on-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-inline: 32px;
+    }
   }
 
   &__logo {
     height: auto;
-    justify-content: left;
+    justify-content: flex-start;
   }
 }

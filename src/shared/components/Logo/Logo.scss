@@ -7,7 +7,14 @@
   align-items: center;
   justify-content: center;
 
-
-
+  @include on-desktop {
+    width: 128px;
+  }
+  &__img {
+    @include on-desktop {
+      width: 80px;
+    }
+  }
+  
   @include hover-scale;
 }

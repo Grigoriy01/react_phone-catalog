@@ -32,6 +32,7 @@
     @include on-tablet {
       display: flex;
       margin-left: auto;
+      height: 100%;
     }
   }
 
@@ -45,5 +46,9 @@
     @include on-tablet {
       display: none;
     }
+  }
+
+  @include on-desktop {
+    height: 64px;
   }
 }
