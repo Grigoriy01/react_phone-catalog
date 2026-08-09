@@ -50,7 +50,17 @@ src/
         index.ts
     HomePage/
       components/
+        Hero/
+          Hero.scss
+          Hero.tsx
+          insex.ts
+        PromoSlider/
+          index.ts
+          PromoSlider.scss
+          PromoSlider.tsx
+        HomePage.scss
         HomePage.tsx
+        index.ts
   shared/
     components/
       Button/
@@ -143,8 +153,184 @@ export const FavoritesPage = () => {
 export * from './FavoritesPage'
 </file>
 
-<file path="src/modules/HomePage/components/HomePage.tsx">
+<file path="src/modules/HomePage/components/Hero/Hero.scss">
+@use '../../../../styles/utils/' as *;
+@use '../../../../styles/utils/placeholder' as *;
 
+.hero {
+  &__container {
+  }
+
+  &__title {
+    @extend %h1-title;
+
+    margin: 24px 0;
+
+    @include on-tablet {
+      margin: 32px 0;
+    }
+
+    @include on-desktop {
+      margin: 56px 0;
+    }
+  }
+
+  &__slider-wrapper {
+    @extend %content-width;
+    
+    padding: 0;
+
+    @include on-tablet {
+      padding: 0 24px;
+    }
+
+    @include on-desktop {
+      padding: 0 32px;
+    }
+  }
+}
+</file>
+
+<file path="src/modules/HomePage/components/Hero/Hero.tsx">
+import { PromoSlider } from '../PromoSlider';
+import './Hero.scss';
+
+export const Hero = () => {
+  return (
+    <section className="hero">
+      <div className="hero__container container">
+        <h2 className="hero__title">Welcome to Nice Gadgets store!</h2>
+      </div>
+
+      <div className="hero__slider-wrapper">
+        <PromoSlider />
+      </div>
+    </section>
+  );
+};
+</file>
+
+<file path="src/modules/HomePage/components/Hero/insex.ts">
+export * from './Hero';
+</file>
+
+<file path="src/modules/HomePage/components/PromoSlider/index.ts">
+export * from './PromoSlider';
+</file>
+
+<file path="src/modules/HomePage/components/PromoSlider/PromoSlider.scss">
+@use '../../../../styles/utils/' as *;
+
+.promo-slider {
+  position: relative;
+  &__slide {
+    aspect-ratio: 1 / 1;
+
+
+    @include on-tablet {
+      // aspect-ratio: auto;
+      height: 189px;
+      padding-inline: 51px;
+    }
+
+    @include on-desktop {
+      height: 400px;
+      padding-inline: 80px;
+    }
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: $color-surface-3;
+
+    @include on-tablet {
+      border-radius: 8px;
+    }
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+    display: none;
+
+    @include on-tablet {
+      display: flex;
+
+      @include base-button(32px, 189px, 48px);
+    }
+
+    @include on-desktop {
+      @include base-button(32px, 400px, 48px);
+    }
+  }
+  .swiper-button-prev {
+    left: 0;
+  }
+  .swiper-button-next {
+    right: 0;
+  }
+}
+</file>
+
+<file path="src/modules/HomePage/components/PromoSlider/PromoSlider.tsx">
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/swiper.css';
+import './PromoSlider.scss';
+
+const BANNERS = [
+  {
+    id: 1,
+    src: '/public/img/banner-accessories.png',
+    alt: 'Accessories Promo Banner',
+  },
+  { id: 2, src: '/public/img/banner-tablets.png', alt: 'Tablets Promo Banner' },
+  { id: 3, src: '/public/img/banner-phones.png', alt: 'Phones Promo Banner' },
+];
+
+export const PromoSlider = () => {
+  return (
+    <div className="promo-slider">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        slidesPerView={1}
+        spaceBetween={0}
+        loop={true}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
+        pagination={{ clickable: true }}
+        navigation={true}
+        className="promo-slider__swiper"
+      >
+        {BANNERS.map(banner => (
+          <SwiperSlide className="promo-slider__slide" key={banner.id}>
+            <img
+              className="promo-slider__img"
+              src={banner.src}
+              alt={banner.alt}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
+</file>
+
+<file path="src/modules/HomePage/components/HomePage.scss">
+// -
+</file>
+
+<file path="src/modules/HomePage/components/index.ts">
+export * from './HomePage'
 </file>
 
 <file path="src/shared/components/Button/components/ActionButton/ActionButton.scss">
@@ -177,36 +363,6 @@ export * from './ButtonTop'
 export * from './NavFooter'
 </file>
 
-<file path="src/shared/components/Footer/components/NavFooter/NavFooter.scss">
-@use '../../../../../styles/utils/' as *;
-
-.nav-footer {
-  &__list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-
-
-    @include on-tablet {
-      flex-direction: row;
-      gap: clamp(16px, 3vw, 106px);
-    }
-
-    @include on-desktop {
-      gap: 106px;
-    }
-  }
-
-  &__item{
-//-
-  }
-
-  &__link {
-    @extend %uppercase-text;
-  }
-}
-</file>
-
 <file path="src/shared/components/Footer/components/NavFooter/NavFooter.tsx">
 import { Link } from 'react-router-dom';
 
@@ -237,57 +393,6 @@ export const NavFooter = () => {
         </li>
       </ul>
     </nav>
-  );
-};
-</file>
-
-<file path="src/shared/components/Footer/Footer.scss">
-@use '../../../styles/utils/variables' as *;
-@use '../../../styles/utils' as *;
-
-.footer {
-  height: auto;
-      width: 100%;
-      border-top: 1px solid $color-elements;
-
-  &__container {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    height: 100%;
-    padding: 32px 16px;
-
-    @include on-tablet {
-      flex-direction: row;
-      justify-content: space-between;
-      padding-inline: 32px;
-    }
-  }
-
-  &__logo {
-    height: auto;
-    justify-content: left;
-  }
-}
-</file>
-
-<file path="src/shared/components/Footer/Footer.tsx">
-import { Logo } from '../Logo';
-import { ButtonTop } from './components/ButtonTop';
-import { NavFooter } from './components/NavFooter';
-import './Footer.scss';
-
-export const Footer = () => {
-  return (
-    <footer className="footer">
-      <div className="footer__container">
-        {/* Footer content */}
-
-        <Logo className="footer__logo" />
-        <NavFooter />
-        <ButtonTop />
-      </div>
-    </footer>
   );
 };
 </file>
@@ -413,9 +518,7 @@ export * from './Nav'
 @use '../utils/' as *;
 
 .container {
-  box-sizing: border-box;
-  max-width: 1200px;
-  margin: 0 auto;
+  @extend %content-width;
 
   @include on-tablet {
     padding: 0 24px;
@@ -569,16 +672,18 @@ p {
 /// <reference types="vite/client" />
 </file>
 
-<file path="src/shared/components/Button/components/IconButton/IconButton.scss">
-@use '../../../../../styles/utils/' as *;
+<file path="src/modules/HomePage/components/HomePage.tsx">
+import { Hero } from './Hero/Hero';
 
-.icon-button {
-  @include base-button(32px, 32px, 50%);
+import './HomePage.scss'
 
-  &:hover {
-    @include hover-scale;
-  }
-}
+export const HomePage = () => {
+  return (
+    <div className="home-page">
+      <Hero />
+    </div>
+  );
+};
 </file>
 
 <file path="src/shared/components/Button/components/IconButton/IconButton.tsx">
@@ -605,28 +710,6 @@ export const IconButton: React.FC<Props> = ({
     </button>
   );
 };
-</file>
-
-<file path="src/shared/components/Footer/components/ButtonTop/ButtonTop.scss">
-@use '../../../../../styles/utils/' as *;
-
-.back-to-top {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-
-  &__text {
-    @extend %small-text;
-  }
-
-  &__button {
-    &:hover {
-      border: 1px solid $color-primary;
-    }
-  }
-}
 </file>
 
 <file path="src/shared/components/Footer/components/ButtonTop/ButtonTop.tsx">
@@ -661,60 +744,83 @@ export const ButtonTop = () => {
 };
 </file>
 
-<file path="src/shared/components/Header/components/Burger/Burger.scss">
+<file path="src/shared/components/Footer/components/NavFooter/NavFooter.scss">
 @use '../../../../../styles/utils/' as *;
 
-.burger {
-  @include base-button;
+.nav-footer {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 
-  cursor: pointer;
-  border-bottom: none;
 
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &__line {
-    position: relative;
-    width: 14px;
-    height: 1.5px;
-    background-color: $color-primary;
-    border-radius: 1rem;
-
-    &::after,
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      width: 14px;
-      height: 1.5px;
-      background-color: currentColor;
-      border-radius: 1rem;
-      transition: background-color 0.3s ease;
-    }
-    &::after {
-      transform: translateY(4px);
+    @include on-tablet {
+      flex-direction: row;
+      gap: clamp(16px, 3vw, 106px);
     }
 
-    &::before {
-      transform: translateY(-4px);
+    @include on-desktop {
+      gap: 106px;
     }
   }
 
-  &[aria-expanded='true'] {
-    .burger__line {
-      background-color: transparent;
+  &__item{
+//-
+  }
 
-      &::before {
-        transform: translateY(0) rotate(45deg);
-      }
-
-      &::after {
-        transform: translateY(0) rotate(-45deg);
-      }
-    }
+  &__link {
+    @extend %uppercase-text;
   }
 }
+</file>
+
+<file path="src/shared/components/Footer/Footer.scss">
+@use '../../../styles/utils/variables' as *;
+@use '../../../styles/utils' as *;
+
+.footer {
+  border-top: 1px solid $color-elements;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 100%;
+    padding: 32px 16px;
+
+    @include on-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-inline: 32px;
+    }
+  }
+
+  &__logo {
+    height: auto;
+    justify-content: flex-start;
+  }
+}
+</file>
+
+<file path="src/shared/components/Footer/Footer.tsx">
+import { Logo } from '../Logo';
+import { ButtonTop } from './components/ButtonTop';
+import { NavFooter } from './components/NavFooter';
+import './Footer.scss';
+
+export const Footer = () => {
+  return (
+    <footer className="footer">
+      <div className="footer__container">
+        {/* Footer content */}
+
+        <Logo className="footer__logo" />
+        <NavFooter />
+        <ButtonTop />
+      </div>
+    </footer>
+  );
+};
 </file>
 
 <file path="src/shared/components/Header/components/BurgerMenu/BurgerMenu.scss">
@@ -809,49 +915,6 @@ export const SearchField = () => {
 };
 </file>
 
-<file path="src/shared/components/Logo/Logo.scss">
-@use '../../../styles/utils/' as *;
-
-.logo {
-  width: 96px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  @include on-desktop {
-    width: 128px;
-    &__img {
-      width: 80px;
-    }
-  }
-
-
-
-  @include hover-scale;
-}
-</file>
-
-<file path="src/shared/components/Logo/Logo.tsx">
-import { Link } from 'react-router-dom';
-import cn from 'classnames';
-import './Logo.scss';
-
-type Props = {
-  className: string;
-}
-export const Logo: React.FC<Props> = ({className}) => {
-  return (
-    <Link
-    className={cn(`logo ${className || ''}`)}
-    to="/ "
-    >
-      <img src="../public/img/logo/logo-light.svg" className="logo__img" alt="logo" />
-    </Link>
-  );
-};
-</file>
-
 <file path="src/shared/components/Nav/Nav.tsx">
 import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
@@ -909,59 +972,92 @@ export const Nav = () => {
 @use './base/container';
 </file>
 
-<file path="src/shared/components/Header/Header.scss">
-@use '../../../styles/utils/' as *;
+<file path="src/shared/components/Button/components/IconButton/IconButton.scss">
+@use '../../../../../styles/utils/' as *;
 
-.header {
-  position: sticky;
-  top: 0;
-  z-index: z('header');
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 48px;
-  width: 100%;
+.icon-button {
+  @include base-button(32px, 32px, 50%);
 
-  &__container {
-    height: 100%;
-    display: flex;
-    align-items: center;
+  &:hover {
+    @include hover-scale;
+  }
+}
+</file>
+
+<file path="src/shared/components/Footer/components/ButtonTop/ButtonTop.scss">
+@use '../../../../../styles/utils/' as *;
+
+.back-to-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  &__text {
+    @extend %small-text;
   }
 
-  &__desktop-nav {
-    display: none;
+  &__button {
+    &:hover {
+      border: 1px solid $color-primary;
+    }
+  }
+}
+</file>
 
+<file path="src/shared/components/Header/components/Burger/Burger.scss">
+@use '../../../../../styles/utils/' as *;
 
-    @include on-tablet {
-      display: flex;
-      height: 100%;
-      margin-inline: 16px;
+.burger {
+  @include base-button;
+
+  cursor: pointer;
+  border-bottom: none;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &__line {
+    position: relative;
+    width: 14px;
+    height: 1.5px;
+    background-color: $color-primary;
+    border-radius: 1rem;
+
+    &::after,
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 14px;
+      height: 1.5px;
+      background-color: currentColor;
+      border-radius: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    &::after {
+      transform: translateY(4px);
+    }
+
+    &::before {
+      transform: translateY(-4px);
     }
   }
 
-  &__desktop-actions {
-    display: none;
+  &[aria-expanded='true'] {
+    .burger__line {
+      background-color: transparent;
 
-    @include on-tablet {
-      display: flex;
-      margin-left: auto;
-      height: 100%;
+      &::before {
+        transform: translateY(0) rotate(45deg);
+      }
+
+      &::after {
+        transform: translateY(0) rotate(-45deg);
+      }
     }
-  }
-
-  .logo {
-    flex-shrink: 0;
-  }
-
-  .burger {
-    margin-left: auto;
-
-    @include on-tablet {
-      display: none;
-    }
-  }
-
-  @include on-desktop {
-    height: 64px;
   }
 }
 </file>
@@ -1062,6 +1158,49 @@ export const Header = () => {
 };
 </file>
 
+<file path="src/shared/components/Logo/Logo.scss">
+@use '../../../styles/utils/' as *;
+
+.logo {
+  width: 96px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include on-desktop {
+    width: 128px;
+  }
+  &__img {
+    @include on-desktop {
+      width: 80px;
+    }
+  }
+  
+  @include hover-scale;
+}
+</file>
+
+<file path="src/shared/components/Logo/Logo.tsx">
+import { Link } from 'react-router-dom';
+import cn from 'classnames';
+import './Logo.scss';
+
+type Props = {
+  className?: string;
+}
+export const Logo: React.FC<Props> = ({className}) => {
+  return (
+    <Link
+    className={cn(`logo ${className || ''}`)}
+    to="/ "
+    >
+      <img src="../public/img/logo/logo-light.svg" className="logo__img" alt="logo" />
+    </Link>
+  );
+};
+</file>
+
 <file path="src/shared/components/Nav/Nav.scss">
 @use '../../../styles/utils/mixins' as *;
 @use '../../../styles/utils/placeholder' as *;
@@ -1104,6 +1243,76 @@ export const Header = () => {
 }
 </file>
 
+<file path="src/App.scss">
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fafbfc; // Базовый цвет фона по макету
+}
+
+.main {
+  flex-grow: 1; // Растягивает контентную часть, прижимая footer к низу страницы
+}
+</file>
+
+<file path="src/shared/components/Header/Header.scss">
+@use '../../../styles/utils/' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: z('header');
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  width: 100%;
+
+  &__container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__desktop-nav {
+    display: none;
+
+
+    @include on-tablet {
+      display: flex;
+      height: 100%;
+      margin-inline: 16px;
+    }
+  }
+
+  &__desktop-actions {
+    display: none;
+
+    @include on-tablet {
+      display: flex;
+      margin-left: auto;
+      height: 100%;
+    }
+  }
+
+  .logo {
+    flex-shrink: 0;
+  }
+
+  .burger {
+    margin-left: auto;
+
+    @include on-tablet {
+      display: none;
+    }
+  }
+
+  @include on-desktop {
+    height: 64px;
+  }
+}
+</file>
+
 <file path="src/styles/utils/_mixins.scss">
 @use '../utils/variables' as *;
 
@@ -1135,7 +1344,6 @@ export const Header = () => {
   &:active {
     transform: scale(0.95);
   }
-
 }
 
 // @mixin hover-shadow {
@@ -1176,12 +1384,7 @@ export const Header = () => {
   }
 }
 
-@mixin base-button(
-  $width: 48px,
-  $height: 48px,
-  $radius: 0,
-  $has-border: true
-) {
+@mixin base-button($width: 48px, $height: 48px, $radius: 0, $has-border: true) {
   // --- Global style ---
   display: flex;
   align-items: center;
@@ -1190,7 +1393,9 @@ export const Header = () => {
   height: $height;
   flex-shrink: 0;
   border-radius: $radius;
-  transition: all $transition-duration ease;
+  transition:
+    border-color $transition-duration ease,
+    transform $transition-duration ease;
 
   @if $has-border {
     border: 1px solid $color-icons;
@@ -1210,12 +1415,19 @@ export const Header = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
 
   @include on-tablet {
     flex-direction: row;
     gap: 24px;
   }
+}
+
+%content-width {
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
 }
 
 /* #region Tiphografe */
@@ -1354,6 +1566,7 @@ $color-hover-bg: #e2e6e9;      // Светло-серый фон при наве
 // --- Подложки и фоны (Surfaces) ---
 $color-surface-1: #ffff;     // Фон карточек, шапки, футера
 $color-surface-2: #fafbfc;     // Общий светлый фон всего приложения (body)
+$color-surface-3: #0f2338;     // Общий светлый фон всего приложения (body)
 
 // --- Анимации и транзишены ---
 $transition-duration: 0.3s;
@@ -1361,19 +1574,6 @@ $transition-effect: ease-in-out;
 
 // ==================== FONTS ==============
 $font-family-base: 'Mont', sans-serif;
-</file>
-
-<file path="src/App.scss">
-.app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-color: #fafbfc; // Базовый цвет фона по макету
-}
-
-.main {
-  flex-grow: 1; // Растягивает контентную часть, прижимая footer к низу страницы
-}
 </file>
 
 <file path="src/shared/components/Header/components/HaederActions/HaederActions.scss">
@@ -1402,7 +1602,7 @@ $font-family-base: 'Mont', sans-serif;
        width: 64px;
      }
 
-     height: 100%;
+    height: 100%;
   }
 
   &__badge-counter {
@@ -1431,6 +1631,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
 
 <file path="src/App.tsx">
 import './App.scss';
+import { HomePage } from './modules/HomePage/components';
 import { Footer } from './shared/components/Footer';
 import { Header } from './shared/components/Header/Header';
 
@@ -1440,10 +1641,9 @@ export const App = () => {
       <Header />
 
       <main className="main">
-        <div className="container">
-          {/* Page content / Router Outlet */}
-          Page content / Router Outlet
-        </div>
+        <h1 className="visually-hidden">Product Catalog</h1>
+
+        <HomePage />
       </main>
 
       <Footer />

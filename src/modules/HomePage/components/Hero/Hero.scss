@@ -1,1 +1,35 @@
-// -
+@use '../../../../styles/utils/' as *;
+@use '../../../../styles/utils/placeholder' as *;
+
+.hero {
+  &__container {
+  }
+
+  &__title {
+    @extend %h1-title;
+
+    margin: 24px 0;
+
+    @include on-tablet {
+      margin: 32px 0;
+    }
+
+    @include on-desktop {
+      margin: 56px 0;
+    }
+  }
+
+  &__slider-wrapper {
+    @extend %content-width;
+    
+    padding: 0;
+
+    @include on-tablet {
+      padding: 0 24px;
+    }
+
+    @include on-desktop {
+      padding: 0 32px;
+    }
+  }
+}

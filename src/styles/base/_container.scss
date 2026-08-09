@@ -1,9 +1,7 @@
 @use '../utils/' as *;
 
 .container {
-  box-sizing: border-box;
-  max-width: 1200px;
-  margin: 0 auto;
+  @extend %content-width;
 
   @include on-tablet {
     padding: 0 24px;
