@@ -10,4 +10,6 @@
   @include on-desktop {
     padding: 0 32px;
   }
+
+  @include padding-block-content;
 }

@@ -1,1 +1,44 @@
-//-
+@use '../../../../styles/utils/' as *;
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%; // По умолчанию занимаем всю доступную ширину родителя
+  height: 40px; // Дефолтная высота под карточки по Figma
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+
+  color: $color-white;
+  background-color: $color-primary;
+  border: none;
+  border-radius: 8px; // Или свой radius из Figma
+
+  cursor: pointer;
+  transition:
+    background-color $transition-duration ease,
+    color $transition-duration ease;
+
+  &:hover {
+    background-color: $color-primary-hover; // Слегка меняет оттенок на ховере
+  }
+
+  // Состояние, когда товар уже добавлен в корзину ("Added")
+  &--active {
+    color: $color-primary;
+    background-color: $color-surface-2;
+
+    &:hover {
+      background-color: $color-elements;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

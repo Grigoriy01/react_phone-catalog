@@ -3,26 +3,24 @@
 .promo-slider {
   position: relative;
 
-  // 1. КОНТЕЙНЕР СЛАЙДЕРА (Картинка)
   &__swiper {
-    width: 100%; // На мобилке занимаем всю ширину
+    width: 100%;
 
     @include on-tablet {
       // 32px (ширина кнопки) + 16px (отступ до баннера) = 48px
-      margin-inline: 48px;
-      width: calc(100% - 96px);
+      margin-inline: 51px;
+      width: calc(100% - 102px);
     }
 
     @include on-desktop {
       // 32px (ширина кнопки) + 19px (отступ до баннера) = 51px
-      margin-inline: 51px;
-      width: calc(100% - 102px);
+      margin-inline: 48px;
+      width: calc(100% - 96px);
     }
   }
 
-  // 2. СЛАЙДЫ И ИЗОБРАЖЕНИЯ
   &__slide {
-    aspect-ratio: 1 / 1; // Квадрат строго для картинки на мобильном
+    aspect-ratio: 1 / 1;
     overflow: hidden;
 
     @include on-tablet {
@@ -46,19 +44,18 @@
     }
   }
 
-  // 3. КАСТОМНЫЕ КНОПКИ (IconButton)
+  // #region IconButton
   &__btn {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 9px);
     transform: translateY(-50%);
     z-index: 10;
 
-    display: none; // Скрыты на мобилке по ТЗ
+    display: none;
 
     @include on-tablet {
       display: flex;
 
-      // Локально переопределяем высоту IconButton под банер:
       @include base-button(32px, 189px, 48px);
     }
 
@@ -66,21 +63,44 @@
       @include base-button(32px, 400px, 48px);
     }
 
-    &--prev {
-      left: 0; // Встаёт ровно в левый край .promo-slider
-    }
-
     &--next {
-      right: 0; // Встаёт ровно в правый край .promo-slider
+      right: 0;
     }
   }
 
-  // 4. ИКОНКА СТРЕЛКИ (внутри IconButton)
   &__icon {
     &--prev {
-      transform: rotate(180deg); // Разворачиваем правую стрелку влево
+      transform: rotate(180deg);
     }
   }
 
+  // #endregion
 
+  /* #region Pagination */
+  .swiper-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+
+    .swiper-pagination-bullet {
+      width: 14px;
+      height: 4px;
+      background-color: $color-elements;
+      opacity: 1;
+
+      &:nth-child(2) {
+        margin-inline: 9px;
+      }
+      &:hover {
+        border: 1px solid $color-primary;
+      }
+      &-active {
+        background-color: $color-primary;
+      }
+
+    }
+  }
+
+  /* #endregion */
 }

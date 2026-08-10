@@ -3,33 +3,36 @@
 
 .hero {
   &__container {
+    @extend %content-width;
+
+    margin-bottom: 24px;
+
+    @include on-tablet {
+      margin-bottom: 32px;
+      padding-inline: 24px;
+    }
+
+    @include on-desktop {
+      margin-bottom: 56px;
+      padding-inline: 32px;
+    }
   }
 
   &__title {
     @extend %h1-title;
-
-    margin: 24px 0;
-
-    @include on-tablet {
-      margin: 32px 0;
-    }
-
-    @include on-desktop {
-      margin: 56px 0;
-    }
   }
 
   &__slider-wrapper {
+    padding-inline: 0;
+
     @extend %content-width;
-    
-    padding: 0;
 
     @include on-tablet {
-      padding: 0 24px;
+      padding-inline: 24px;
     }
 
     @include on-desktop {
-      padding: 0 32px;
+      padding-inline: 32px;
     }
   }
 }
