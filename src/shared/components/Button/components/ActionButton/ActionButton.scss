@@ -5,8 +5,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 100%; // По умолчанию занимаем всю доступную ширину родителя
-  height: 40px; // Дефолтная высота под карточки по Figma
+  width: 100%;
+  height: 40px;
 
   font-family: inherit;
   font-size: 14px;
@@ -14,7 +14,7 @@
   line-height: 21px;
 
   color: $color-white;
-  background-color: $color-primary;
+  background-color: $color-accent;
   border: none;
   border-radius: 8px; // Или свой radius из Figma
 
@@ -23,9 +23,7 @@
     background-color $transition-duration ease,
     color $transition-duration ease;
 
-  &:hover {
-    background-color: $color-primary-hover; // Слегка меняет оттенок на ховере
-  }
+  @include hover-shadow;
 
   // Состояние, когда товар уже добавлен в корзину ("Added")
   &--active {

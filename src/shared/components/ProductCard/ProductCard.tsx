@@ -1,37 +1,38 @@
 import React from 'react';
+import { Product } from '../../types';
 
 import { IconButton } from '../Button/components/IconButton';
 
 import './ProductCard.scss'
 
-interface Props {
-  // product: Product;
+type Props = {
+  product: Product;
 }
 
-export const ProductCard: React.FC<Props> = () => {
+export const ProductCard: React.FC<Props> = ({product}) => {
   return (
     <article className="product-card">
       {/* 1. Изображение товара */}
       <div className="product-card__image-container">
         <img
-          src="/img/phones/apple-iphone-11-64gb-black/00.webp"
-          alt="Apple iPhone 11 64GB Black"
+          src={product.image}
+          alt={product.name}
           className="product-card__image"
         />
       </div>
 
       {/* 2. Наименование продукта */}
       <h3 className="product-card__title">
-        Apple iPhone 11 64GB Black (MWLT2RP/A)
+        {product.name}
       </h3>
 
       {/* 3. Блок цен */}
       <div className="product-card__price-block">
         <span className="product-card__price product-card__price--current">
-          $799
+          {product.fullPrice}
         </span>
         <span className="product-card__price product-card__price--old">
-          $859
+          {product.price}
         </span>
       </div>
 
@@ -43,16 +44,18 @@ export const ProductCard: React.FC<Props> = () => {
         <div className="product-card__spec-row">
           <span className="product-card__spec-name">Screen</span>
           <span className="product-card__spec-value">
-            6.1' Liquid Retina HD
+            {product.screen}
           </span>
         </div>
         <div className="product-card__spec-row">
           <span className="product-card__spec-name">Capacity</span>
-          <span className="product-card__spec-value">64 GB</span>
+          <span className="product-card__spec-value">{product.capacity}
+          </span>
         </div>
         <div className="product-card__spec-row">
           <span className="product-card__spec-name">RAM</span>
-          <span className="product-card__spec-value">4 GB</span>
+          <span className="product-card__spec-value">{product.ram}
+          </span>
         </div>
       </div>
 

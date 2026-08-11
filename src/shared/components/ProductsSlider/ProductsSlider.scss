@@ -1,1 +1,36 @@
-// -
+@use '../../../styles/utils/' as *;
+
+.products-slider {
+  &__header {
+    @extend %content-width;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    @include on-tablet {
+      padding: 0 24px;
+    }
+
+    @include on-desktop {
+      padding: 0 32px;
+    }
+  }
+
+  &__title {
+    @extend %h2-title;
+  }
+
+  &__navigation {
+    display: flex;
+    > :first-child {
+      margin-right: 16px;
+    }
+  }
+  &__btn {
+    &--prev {
+      transform: rotate(180deg);
+    }
+  }
+}
