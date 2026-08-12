@@ -1,4 +1,4 @@
-@use '../../../../styles/utils/' as *;
+@use '../../../../../styles/utils/' as *;
 
 .action-button {
   display: flex;
@@ -16,7 +16,7 @@
   color: $color-white;
   background-color: $color-accent;
   border: none;
-  border-radius: 8px; // Или свой radius из Figma
+  border-radius: 8px; 
 
   cursor: pointer;
   transition:

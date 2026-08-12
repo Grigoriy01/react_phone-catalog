@@ -1,9 +1,9 @@
 // Template for square interactive buttons (48x48, centered)
 @use './variables' as *;
 @use './mixins' as *;
+
 %flex-center {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -20,7 +20,7 @@
 
   padding: 0 16px;
 
- 
+
 }
 
 /* #region Tiphografe */
@@ -98,7 +98,7 @@
 // Buttons
 %button-text {
   font-family: $font-family-base;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
   line-height: 21px;
 }
@@ -115,7 +115,7 @@
 // Small Text
 %small-text {
   font-family: $font-family-base;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 12px;
   line-height: 100%;
   color: $color-secondary-grau;

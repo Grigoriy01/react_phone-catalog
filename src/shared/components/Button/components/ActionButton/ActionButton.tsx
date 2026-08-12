@@ -12,12 +12,11 @@ export const ActionButton: React.FC<Props> = ({
   children,
   className,
   isActive = false,
-  type = 'button',
   ...props
 }) => {
   return (
     <button
-      type={type}
+      type='button'
       className={cn('action-button', className, {
         'action-button--active': isActive,
       })}

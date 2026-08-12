@@ -2,6 +2,7 @@ import React from 'react';
 import { Product } from '../../types';
 
 import { IconButton } from '../Button/components/IconButton';
+import { ActionButton } from '../Button/components/ActionButton';
 
 import './ProductCard.scss'
 
@@ -29,11 +30,11 @@ export const ProductCard: React.FC<Props> = ({product}) => {
       {/* 3. Блок цен */}
       <div className="product-card__price-block">
         <span className="product-card__price product-card__price--current">
-          {product.fullPrice}
+          ${product.price}
         </span>
-        <span className="product-card__price product-card__price--old">
-          {product.price}
-        </span>
+        <s className="product-card__price product-card__price--old">
+          ${product.fullPrice}
+        </s>
       </div>
 
       {/* Разделитель по дизайну, если нужен */}
@@ -61,15 +62,18 @@ export const ProductCard: React.FC<Props> = ({product}) => {
 
       {/* 5. Блок действий (кнопки) */}
       <div className="product-card__actions">
-        <button type="button" className="product-card__btn-add">
+        <ActionButton
+        className="product-card__btn-add"
+        aria-label="Add to cart"
+        >
           Add to cart
-        </button>
+        </ActionButton>
         <IconButton
           className="product-card__btn-favorite"
           aria-label="Add to favorites"
         >
           <img
-            src="/img/icons/heart.svg"
+            src="/img/icons/hearts/heart-default.svg"
             alt="Favorite"
             className="product-card__favorite-icon"
           />
