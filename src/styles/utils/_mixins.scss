@@ -30,7 +30,7 @@
   }
 }
 
-@mixin aclive-effect {
+@mixin active-effect {
   &:active {
     transform: scale(0.95);
   }
@@ -107,4 +107,10 @@
     padding-top: $top;
     padding-bottom: 80px;
   }
+}
+
+@mixin skeleton-bg {
+  background-color: $color-elements;
+  border-radius: 4px;
+  animation: skeleton-glow 1.5s ease-in-out infinite;
 }

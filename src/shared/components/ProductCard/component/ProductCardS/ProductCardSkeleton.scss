@@ -1,0 +1,122 @@
+@use '../../../../../styles/utils/' as *;
+
+@keyframes skeleton-glow {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.product-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border: 1px solid $color-elements;
+  border-radius: 8px;
+  background-color: $color-surface-1;
+  height: 100%;
+
+  &__image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 196px;
+  }
+
+  &__image {
+    @include skeleton-bg;
+
+    width: 70%;
+    height: 100%;
+  }
+
+  &__title-line {
+    @include skeleton-bg;
+
+    height: 14px;
+    margin-top: 4px;
+
+    &--full {
+      width: 100%;
+    }
+
+    &--short {
+      width: 60%;
+      margin-bottom: 8px;
+    }
+  }
+
+  &__price-block {
+    display: flex;
+    align-items: center;
+    height: 31px;
+  }
+
+  &__price {
+    @include skeleton-bg;
+
+    width: 80px;
+    height: 22px;
+  }
+
+  &__divider {
+    border: 1px solid $color-elements;
+  }
+
+  &__specs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 8px;
+  }
+
+  &__spec-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__spec-name {
+    @include skeleton-bg;
+
+    width: 48px;
+    height: 12px;
+  }
+
+  &__spec-value {
+    @include skeleton-bg;
+
+    width: 36px;
+    height: 12px;
+  }
+
+  &__actions {
+    display: flex;
+    margin-top: auto;
+  }
+
+  &__btn-add {
+    @include skeleton-bg;
+
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  &__btn-favorite {
+    @include skeleton-bg;
+
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    margin-left: 8px;
+    border-radius: 8px;
+  }
+}

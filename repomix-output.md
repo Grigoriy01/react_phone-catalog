@@ -397,97 +397,6 @@ export * from './Nav'
 export * from './ProductCard';
 </file>
 
-<file path="src/shared/components/ProductCard/ProductCard.scss">
-@use '../../../styles/utils/' as *;
-
-.product-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 32px;
-  border: 1px solid $color-elements;
-  border-radius: 8px;
-
-  &__image-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 196px;
-  }
-
-  &__image {
-    max-width: 100%;
-    max-height: 100%;
-
-    object-fit: contain;
-  }
-
-  &__actions {
-    display: flex;
-  }
-
-  &__btn-favorite {
-    width: 40px;
-    height: 40px;
-    margin-left: 8px;
-  }
-
-  &__title {
-    @extend %body-text;
-
-    padding-top: 16px;
-  }
-
-  &__price-block {
-    display: flex;
-    align-items: center;
-  }
-
-  &__price {
-    font-family: $font-family-base;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 140%;
-
-    &--old {
-      font-weight: 500;
-      line-height: 100%;
-      margin-left: 8px;
-      color: $color-secondary-grau;
-      text-decoration: line-through;
-    }
-  }
-
-  &__divider {
-    border: 1px solid $color-elements;
-  }
-
-  &__specs {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-block: 8px;
-  }
-
-  &__spec-row {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-  }
-  &__spec-name {
-    @extend %small-text;
-  }
-  &__spec-value {
-    @extend %small-text;
-
-    font-weight: 700;
-    color: $color-primary;
-  }
-}
-</file>
-
 <file path="src/shared/components/ProductsSlider/index.ts">
 export * from './ProductsSlider';
 </file>
@@ -822,37 +731,6 @@ export const PromoSlider = () => {
 };
 </file>
 
-<file path="src/shared/components/Button/components/ActionButton/ActionButton.tsx">
-import React from 'react';
-
-import cn from 'classnames';
-import './ActionButton.scss';
-
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode;
-  isActive?: boolean;
-}
-
-export const ActionButton: React.FC<Props> = ({
-  children,
-  className,
-  isActive = false,
-  ...props
-}) => {
-  return (
-    <button
-      type='button'
-      className={cn('action-button', className, {
-        'action-button--active': isActive,
-      })}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
-</file>
-
 <file path="src/shared/components/Button/components/IconButton/IconButton.tsx">
 import React from 'react';
 import './IconButton.scss';
@@ -1124,235 +1002,95 @@ export const Nav = () => {
 };
 </file>
 
-<file path="src/shared/components/ProductCard/ProductCard.tsx">
-import React from 'react';
-import { Product } from '../../types';
-
-import { IconButton } from '../Button/components/IconButton';
-import { ActionButton } from '../Button/components/ActionButton';
-
-import './ProductCard.scss'
-
-type Props = {
-  product: Product;
-}
-
-export const ProductCard: React.FC<Props> = ({product}) => {
-  return (
-    <article className="product-card">
-      {/* 1. Изображение товара */}
-      <div className="product-card__image-container">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="product-card__image"
-        />
-      </div>
-
-      {/* 2. Наименование продукта */}
-      <h3 className="product-card__title">
-        {product.name}
-      </h3>
-
-      {/* 3. Блок цен */}
-      <div className="product-card__price-block">
-        <span className="product-card__price product-card__price--current">
-          ${product.price}
-        </span>
-        <s className="product-card__price product-card__price--old">
-          ${product.fullPrice}
-        </s>
-      </div>
-
-      {/* Разделитель по дизайну, если нужен */}
-      <div className="product-card__divider" />
-
-      {/* 4. Блок характеристик */}
-      <div className="product-card__specs">
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">Screen</span>
-          <span className="product-card__spec-value">
-            {product.screen}
-          </span>
-        </div>
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">Capacity</span>
-          <span className="product-card__spec-value">{product.capacity}
-          </span>
-        </div>
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">RAM</span>
-          <span className="product-card__spec-value">{product.ram}
-          </span>
-        </div>
-      </div>
-
-      {/* 5. Блок действий (кнопки) */}
-      <div className="product-card__actions">
-        <ActionButton
-        className="product-card__btn-add"
-        aria-label="Add to cart"
-        >
-          Add to cart
-        </ActionButton>
-        <IconButton
-          className="product-card__btn-favorite"
-          aria-label="Add to favorites"
-        >
-          <img
-            src="/img/icons/hearts/heart-default.svg"
-            alt="Favorite"
-            className="product-card__favorite-icon"
-          />
-        </IconButton>
-      </div>
-    </article>
-  );
-};
-</file>
-
-<file path="src/shared/components/ProductsSlider/ProductsSlider.scss">
+<file path="src/shared/components/ProductCard/ProductCard.scss">
 @use '../../../styles/utils/' as *;
 
-.products-slider {
-  &__header {
-    @extend %content-width;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border: 1px solid $color-elements;
+  border-radius: 8px;
 
+  &__image-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
+    justify-content: center;
 
-    @include on-tablet {
-      padding: 0 24px;
-    }
+    width: 100%;
+    height: 196px;
+  }
 
-    @include on-desktop {
-      padding: 0 32px;
-    }
+  &__image {
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+  }
+
+  &__actions {
+    display: flex;
+  }
+
+  &__btn-favorite {
+    width: 40px;
+    height: 40px;
+    margin-left: 8px;
   }
 
   &__title {
-    @extend %h2-title;
+    @extend %body-text;
+
+    padding-top: 16px;
   }
 
-  &__navigation {
+  &__price-block {
     display: flex;
-    > :first-child {
-      margin-right: 16px;
-    }
-  }
-  &__btn {
-    &--prev {
-      transform: rotate(180deg);
-    }
+    align-items: center;
   }
 
+  &__price {
+    font-family: $font-family-base;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 140%;
 
-
-  .styles-mySwiper {
-    @extend %content-width;
-
-   // width: 212px;
-
-    @include on-tablet {
-      padding-left: 24px;
-      width: 237px;
-    }
-
-    @include on-desktop {
-      padding-inline: 32px;
-      width: 272px;
-    }
-
-    .mySwiper-slide {
-      height: auto;
+    &--old {
+      font-weight: 500;
+      line-height: 100%;
+      margin-left: 8px;
+      color: $color-secondary-grau;
+      text-decoration: line-through;
     }
   }
 
+  &__divider {
+    border: 1px solid $color-elements;
+  }
 
+  &__specs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 8px;
+  }
 
+  &__spec-row {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+  }
+  &__spec-name {
+    @extend %small-text;
+  }
+  &__spec-value {
+    @extend %small-text;
+
+    font-weight: 700;
+    color: $color-primary;
+  }
 }
-</file>
-
-<file path="src/shared/components/ProductsSlider/ProductsSlider.tsx">
-import React, { useRef } from 'react';
-import type { Swiper as SwiperClass } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import { IconButton } from '../Button/components/IconButton';
-
-import cn from 'classnames';
-import './ProductsSlider.scss';
-import { ProductCard } from '../ProductCard';
-import { Product } from '../../types';
-
-import './ProductsSlider.scss'
-
-type Props = {
-  className?: string;
-  title: string;
-  visibleNewModels: Product[] | null;
-};
-
-export const ProductsSlider: React.FC<Props> = ({
-  className,
-  title,
-  visibleNewModels,
-}) => {
-  const swiperRef = useRef<SwiperClass | null>(null);
-  console.log('swiperInfo:', swiperRef)
-  return (
-    <div className={cn('products-slider', className)}>
-      <div className="products-slider__header">
-        <h2 className="products-slider__title">{title}</h2>
-        <div className="products-slider__navigation">
-          <IconButton
-            className="products-slider__btn products-slider__btn--prev"
-            aria-label="Previous slide"
-            onClick={() => swiperRef.current?.slidePrev()}
-            disabled={swiperRef.current?.isEnd}
-          >
-            <img
-              className="products-slider__icon"
-              src="/img/icons/arrow-right.svg"
-              alt="Previous"
-            />
-          </IconButton>
-
-          <IconButton
-            className="products-slider__btn products-slider__btn--next"
-            aria-label="Next slide"
-            onClick={() => swiperRef.current?.slideNext()}
-            disabled={swiperRef.current?.isBeginning}
-          >
-            <img
-              className="products-slider__icon"
-              src="/img/icons/arrow-right.svg"
-              alt="Next"
-            />
-          </IconButton>
-        </div>
-      </div>
-
-      <Swiper
-        onSwiper={swiper => (swiperRef.current = swiper)}
-        breakpoints={{
-          320: { slidesPerView: 1.5, spaceBetween: 16 },
-          640: { slidesPerView: 2.5, spaceBetween: 16  },
-          1200: { slidesPerView: 4, spaceBetween: 16  },
-        }}
-        className='styles-mySwiper'
-      >
-        {(visibleNewModels ?? []).map(product => (
-          <SwiperSlide className='mySwiper-slide' key={product.id}>
-            <ProductCard product={product} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
-};
 </file>
 
 <file path="src/styles/utils/_index.scss">
@@ -1499,49 +1237,35 @@ export const ProductsSlider: React.FC<Props> = ({
 }
 </file>
 
-<file path="src/shared/components/Button/components/ActionButton/ActionButton.scss">
-@use '../../../../../styles/utils/' as *;
+<file path="src/shared/components/Button/components/ActionButton/ActionButton.tsx">
+import React from 'react';
 
-.action-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+import cn from 'classnames';
+import './ActionButton.scss';
 
-  width: 100%;
-  height: 40px;
-
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 21px;
-
-  color: $color-white;
-  background-color: $color-accent;
-  border: none;
-  border-radius: 8px; 
-
-  cursor: pointer;
-  transition:
-    background-color $transition-duration ease,
-    color $transition-duration ease;
-
-  @include hover-shadow;
-
-  // Состояние, когда товар уже добавлен в корзину ("Added")
-  &--active {
-    color: $color-primary;
-    background-color: $color-surface-2;
-
-    &:hover {
-      background-color: $color-elements;
-    }
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  isActive?: boolean;
 }
+
+export const ActionButton: React.FC<Props> = ({
+  children,
+  className,
+  isActive = false,
+  ...props
+}) => {
+  return (
+    <button
+      type='button'
+      className={cn('action-button', className, {
+        'action-button--active': isActive,
+      })}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
 </file>
 
 <file path="src/shared/components/Header/components/Burger/Burger.scss">
@@ -1781,6 +1505,246 @@ export const Logo: React.FC<Props> = ({className}) => {
 }
 </file>
 
+<file path="src/shared/components/ProductCard/ProductCard.tsx">
+import React from 'react';
+import { Product } from '../../types';
+
+import { IconButton } from '../Button/components/IconButton';
+import { ActionButton } from '../Button/components/ActionButton';
+
+import './ProductCard.scss'
+
+type Props = {
+  product: Product;
+}
+
+export const ProductCard: React.FC<Props> = ({product}) => {
+  return (
+    <article className="product-card">
+      {/* 1. Изображение товара */}
+      <div className="product-card__image-container">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="product-card__image"
+        />
+      </div>
+
+      {/* 2. Наименование продукта */}
+      <h3 className="product-card__title">
+        {product.name}
+      </h3>
+
+      {/* 3. Блок цен */}
+      <div className="product-card__price-block">
+        <span className="product-card__price product-card__price--current">
+          ${product.price}
+        </span>
+        <s className="product-card__price product-card__price--old">
+          ${product.fullPrice}
+        </s>
+      </div>
+
+      {/* Разделитель по дизайну, если нужен */}
+      <div className="product-card__divider" />
+
+      {/* 4. Блок характеристик */}
+      <div className="product-card__specs">
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">Screen</span>
+          <span className="product-card__spec-value">
+            {product.screen}
+          </span>
+        </div>
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">Capacity</span>
+          <span className="product-card__spec-value">{product.capacity}
+          </span>
+        </div>
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">RAM</span>
+          <span className="product-card__spec-value">{product.ram}
+          </span>
+        </div>
+      </div>
+
+      {/* 5. Блок действий (кнопки) */}
+      <div className="product-card__actions">
+        <ActionButton
+        className="product-card__btn-add"
+        aria-label="Add to cart"
+        >
+          Add to cart
+        </ActionButton>
+        <IconButton
+          className="product-card__btn-favorite"
+          aria-label="Add to favorites"
+        >
+          <img
+            src="/img/icons/hearts/heart-default.svg"
+            alt="Favorite"
+            className="product-card__favorite-icon"
+          />
+        </IconButton>
+      </div>
+    </article>
+  );
+};
+</file>
+
+<file path="src/shared/components/ProductsSlider/ProductsSlider.scss">
+@use '../../../styles/utils/' as *;
+
+.products-slider {
+  &__header {
+    @extend %content-width;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+
+    @include on-tablet {
+      padding: 0 24px;
+    }
+
+    @include on-desktop {
+      padding: 0 32px;
+    }
+  }
+
+  &__title {
+    @extend %h2-title;
+  }
+
+  &__navigation {
+    display: flex;
+  }
+  &__btn {
+    &--prev {
+      transform: rotate(180deg);
+      margin-right: 16px;
+    }
+  }
+
+  .styles-mySwiper {
+    @extend %content-width;
+
+
+
+    @include on-tablet {
+      padding-left: 24px;
+
+    }
+
+    @include on-desktop {
+      padding-inline: 32px;
+
+    }
+
+    .mySwiper-slide {
+      height: auto;
+      width: 212px;
+      flex-shrink: 0;
+    }
+
+    @include on-tablet {
+      width: 237px;
+    }
+
+    @include on-desktop {
+      width: 272px;
+    }
+  }
+
+}
+</file>
+
+<file path="src/shared/components/ProductsSlider/ProductsSlider.tsx">
+import React, { useRef, useState } from 'react';
+import type { Swiper as SwiperClass } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { IconButton } from '../Button/components/IconButton';
+import { ProductCard } from '../ProductCard';
+import { Product } from '../../types';
+
+import './ProductsSlider.scss';
+import './ProductsSlider.scss';
+import cn from 'classnames';
+
+type Props = {
+  className?: string;
+  title: string;
+  visibleNewModels: Product[] | null;
+};
+
+export const ProductsSlider: React.FC<Props> = ({
+  className,
+  title,
+  visibleNewModels,
+}) => {
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
+  const swiperRef = useRef<SwiperClass | null>(null);
+
+  const handleSlideChange = (swiper: SwiperClass) => {
+    setIsBeginning(swiper.isBeginning);
+    setIsEnd(swiper.isEnd);
+  };
+
+  return (
+    <div className={cn('products-slider', className)}>
+      <div className="products-slider__header">
+        <h2 className="products-slider__title">{title}</h2>
+        <div className="products-slider__navigation">
+          <IconButton
+            className="products-slider__btn products-slider__btn--prev"
+            aria-label="Previous slide"
+            onClick={() => swiperRef.current?.slidePrev()}
+            disabled={isBeginning}
+          >
+            <img
+              className="products-slider__icon"
+              src="/img/icons/arrow-right.svg"
+              alt="Previous"
+            />
+          </IconButton>
+
+          <IconButton
+            className="products-slider__btn products-slider__btn--next"
+            aria-label="Next slide"
+            onClick={() => swiperRef.current?.slideNext()}
+            disabled={isEnd}
+          >
+            <img
+              className="products-slider__icon"
+              src="/img/icons/arrow-right.svg"
+              alt="Next"
+            />
+          </IconButton>
+        </div>
+      </div>
+
+      <Swiper
+        onSwiper={swiper => (swiperRef.current = swiper)}
+        onSlideChange={handleSlideChange}
+        slidesPerView={'auto'}
+        spaceBetween={16}
+        className="styles-mySwiper"
+      >
+        {(visibleNewModels ?? []).map(product => (
+          <SwiperSlide className="mySwiper-slide" key={product.id}>
+            <ProductCard product={product} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
+</file>
+
 <file path="src/App.scss">
 .app {
   display: flex;
@@ -1865,6 +1829,51 @@ export const HomePage = () => {
     </div>
   );
 };
+</file>
+
+<file path="src/shared/components/Button/components/ActionButton/ActionButton.scss">
+@use '../../../../../styles/utils/' as *;
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 40px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+
+  color: $color-white;
+  background-color: $color-accent;
+  border: none;
+  border-radius: 8px; 
+
+  cursor: pointer;
+  transition:
+    background-color $transition-duration ease,
+    color $transition-duration ease;
+
+  @include hover-shadow;
+
+  // Состояние, когда товар уже добавлен в корзину ("Added")
+  &--active {
+    color: $color-primary;
+    background-color: $color-surface-2;
+
+    &:hover {
+      background-color: $color-elements;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
 </file>
 
 <file path="src/shared/components/Button/components/IconButton/IconButton.scss">
@@ -2072,6 +2081,119 @@ createRoot(document.getElementById('root') as HTMLElement).render(
 );
 </file>
 
+<file path="src/styles/utils/_mixins.scss">
+@use '../utils/variables' as *;
+
+@mixin on-tablet {
+  @media (min-width: 640px) {
+    @content;
+  }
+}
+
+@mixin on-desktop {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin hover($_property, $_toValue) {
+  transition: #{$_property} 0.3s;
+  &:hover {
+    #{$_property}: $_toValue;
+  }
+}
+
+@mixin hover-scale {
+  transition: $transition-duration;
+  &:hover {
+    transform: scale(1.08);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@mixin aclive-effect {
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@mixin hover-shadow {
+  &:hover {
+    box-shadow:
+      0 3px 13px rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+    @content;
+  }
+}
+
+// box-shadow: 0px 3px 13px 0px #17203166;
+
+@mixin active-underline($color: $color-primary, $height: 2px) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: $height;
+    background-color: $color;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  // Применится к элементу, когда на нем появится класс is-active
+  &.is-active {
+    &::after {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin base-button($width: 48px, $height: 48px, $radius: 0, $has-border: true) {
+  // --- Global style ---
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $width;
+  height: $height;
+  flex-shrink: 0;
+  border-radius: $radius;
+  transition:
+    border-color $transition-duration ease,
+    transform $transition-duration ease;
+
+  @if $has-border {
+    border: 1px solid $color-icons;
+    &:hover {
+      border: 1px solid $color-primary;
+    }
+  } @else {
+    border: none;
+  }
+  @content;
+}
+
+@mixin padding-block-content($top: 56px) {
+  padding-top: 24px;
+  padding-bottom: 64px;
+
+  @include on-tablet {
+    padding-top: 32px;
+  }
+
+  @include on-desktop {
+    padding-top: $top;
+    padding-bottom: 80px;
+  }
+}
+</file>
+
 <file path="src/styles/utils/_placeholder.scss">
 // Template for square interactive buttons (48x48, centered)
 @use './variables' as *;
@@ -2197,119 +2319,6 @@ createRoot(document.getElementById('root') as HTMLElement).render(
 }
 
 /* #endregion */
-</file>
-
-<file path="src/styles/utils/_mixins.scss">
-@use '../utils/variables' as *;
-
-@mixin on-tablet {
-  @media (min-width: 640px) {
-    @content;
-  }
-}
-
-@mixin on-desktop {
-  @media (min-width: 1200px) {
-    @content;
-  }
-}
-
-@mixin hover($_property, $_toValue) {
-  transition: #{$_property} 0.3s;
-  &:hover {
-    #{$_property}: $_toValue;
-  }
-}
-
-@mixin hover-scale {
-  transition: $transition-duration;
-  &:hover {
-    transform: scale(1.08);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
-@mixin aclive-effect {
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
-@mixin hover-shadow {
-  &:hover {
-    box-shadow:
-      0 3px 13px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.1);
-    @content;
-  }
-}
-
-// box-shadow: 0px 3px 13px 0px #17203166;
-
-@mixin active-underline($color: $color-primary, $height: 2px) {
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: $height;
-    background-color: $color;
-
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  // Применится к элементу, когда на нем появится класс is-active
-  &.is-active {
-    &::after {
-      opacity: 1;
-    }
-  }
-}
-
-@mixin base-button($width: 48px, $height: 48px, $radius: 0, $has-border: true) {
-  // --- Global style ---
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: $width;
-  height: $height;
-  flex-shrink: 0;
-  border-radius: $radius;
-  transition:
-    border-color $transition-duration ease,
-    transform $transition-duration ease;
-
-  @if $has-border {
-    border: 1px solid $color-icons;
-    &:hover {
-      border: 1px solid $color-primary;
-    }
-  } @else {
-    border: none;
-  }
-  @content;
-}
-
-@mixin padding-block-content($top: 56px) {
-  padding-top: 24px;
-  padding-bottom: 64px;
-
-  @include on-tablet {
-    padding-top: 32px;
-  }
-
-  @include on-desktop {
-    padding-top: $top;
-    padding-bottom: 80px;
-  }
-}
 </file>
 
 <file path="src/App.tsx">

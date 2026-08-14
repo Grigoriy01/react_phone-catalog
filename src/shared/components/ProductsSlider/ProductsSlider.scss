@@ -4,11 +4,6 @@
   &__header {
     @extend %content-width;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
-
     @include on-tablet {
       padding: 0 24px;
     }
@@ -16,6 +11,11 @@
     @include on-desktop {
       padding: 0 32px;
     }
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
   }
 
   &__title {
@@ -24,48 +24,43 @@
 
   &__navigation {
     display: flex;
-    > :first-child {
-      margin-right: 16px;
-    }
   }
   &__btn {
     &--prev {
       transform: rotate(180deg);
+      margin-right: 16px;
     }
   }
 
-
-
-  .styles-mySwiper {
+  &__swiper-wrapper {
     @extend %content-width;
 
-
+    padding-right: 0;
 
     @include on-tablet {
       padding-left: 24px;
-
     }
 
     @include on-desktop {
-      padding-inline: 32px;
-
+      padding: 32px;
     }
+  }
+  .styles-mySwiper {
+
+
 
     .mySwiper-slide {
       height: auto;
       width: 212px;
       flex-shrink: 0;
-    }
-    
-    @include on-tablet {
-      width: 237px;
-    }
 
-    @include on-desktop {
-      width: 272px;
+      @include on-tablet {
+        width: 237px;
+      }
+
+      @include on-desktop {
+        //width: 272px;
+      }
     }
   }
-
-
-
 }

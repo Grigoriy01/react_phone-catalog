@@ -1,6 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { IconButton } from '../../../../shared/components/Button/components/IconButton';
+import { IconButton } from '../../../../shared/components/Buttons/components/IconButton';
 
 import 'swiper/swiper.css';
 import './PromoSlider.scss';

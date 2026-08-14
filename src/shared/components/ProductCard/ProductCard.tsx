@@ -1,16 +1,16 @@
 import React from 'react';
 import { Product } from '../../types';
 
-import { IconButton } from '../Button/components/IconButton';
-import { ActionButton } from '../Button/components/ActionButton';
+import { IconButton } from '../Buttons/components/IconButton';
+import { ActionButton } from '../Buttons/components/ActionButton';
 
-import './ProductCard.scss'
+import './ProductCard.scss';
 
 type Props = {
   product: Product;
-}
+};
 
-export const ProductCard: React.FC<Props> = ({product}) => {
+export const ProductCard: React.FC<Props> = ({ product }) => {
   return (
     <article className="product-card">
       {/* 1. Изображение товара */}
@@ -23,9 +23,7 @@ export const ProductCard: React.FC<Props> = ({product}) => {
       </div>
 
       {/* 2. Наименование продукта */}
-      <h3 className="product-card__title">
-        {product.name}
-      </h3>
+      <h3 className="product-card__title">{product.name}</h3>
 
       {/* 3. Блок цен */}
       <div className="product-card__price-block">
@@ -44,27 +42,23 @@ export const ProductCard: React.FC<Props> = ({product}) => {
       <div className="product-card__specs">
         <div className="product-card__spec-row">
           <span className="product-card__spec-name">Screen</span>
-          <span className="product-card__spec-value">
-            {product.screen}
-          </span>
+          <span className="product-card__spec-value">{product.screen}</span>
         </div>
         <div className="product-card__spec-row">
           <span className="product-card__spec-name">Capacity</span>
-          <span className="product-card__spec-value">{product.capacity}
-          </span>
+          <span className="product-card__spec-value">{product.capacity}</span>
         </div>
         <div className="product-card__spec-row">
           <span className="product-card__spec-name">RAM</span>
-          <span className="product-card__spec-value">{product.ram}
-          </span>
+          <span className="product-card__spec-value">{product.ram}</span>
         </div>
       </div>
 
       {/* 5. Блок действий (кнопки) */}
       <div className="product-card__actions">
         <ActionButton
-        className="product-card__btn-add"
-        aria-label="Add to cart"
+          className="product-card__btn-add"
+          aria-label="Add to cart"
         >
           Add to cart
         </ActionButton>

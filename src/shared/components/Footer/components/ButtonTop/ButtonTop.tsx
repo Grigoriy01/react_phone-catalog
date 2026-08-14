@@ -1,14 +1,13 @@
-import { IconButton } from '../../../Button/components/IconButton';
+import { IconButton } from '../../../Buttons/components/IconButton';
 import './ButtonTop.scss';
 
 export const ButtonTop = () => {
-
   const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  });
-};
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
 
   return (
     <div className="back-to-top">
