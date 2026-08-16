@@ -60,14 +60,10 @@
   font-family: $font-family-base;
   font-weight: 600;
   font-size: 20px;
-  line-height: 26px;
+  line-height: 100%;
   color: $color-primary;
 
-  @include on-tablet {
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 31px;
-  }
+
 }
 
 // H4
@@ -116,7 +112,7 @@
 %small-text {
   font-family: $font-family-base;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 100%;
   color: $color-secondary-grau;
 }

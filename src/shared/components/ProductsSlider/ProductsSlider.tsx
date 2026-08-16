@@ -12,19 +12,17 @@ import './ProductsSlider.scss';
 import cn from 'classnames';
 
 type Props = {
-  hasError: string | null;
   isLoading: boolean;
   className?: string;
   title: string;
-  visibleNewModels: Product[] | null;
+  products: Product[] | null;
 };
 
 export const ProductsSlider: React.FC<Props> = ({
   className,
   title,
-  visibleNewModels,
+  products,
   isLoading,
-  hasError,
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -37,7 +35,7 @@ export const ProductsSlider: React.FC<Props> = ({
   };
 
   return (
-    <div className={cn('products-slider', className)}>
+    <section className={cn('products-slider', className)}>
       <div className="products-slider__header">
         <h2 className="products-slider__title">{title}</h2>
         <div className="products-slider__navigation">
@@ -88,13 +86,13 @@ export const ProductsSlider: React.FC<Props> = ({
                   <ProductCardSkeleton />
                 </SwiperSlide>
               ))
-            : (visibleNewModels ?? []).map(product => (
+            : (products ?? []).map(product => (
                 <SwiperSlide className="mySwiper-slide" key={product.id}>
                   <ProductCard product={product} />
                 </SwiperSlide>
               ))}
         </Swiper>
       </div>
-    </div>
+    </section>
   );
 };
