@@ -1,5 +1,4 @@
-
-export const FavoritesPage = () => {
+export const TabletsPage = () => {
   return (
 <section></section>
   );

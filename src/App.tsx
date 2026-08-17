@@ -1,7 +1,12 @@
-import './App.scss';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { HomePage } from './modules/HomePage/components';
 import { Footer } from './shared/components/Footer';
 import { Header } from './shared/components/Header/Header';
+import { PhonesPage } from './modules/PhonesPage';
+import { TabletsPage } from './modules/TabletsPage';
+import { AccessoriesPage } from './modules/AccessoriesPage';
+import { NotFoundPage } from './modules/NotFoundPage';
+import './App.scss';
 
 export const App = () => {
   return (
@@ -10,8 +15,16 @@ export const App = () => {
 
       <main className="main">
         <h1 className="visually-hidden">Product Catalog</h1>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path='/phones' element={<PhonesPage />} />
+          <Route path='/tablets' element={<TabletsPage />} />
+          <Route path='/accessories' element={<AccessoriesPage />} />
 
-        <HomePage />
+          <Route path='/home' element={<Navigate to='/' replace />} />
+          <Route path='*' element={<NotFoundPage />} />
+        </Routes>
+
       </main>
 
       <Footer />

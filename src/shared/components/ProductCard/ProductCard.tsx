@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Product } from '../../types';
+import FavoriteIconDefault from '../../assets/hearts/heart-default.svg?react';
+import FavoriteIconSelected from '../../assets/hearts/heart-selected.svg?react';
 
 import { IconButton } from '../Buttons/components/IconButton';
 import { ActionButton } from '../Buttons/components/ActionButton';
@@ -11,6 +13,13 @@ type Props = {
 };
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsFavorite(prev => !prev);
+  };
+
   return (
     <article className="product-card">
       {/* 1. Изображение товара */}
@@ -65,12 +74,13 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         <IconButton
           className="product-card__btn-favorite"
           aria-label="Add to favorites"
+          onClick={handleFavoriteClick}
         >
-          <img
-            src="/img/icons/hearts/heart-default.svg"
-            alt="Favorite"
-            className="product-card__favorite-icon"
-          />
+          {isFavorite ? (
+            <FavoriteIconSelected className="product-card__favorite-icon" />
+          ) : (
+            <FavoriteIconDefault className="product-card__favorite-icon" />
+          )}
         </IconButton>
       </div>
     </article>

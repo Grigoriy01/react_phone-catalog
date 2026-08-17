@@ -35,6 +35,11 @@
     margin-left: 8px;
   }
 
+  &__favorite-icon {
+    color: $color-secondary;
+
+  }
+
   &__title {
     @extend %body-text;
 
