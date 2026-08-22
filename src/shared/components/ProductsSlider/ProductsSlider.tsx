@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import ArrowIcon from '@/shared/assets/arrow-right/arrow-right.svg?react';
 
 import { IconButton } from '../Buttons/components/IconButton';
 import { ProductCard } from '../ProductCard';
 import { Product } from '../../types';
-import { ProductCardSkeleton } from '../ProductCard/component/ProductCardS/ProductCardSkeleton';
+import { ProductCardSkeleton } from '../ProductCard/component/ProductCardSkeleton/ProductCardSkeleton';
 
 import './ProductsSlider.scss';
 import './ProductsSlider.scss';
@@ -45,11 +46,12 @@ export const ProductsSlider: React.FC<Props> = ({
             onClick={() => swiperRef.current?.slidePrev()}
             disabled={isBeginning}
           >
-            <img
+            <ArrowIcon className="products-slider__icon" />
+            {/* <img
               className="products-slider__icon"
               src="/img/icons/arrow-right.svg"
               alt="Previous"
-            />
+            /> */}
           </IconButton>
 
           <IconButton
@@ -58,11 +60,12 @@ export const ProductsSlider: React.FC<Props> = ({
             onClick={() => swiperRef.current?.slideNext()}
             disabled={isEnd}
           >
-            <img
+            <ArrowIcon className="products-slider__icon" />
+            {/* <img
               className="products-slider__icon"
               src="/img/icons/arrow-right.svg"
               alt="Next"
-            />
+            /> */}
           </IconButton>
         </div>
       </div>

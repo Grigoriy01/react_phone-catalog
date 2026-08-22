@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { IconButton } from '../../../../shared/components/Buttons/components/IconButton';
+import ArrowIcon from '@/shared/assets/arrow-right/arrow-right.svg?react';
 
 import 'swiper/swiper.css';
 import './PromoSlider.scss';
@@ -22,22 +23,14 @@ export const PromoSlider = () => {
         className="promo-slider__btn promo-slider__btn--prev"
         aria-label="Previous slide"
       >
-        <img
-          src="/img/icons/arrow-right.svg"
-          alt="Arrow left"
-          className="promo-slider__icon promo-slider__icon--prev"
-        />
+        <ArrowIcon className="promo-slider__icon" />
       </IconButton>
 
       <IconButton
         className="promo-slider__btn promo-slider__btn--next"
         aria-label="Next slide"
       >
-        <img
-          src="/img/icons/arrow-right.svg"
-          alt="Arrow right"
-          className="promo-slider__icon"
-        />
+        <ArrowIcon className="promo-slider__icon" />
       </IconButton>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}

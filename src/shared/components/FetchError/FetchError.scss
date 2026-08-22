@@ -24,12 +24,7 @@
   }
 
   &__button {
-    @include base-button(120px, 40px, 8px) {
-      @extend %button-text;
-
-     color:  $color-primary;
-     background-color: $color-hover-bg;
-    }
+    @include error-button;
 
   }
 }

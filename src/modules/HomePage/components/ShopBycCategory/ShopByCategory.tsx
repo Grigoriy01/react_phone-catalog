@@ -6,7 +6,7 @@ export const ShopByCategory = () => {
     <section className="shop-by-category">
       <h2 className="shop-by-category__title">Shop by category</h2>
       <div className="shop-by-category__wrapper">
-        <Link className="shop-by-category__link" to="/pfone">
+        <Link className="shop-by-category__link" to="/phones">
           <div className="shop-by-category__img-wrapper">
             <img
               className="shop-by-category__img"
@@ -18,7 +18,7 @@ export const ShopByCategory = () => {
           <div className="shop-by-category__count-modeles">95 models</div>
         </Link>
 
-        <Link className="shop-by-category__link" to="/tablet">
+        <Link className="shop-by-category__link" to="/tablets">
           <div className="shop-by-category__img-wrapper">
             <img
               className="shop-by-category__img"

@@ -43,6 +43,14 @@ The content is organized as follows:
 <directory_structure>
 src/
   modules/
+    AccessoriesPage/
+      AccessoriesPage.scss
+      AccessoriesPage.tsx
+      index.ts
+    CartPage/
+      CartPage.scss
+      CartPage.tsx
+      index.ts
     FavoritesPage/
       components/
         FavoritesPage.scss
@@ -67,14 +75,34 @@ src/
         HomePage.scss
         HomePage.tsx
         index.ts
+    NotFoundPage/
+      index.ts
+      NotFoundPage.scss
+      NotFoundPage.tsx
+    PhonesPage/
+      index.ts
+      PhonesPage.scss
+      PhonesPage.tsx
+    TabletsPage/
+      index.ts
+      TabletsPage.scss
+      TabletsPage.tsx
   services/
     products.ts
   shared/
     assets/
+      arrow-right/
+        arrow-right.svg
       hearts/
         heart-default.svg
         heart-selected.svg
+      home-icon/
+        home.svg
     components/
+      BreadcrumbsNav/
+        BreadcrumbsNav.scss
+        BreadcrumbsNav.tsx
+        index.ts
       Buttons/
         components/
           ActionButton/
@@ -133,7 +161,7 @@ src/
         Nav.tsx
       ProductCard/
         component/
-          ProductCardS/
+          ProductCardSkeleton/
             index.ts
             ProductCardSkeleton.scss
             ProductCardSkeleton.tsx
@@ -144,6 +172,8 @@ src/
         index.ts
         ProductsSlider.scss
         ProductsSlider.tsx
+    context/
+      FavoriteContext.tsx
     types/
       index.ts
       Product.ts
@@ -173,31 +203,469 @@ src/
 <files>
 This section contains the contents of the repository's files.
 
-<file path="src/shared/assets/hearts/heart-default.svg">
-<svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M9.296 0.332589C9.82592 0.113015 10.3939 0 10.9675 0C11.5411 0 12.1091 0.113015 12.6391 0.332589C13.169 0.552163 13.6504 0.873992 14.056 1.27969C14.4615 1.68515 14.7833 2.16654 15.0028 2.69636C15.2224 3.22628 15.3354 3.79427 15.3354 4.36788C15.3354 4.9415 15.2224 5.50949 15.0028 6.03941C14.7833 6.56928 14.4615 7.05071 14.0558 7.45619C14.0558 7.45623 14.0559 7.45615 14.0558 7.45619L8.1625 13.3495C7.88913 13.6229 7.44592 13.6229 7.17255 13.3495L1.27922 7.45619C0.460149 6.63712 0 5.52622 0 4.36788C0 3.20954 0.460149 2.09865 1.27922 1.27958C2.09829 0.460505 3.20919 0.000356495 4.36753 0.000356495C5.52587 0.000356495 6.63676 0.460505 7.45583 1.27958L7.66753 1.49127L7.8791 1.27969C7.87906 1.27973 7.87914 1.27965 7.8791 1.27969C8.28459 0.874047 8.76613 0.552142 9.296 0.332589ZM13.0658 2.26941C12.7903 1.99378 12.4632 1.77513 12.1031 1.62596C11.7431 1.47678 11.3572 1.4 10.9675 1.4C10.5778 1.4 10.1919 1.47678 9.83191 1.62596C9.47189 1.77513 9.14478 1.99378 8.86928 2.26941L8.1625 2.97619C7.88913 3.24956 7.44592 3.24956 7.17255 2.97619L6.46589 2.26953C5.90937 1.71301 5.15456 1.40036 4.36753 1.40036C3.58049 1.40036 2.82569 1.71301 2.26917 2.26953C1.71265 2.82604 1.4 3.58085 1.4 4.36788C1.4 5.15492 1.71265 5.90972 2.26917 6.46624L7.66753 11.8646L13.0659 6.46624C13.3415 6.19074 13.5603 5.86352 13.7095 5.5035C13.8586 5.14347 13.9354 4.75759 13.9354 4.36788C13.9354 3.97818 13.8586 3.59229 13.7095 3.23227C13.5603 2.87224 13.3414 2.54491 13.0658 2.26941Z" fill="#0F0F11"/>
+<file path="src/modules/NotFoundPage/NotFoundPage.scss">
+@use '../../styles/utils/' as *;
+
+.not-found-page {
+  @extend %flex-center;
+  @extend %content-width;
+
+  flex-direction: column;
+  padding-block: 40px;
+
+  &__title {
+    @extend %h1-title;
+  }
+
+  &__button {
+    @include error-button;
+  }
+}
+</file>
+
+<file path="src/shared/assets/arrow-right/arrow-right.svg">
+<svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0.195262 0.195262C0.455612 -0.0650874 0.877722 -0.0650874 1.13807 0.195262L5.13807 4.19526C5.39842 4.45561 5.39842 4.87772 5.13807 5.13807L1.13807 9.13807C0.877722 9.39842 0.455612 9.39842 0.195262 9.13807C-0.0650874 8.87772 -0.0650874 8.45561 0.195262 8.19526L3.72386 4.66667L0.195262 1.13807C-0.0650874 0.877722 -0.0650874 0.455612 0.195262 0.195262Z" fill="currentColor"/>
 </svg>
 </file>
 
-<file path="src/shared/assets/hearts/heart-selected.svg">
-
+<file path="src/shared/assets/home-icon/home.svg">
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7.59087 0.807088C7.83161 0.619846 8.16872 0.619846 8.40946 0.807088L14.4095 5.47375C14.5718 5.60006 14.6668 5.79426 14.6668 5.99999V13.3333C14.6668 13.8638 14.4561 14.3725 14.081 14.7475C13.706 15.1226 13.1973 15.3333 12.6668 15.3333H3.3335C2.80306 15.3333 2.29436 15.1226 1.91928 14.7475C1.54421 14.3725 1.3335 13.8638 1.3335 13.3333V5.99999C1.3335 5.79426 1.42848 5.60006 1.59087 5.47375L7.59087 0.807088ZM2.66683 6.32605V13.3333C2.66683 13.5101 2.73707 13.6797 2.86209 13.8047C2.98712 13.9298 3.15669 14 3.3335 14H12.6668C12.8436 14 13.0132 13.9298 13.1382 13.8047C13.2633 13.6797 13.3335 13.5101 13.3335 13.3333V6.32605L8.00016 2.1779L2.66683 6.32605Z" fill="currentColor"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5.3335 8.00001C5.3335 7.63182 5.63197 7.33334 6.00016 7.33334H10.0002C10.3684 7.33334 10.6668 7.63182 10.6668 8.00001V14.6667C10.6668 15.0349 10.3684 15.3333 10.0002 15.3333C9.63197 15.3333 9.3335 15.0349 9.3335 14.6667V8.66668H6.66683V14.6667C6.66683 15.0349 6.36835 15.3333 6.00016 15.3333C5.63197 15.3333 5.3335 15.0349 5.3335 14.6667V8.00001Z" fill="currentColor"/>
+</svg>
 </file>
 
-<file path="src/custom.d.ts">
-/// <reference types="vite/client" />
-/// <reference types="vite-plugin-svgr/client" />
+<file path="src/shared/components/BreadcrumbsNav/BreadcrumbsNav.scss">
+@use '../../../../styles/utils/' as *;
+
+.breadcrumbs {
+  padding: 24px 0;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+
+    // Все элементы, кроме первого (с домиком), получают стрелочку слева
+    &:not(:first-child) {
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        flex-shrink: 0;
+
+        // Вставляем маску для SVG, чтобы управлялся цвет через background-color
+        background-color: $color-icons;
+        mask: url('/src/shared/assets/arrow-right/arrow-right.svg') no-repeat center / contain;
+        -webkit-mask: url('/src/shared/assets/arrow-right/arrow-right.svg') no-repeat center / contain;
+      }
+    }
+  }
+
+  &__link {
+    @extend %small-text; // Твой типографический стилизатор 12px / Mont SemiBold[cite: 2]
+    color: $color-primary; // Основной цвет текста
+    display: flex;
+    align-items: center;
+    transition: color $transition-duration ease;[cite: 1]
+
+    &:hover {
+      color: $color-secondary; // Меняем цвет при наведении[cite: 1]
+    }
+
+    svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+      fill: currentColor; // Окрашивает иконку Home в цвет текста
+    }
+  }
+
+  &__current {
+    @extend %small-text; // Твой типографический стилизатор[cite: 2]
+    color: $color-secondary; // Активный элемент серым цветом по макету[cite: 1]
+  }
+}
 </file>
 
-<file path="src/modules/FavoritesPage/components/FavoritesPage.scss">
+<file path="src/shared/components/BreadcrumbsNav/BreadcrumbsNav.tsx">
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import HomeIcon from '@/shared/assets/home-icon/home.svg?react';
+
+import './BreadcrumbsNav.scss';
+
+type Props = {
+  productName?: string;
+};
+
+export const BreadcrumbsNav: React.FC<Props> = ({ productName }) => {
+  const location = useLocation();
+
+  const pathName = location.pathname.split('/').filter(Boolean);
+
+  const categoryPathName = pathName[0];
+
+  const categoryName = categoryPathName
+    ? categoryPathName.charAt(0).toUpperCase() + categoryPathName.slice(1)
+    : '';
+
+  return (
+    <nav className="breadcrumbs" aria-label="breadcrumbs">
+      <ol className="breadcrumbs__list">
+        <li className="breadcrumbs__item">
+          <Link to="/" className="breadcrumbs__link">
+            <HomeIcon />
+          </Link>
+        </li>
+
+        <li className="breadcrumbs__item">
+          {categoryPathName ? (
+            <Link to={`/${categoryPathName}`} className="breadcrumbs__link">
+              {categoryName}
+            </Link>
+          ) : (
+            <span className="breadcrumbs__current">{categoryName}</span>
+          )}
+        </li>
+
+        {productName && (
+          <li className="breadcrumbs__item">
+            <span className="breadcrumbs__current">{productName}</span>
+          </li>
+        )}
+      </ol>
+    </nav>
+  );
+};
+</file>
+
+<file path="src/shared/components/BreadcrumbsNav/index.ts">
+export * from './BreadcrumbsNav';
+</file>
+
+<file path="src/shared/components/ProductCard/component/ProductCardSkeleton/index.ts">
+export
+</file>
+
+<file path="src/shared/components/ProductCard/component/ProductCardSkeleton/ProductCardSkeleton.scss">
+@use '../../../../../styles/utils/' as *;
+
+@keyframes skeleton-glow {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.product-card-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border: 1px solid $color-elements;
+  border-radius: 8px;
+  background-color: $color-surface-1;
+  height: 100%;
+
+  &__image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 196px;
+  }
+
+  &__image {
+    @include skeleton-bg;
+
+    width: 70%;
+    height: 100%;
+  }
+
+  &__title-line {
+    @include skeleton-bg;
+
+    height: 14px;
+    margin-top: 4px;
+
+    &--full {
+      width: 100%;
+    }
+
+    &--short {
+      width: 60%;
+      margin-bottom: 8px;
+    }
+  }
+
+  &__price-block {
+    display: flex;
+    align-items: center;
+    height: 31px;
+  }
+
+  &__price {
+    @include skeleton-bg;
+
+    width: 80px;
+    height: 22px;
+  }
+
+  &__divider {
+    border: 1px solid $color-elements;
+  }
+
+  &__specs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 8px;
+  }
+
+  &__spec-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__spec-name {
+    @include skeleton-bg;
+
+    width: 48px;
+    height: 12px;
+  }
+
+  &__spec-value {
+    @include skeleton-bg;
+
+    width: 36px;
+    height: 12px;
+  }
+
+  &__actions {
+    display: flex;
+    margin-top: auto;
+  }
+
+  &__btn-add {
+    @include skeleton-bg;
+
+    width: 100%;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  &__btn-favorite {
+    @include skeleton-bg;
+
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    margin-left: 8px;
+    border-radius: 8px;
+  }
+}
+</file>
+
+<file path="src/shared/components/ProductCard/component/ProductCardSkeleton/ProductCardSkeleton.tsx">
+import './ProductCardSkeleton.scss';
+
+export const ProductCardSkeleton = () => {
+  return (
+    <article className="product-card-skeleton">
+
+      <div className="product-card-skeleton__image-container">
+        <div className="product-card-skeleton__image" />
+      </div>
+
+
+      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--full" />
+      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--short" />
+
+
+      <div className="product-card-skeleton__price-block">
+        <div className="product-card-skeleton__price" />
+      </div>
+
+      <div className="product-card-skeleton__divider" />
+
+
+      <div className="product-card-skeleton__specs">
+        <div className="product-card-skeleton__spec-row">
+          <div className="product-card-skeleton__spec-name" />
+          <div className="product-card-skeleton__spec-value" />
+        </div>
+        <div className="product-card-skeleton__spec-row">
+          <div className="product-card-skeleton__spec-name" />
+          <div className="product-card-skeleton__spec-value" />
+        </div>
+        <div className="product-card-skeleton__spec-row">
+          <div className="product-card-skeleton__spec-name" />
+          <div className="product-card-skeleton__spec-value" />
+        </div>
+      </div>
+
+      
+      <div className="product-card-skeleton__actions">
+        <div className="product-card-skeleton__btn-add" />
+        <div className="product-card-skeleton__btn-favorite" />
+      </div>
+    </article>
+  );
+};
+</file>
+
+<file path="src/shared/context/FavoriteContext.tsx">
+import { createContext, useContext, useEffect, useReducer } from 'react';
+import { Product } from '../types';
+
+export type FavoritesState = {
+  favorites: Product[];
+};
+
+export type FavoritesAction = { type: 'TOGGLE_FAVORITE'; payload: Product };
+
+export type FavoritesContextType = {
+  favorites: Product[];
+  isFavorite: (productId: string) => boolean;
+  toggleFavorite: (product: Product) => void;
+};
+
+export const initialFavoritesState: FavoritesState = {
+  favorites: JSON.parse(localStorage.getItem('favorites') || '[]'),
+};
+
+function favoritesReducer(
+  state: FavoritesState,
+  action: FavoritesAction,
+): FavoritesState {
+  switch (action.type) {
+    case 'TOGGLE_FAVORITE': {
+      const exists = state.favorites.some(
+        product => product.id === action.payload.id,
+      );
+      return {
+        ...state,
+        favorites: exists
+          ? state.favorites.filter(product => product.id !== action.payload.id)
+          : [...state.favorites, action.payload],
+      };
+    }
+    default:
+      return state;
+  }
+}
+
+export const FavoritesContext = createContext<FavoritesContextType | undefined>(
+  undefined,
+);
+
+export const FavoritesProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [state, dispatch] = useReducer(favoritesReducer, initialFavoritesState);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(state.favorites));
+  }, [state.favorites]);
+
+  const toggleFavorite = (product: Product) => {
+    dispatch({ type: 'TOGGLE_FAVORITE', payload: product });
+  };
+
+  const isFavorite = (productId: string) => {
+    return state.favorites.some(item => item.id === productId)
+  }
+
+  return (
+    <FavoritesContext.Provider
+      value={{
+        favorites: state.favorites,
+        isFavorite,
+        toggleFavorite,
+      }}
+    >
+      {children}
+
+    </FavoritesContext.Provider>
+  )
+};
+
+export const useFavorites = () => {
+  const context = useContext(FavoritesContext);
+
+  if (!context) {
+    throw new Error('useFavorites must be used within a FavoritesProvider');
+  }
+
+  return context;
+};
+</file>
+
+<file path="src/modules/AccessoriesPage/AccessoriesPage.scss">
 // -
 </file>
 
-<file path="src/modules/FavoritesPage/components/FavoritesPage.tsx">
-export const FavoritesPage = () => {
+<file path="src/modules/AccessoriesPage/AccessoriesPage.tsx">
+export const AccessoriesPage = () => {
   return (
+    <div></div>
 
   );
 };
+</file>
+
+<file path="src/modules/AccessoriesPage/index.ts">
+export * from './AccessoriesPage';
+</file>
+
+<file path="src/modules/CartPage/CartPage.scss">
+// -
+</file>
+
+<file path="src/modules/CartPage/CartPage.tsx">
+export const CartPage = () => {
+  return (
+    <section></section>
+  );
+};
+</file>
+
+<file path="src/modules/CartPage/index.ts">
+export * from './CartPage';
+</file>
+
+<file path="src/modules/FavoritesPage/components/FavoritesPage.scss">
+@use '../../../styles/utils/' as *;
+
+.favorites-page {
+
+  &__title {
+    @extend %h1-title;
+  }
+
+  &__count {
+    @extend %small-text;
+  }
+
+
+}
 </file>
 
 <file path="src/modules/FavoritesPage/components/index.ts">
@@ -258,6 +726,60 @@ export * from './ShopByCategory';
 export * from './HomePage'
 </file>
 
+<file path="src/modules/NotFoundPage/index.ts">
+export * from './NotFoundPage'
+</file>
+
+<file path="src/modules/NotFoundPage/NotFoundPage.tsx">
+import { Link } from 'react-router-dom';
+import './NotFoundPage.scss'
+
+export const NotFoundPage = () => {
+  return (
+    <div className="not-found-page">
+      <img className="not-found-page__img" src="/img/page-not-found.png" alt="Page is not found" />
+      <h1 className="not-found-page__title">Not found page</h1>
+      <Link to="/" className="not-found-page__button">
+        Go to Home
+      </Link>
+
+    </div>
+  );
+};
+</file>
+
+<file path="src/modules/PhonesPage/index.ts">
+export * from './PhonesPage';
+</file>
+
+<file path="src/modules/PhonesPage/PhonesPage.scss">
+// -
+</file>
+
+<file path="src/modules/PhonesPage/PhonesPage.tsx">
+export const PhonesPage = () => {
+  return (
+<section></section>
+  );
+};
+</file>
+
+<file path="src/modules/TabletsPage/index.ts">
+export * from './TabletsPage';
+</file>
+
+<file path="src/modules/TabletsPage/TabletsPage.scss">
+// -
+</file>
+
+<file path="src/modules/TabletsPage/TabletsPage.tsx">
+export const TabletsPage = () => {
+  return (
+<section></section>
+  );
+};
+</file>
+
 <file path="src/services/products.ts">
 import { Product } from "../shared/types";
 
@@ -293,6 +815,21 @@ export async function getProductsDetails(category: string): Promise<Product[]> {
 
   return (await response.json()) as Product[];
 }
+</file>
+
+<file path="src/shared/assets/hearts/heart-default.svg">
+<svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M9.296 0.332589C9.82592 0.113015 10.3939 0 10.9675 0C11.5411 0 12.1091 0.113015 12.6391 0.332589C13.169 0.552163 13.6504 0.873992 14.056 1.27969C14.4615 1.68515 14.7833 2.16654 15.0028 2.69636C15.2224 3.22628 15.3354 3.79427 15.3354 4.36788C15.3354 4.9415 15.2224 5.50949 15.0028 6.03941C14.7833 6.56928 14.4615 7.05071 14.0558 7.45619C14.0558 7.45623 14.0559 7.45615 14.0558 7.45619L8.1625 13.3495C7.88913 13.6229 7.44592 13.6229 7.17255 13.3495L1.27922 7.45619C0.460149 6.63712 0 5.52622 0 4.36788C0 3.20954 0.460149 2.09865 1.27922 1.27958C2.09829 0.460505 3.20919 0.000356495 4.36753 0.000356495C5.52587 0.000356495 6.63676 0.460505 7.45583 1.27958L7.66753 1.49127L7.8791 1.27969C7.87906 1.27973 7.87914 1.27965 7.8791 1.27969C8.28459 0.874047 8.76613 0.552142 9.296 0.332589ZM13.0658 2.26941C12.7903 1.99378 12.4632 1.77513 12.1031 1.62596C11.7431 1.47678 11.3572 1.4 10.9675 1.4C10.5778 1.4 10.1919 1.47678 9.83191 1.62596C9.47189 1.77513 9.14478 1.99378 8.86928 2.26941L8.1625 2.97619C7.88913 3.24956 7.44592 3.24956 7.17255 2.97619L6.46589 2.26953C5.90937 1.71301 5.15456 1.40036 4.36753 1.40036C3.58049 1.40036 2.82569 1.71301 2.26917 2.26953C1.71265 2.82604 1.4 3.58085 1.4 4.36788C1.4 5.15492 1.71265 5.90972 2.26917 6.46624L7.66753 11.8646L13.0659 6.46624C13.3415 6.19074 13.5603 5.86352 13.7095 5.5035C13.8586 5.14347 13.9354 4.75759 13.9354 4.36788C13.9354 3.97818 13.8586 3.59229 13.7095 3.23227C13.5603 2.87224 13.3414 2.54491 13.0658 2.26941Z" fill="#0F0F11"/>
+</svg>
+</file>
+
+<file path="src/shared/assets/hearts/heart-selected.svg">
+<svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    fill="currentColor"
+    d="M12.639 0.333C11.541 -0.113 10.394 -0.113 9.296 0.333C8.766 0.552 8.285 0.874 7.879 1.28L7.668 1.491L7.456 1.28C6.637 0.46 5.526 0 4.368 0C3.209 0 2.098 0.46 1.279 1.28C0.46 2.099 0 3.21 0 4.368C0 5.526 0.46 6.637 1.279 7.456L7.173 13.35C7.446 13.623 7.889 13.623 8.163 13.35L14.056 7.456C14.875 6.637 15.335 5.526 15.335 4.368C15.335 3.21 14.875 2.099 14.056 1.28C13.65 0.874 13.169 0.552 12.639 0.333Z"
+  />
+</svg>
 </file>
 
 <file path="src/shared/components/Buttons/components/ActionButton/ActionButton.scss">
@@ -380,16 +917,6 @@ export const ActionButton: React.FC<Props> = ({
 export * from './ActionButton';
 </file>
 
-<file path="src/shared/components/Buttons/components/IconButton/IconButton.scss">
-@use '../../../../../styles/utils/' as *;
-
-.icon-button {
-  @include base-button(32px, 32px, 50%);
-
- 
-}
-</file>
-
 <file path="src/shared/components/Buttons/components/IconButton/IconButton.tsx">
 import React from 'react';
 import './IconButton.scss';
@@ -447,12 +974,7 @@ export * from './IconButton';
   }
 
   &__button {
-    @include base-button(120px, 40px, 8px) {
-      @extend %button-text;
-
-     color:  $color-primary;
-     background-color: $color-hover-bg;
-    }
+    @include error-button;
 
   }
 }
@@ -651,183 +1173,6 @@ export * from './Logo'
 export * from './Nav'
 </file>
 
-<file path="src/shared/components/ProductCard/component/ProductCardS/index.ts">
-export
-</file>
-
-<file path="src/shared/components/ProductCard/component/ProductCardS/ProductCardSkeleton.scss">
-@use '../../../../../styles/utils/' as *;
-
-@keyframes skeleton-glow {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
-.product-card-skeleton {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 32px;
-  border: 1px solid $color-elements;
-  border-radius: 8px;
-  background-color: $color-surface-1;
-  height: 100%;
-
-  &__image-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 196px;
-  }
-
-  &__image {
-    @include skeleton-bg;
-
-    width: 70%;
-    height: 100%;
-  }
-
-  &__title-line {
-    @include skeleton-bg;
-
-    height: 14px;
-    margin-top: 4px;
-
-    &--full {
-      width: 100%;
-    }
-
-    &--short {
-      width: 60%;
-      margin-bottom: 8px;
-    }
-  }
-
-  &__price-block {
-    display: flex;
-    align-items: center;
-    height: 31px;
-  }
-
-  &__price {
-    @include skeleton-bg;
-
-    width: 80px;
-    height: 22px;
-  }
-
-  &__divider {
-    border: 1px solid $color-elements;
-  }
-
-  &__specs {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-block: 8px;
-  }
-
-  &__spec-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__spec-name {
-    @include skeleton-bg;
-
-    width: 48px;
-    height: 12px;
-  }
-
-  &__spec-value {
-    @include skeleton-bg;
-
-    width: 36px;
-    height: 12px;
-  }
-
-  &__actions {
-    display: flex;
-    margin-top: auto;
-  }
-
-  &__btn-add {
-    @include skeleton-bg;
-
-    width: 100%;
-    height: 40px;
-    border-radius: 8px;
-  }
-
-  &__btn-favorite {
-    @include skeleton-bg;
-
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    margin-left: 8px;
-    border-radius: 8px;
-  }
-}
-</file>
-
-<file path="src/shared/components/ProductCard/component/ProductCardS/ProductCardSkeleton.tsx">
-import './ProductCardSkeleton.scss';
-
-export const ProductCardSkeleton = () => {
-  return (
-    <article className="product-card-skeleton">
-
-      <div className="product-card-skeleton__image-container">
-        <div className="product-card-skeleton__image" />
-      </div>
-
-
-      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--full" />
-      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--short" />
-
-
-      <div className="product-card-skeleton__price-block">
-        <div className="product-card-skeleton__price" />
-      </div>
-
-      <div className="product-card-skeleton__divider" />
-
-
-      <div className="product-card-skeleton__specs">
-        <div className="product-card-skeleton__spec-row">
-          <div className="product-card-skeleton__spec-name" />
-          <div className="product-card-skeleton__spec-value" />
-        </div>
-        <div className="product-card-skeleton__spec-row">
-          <div className="product-card-skeleton__spec-name" />
-          <div className="product-card-skeleton__spec-value" />
-        </div>
-        <div className="product-card-skeleton__spec-row">
-          <div className="product-card-skeleton__spec-name" />
-          <div className="product-card-skeleton__spec-value" />
-        </div>
-      </div>
-
-      
-      <div className="product-card-skeleton__actions">
-        <div className="product-card-skeleton__btn-add" />
-        <div className="product-card-skeleton__btn-favorite" />
-      </div>
-    </article>
-  );
-};
-</file>
-
 <file path="src/shared/components/ProductCard/index.ts">
 export * from './ProductCard';
 </file>
@@ -842,7 +1187,7 @@ export * from './Product';
 
 <file path="src/shared/types/Product.ts">
 export interface Product {
-  id: string;
+  id: number;
   category: string;
   phoneId: string;
   itemId: string;
@@ -1027,8 +1372,37 @@ p {
 export * from './sortProducts';
 </file>
 
+<file path="src/custom.d.ts">
+/// <reference types="vite/client" />
+/// <reference types="vite-plugin-svgr/client" />
+</file>
+
 <file path="src/vite-env.d.ts">
 /// <reference types="vite/client" />
+</file>
+
+<file path="src/modules/FavoritesPage/components/FavoritesPage.tsx">
+import { BreadcrumbsNav } from '../../../shared/components/BreadcrumbsNav';
+import { ProductCard } from '../../../shared/components/ProductCard';
+import { useFavorites } from '../../../shared/context/FavoriteContext';
+
+import './FavoritesPage.scss';
+
+export const FavoritesPage = () => {
+  const { favorites } = useFavorites();
+
+  return (
+    <section className="favorites-page">
+      <BreadcrumbsNav />
+      <h1 className="favorites-page__title">Favourites</h1>
+      <div className="favorites-page__count">{favorites.length} items</div>
+
+      {favorites.map(product => (
+        <ProductCard product={product} key={product.id} />
+      ))}
+    </section>
+  );
+};
 </file>
 
 <file path="src/modules/HomePage/components/ShopBycCategory/ShopByCategory.scss">
@@ -1099,7 +1473,7 @@ export const ShopByCategory = () => {
     <section className="shop-by-category">
       <h2 className="shop-by-category__title">Shop by category</h2>
       <div className="shop-by-category__wrapper">
-        <Link className="shop-by-category__link" to="/pfone">
+        <Link className="shop-by-category__link" to="/phones">
           <div className="shop-by-category__img-wrapper">
             <img
               className="shop-by-category__img"
@@ -1111,7 +1485,7 @@ export const ShopByCategory = () => {
           <div className="shop-by-category__count-modeles">95 models</div>
         </Link>
 
-        <Link className="shop-by-category__link" to="/tablet">
+        <Link className="shop-by-category__link" to="/tablets">
           <div className="shop-by-category__img-wrapper">
             <img
               className="shop-by-category__img"
@@ -1138,6 +1512,16 @@ export const ShopByCategory = () => {
     </section>
   );
 };
+</file>
+
+<file path="src/shared/components/Buttons/components/IconButton/IconButton.scss">
+@use '../../../../../styles/utils/' as *;
+
+.icon-button {
+  @include base-button(32px, 32px, 50%);
+
+ 
+}
 </file>
 
 <file path="src/shared/components/Footer/components/NavFooter/NavFooter.scss">
@@ -1866,113 +2250,6 @@ export const Logo: React.FC<Props> = ({className}) => {
 }
 </file>
 
-<file path="src/shared/components/ProductCard/ProductCard.scss">
-@use '../../../styles/utils/' as *;
-
-.product-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 32px;
-  border: 1px solid $color-elements;
-  border-radius: 8px;
-  height: 100%;
-
-  &__image-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 196px;
-  }
-
-  &__image {
-    max-width: 100%;
-    max-height: 100%;
-
-    object-fit: contain;
-  }
-
-  &__actions {
-    display: flex;
-  }
-
-  &__btn-favorite {
-    width: 40px;
-    height: 40px;
-    margin-left: 8px;
-  }
-
-  &__favorite-icon {
-    color: aqua;
-    &--active {
-      color: $color-secondary;
-    }
-  }
-
-  &__title {
-    @extend %body-text;
-
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    min-height: 42px;
-    flex-grow: 1;
-
-    padding-top: 16px;
-  }
-
-  &__price-block {
-    display: flex;
-    align-items: center;
-  }
-
-  &__price {
-    font-family: $font-family-base;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 140%;
-
-    &--old {
-      font-weight: 500;
-      line-height: 100%;
-      margin-left: 8px;
-      color: $color-secondary-grau;
-      text-decoration: line-through;
-    }
-  }
-
-  &__divider {
-    border: 1px solid $color-elements;
-  }
-
-  &__specs {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-block: 8px;
-  }
-
-  &__spec-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  &__spec-name {
-    @extend %small-text;
-  }
-  &__spec-value {
-    @extend %small-text;
-
-    font-weight: 700;
-    color: $color-primary;
-  }
-}
-</file>
-
 <file path="src/App.scss">
 .app {
   display: flex;
@@ -2100,95 +2377,109 @@ export const Hero = () => {
 }
 </file>
 
-<file path="src/shared/components/ProductCard/ProductCard.tsx">
-import React, { useState } from 'react';
-import { Product } from '../../types';
-import FavoriteIcon from '../../assets/hearts/heart-default.svg?react';
-import cn from 'classnames';
+<file path="src/shared/components/ProductCard/ProductCard.scss">
+@use '../../../styles/utils/' as *;
 
-import { IconButton } from '../Buttons/components/IconButton';
-import { ActionButton } from '../Buttons/components/ActionButton';
+.product-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border: 1px solid $color-elements;
+  border-radius: 8px;
+  height: 100%;
 
-import './ProductCard.scss';
+  &__image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-type Props = {
-  product: Product;
-};
+    width: 100%;
+    height: 196px;
+  }
 
-export const ProductCard: React.FC<Props> = ({ product }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  &__image {
+    max-width: 100%;
+    max-height: 100%;
 
-  const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsFavorite(prev => !prev);
-  };
+    object-fit: contain;
+  }
 
-  return (
-    <article className="product-card">
-      {/* 1. Изображение товара */}
-      <div className="product-card__image-container">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="product-card__image"
-        />
-      </div>
+  &__actions {
+    display: flex;
+  }
 
-      {/* 2. Наименование продукта */}
-      <h3 className="product-card__title">{product.name}</h3>
+  &__btn-favorite {
+    width: 40px;
+    height: 40px;
+    margin-left: 8px;
+  }
 
-      {/* 3. Блок цен */}
-      <div className="product-card__price-block">
-        <span className="product-card__price product-card__price--current">
-          ${product.price}
-        </span>
-        <s className="product-card__price product-card__price--old">
-          ${product.fullPrice}
-        </s>
-      </div>
+  &__favorite-icon {
+    color: $color-secondary;
 
-      {/* Разделитель по дизайну, если нужен */}
-      <div className="product-card__divider" />
+  }
 
-      {/* 4. Блок характеристик */}
-      <div className="product-card__specs">
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">Screen</span>
-          <span className="product-card__spec-value">{product.screen}</span>
-        </div>
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">Capacity</span>
-          <span className="product-card__spec-value">{product.capacity}</span>
-        </div>
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">RAM</span>
-          <span className="product-card__spec-value">{product.ram}</span>
-        </div>
-      </div>
+  &__title {
+    @extend %body-text;
 
-      {/* 5. Блок действий (кнопки) */}
-      <div className="product-card__actions">
-        <ActionButton
-          className="product-card__btn-add"
-          aria-label="Add to cart"
-        >
-          Add to cart
-        </ActionButton>
-        <IconButton
-          className="product-card__btn-favorite"
-          aria-label="Add to favorites"
-          onClick={handleFavoriteClick}
-        >
-          <FavoriteIcon
-            className={cn('product-card__favorite-icon', {
-              'product-card__favorite-icon--active': isFavorite,
-            })}
-          />
-        </IconButton>
-      </div>
-    </article>
-  );
-};
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 42px;
+    flex-grow: 1;
+
+    padding-top: 16px;
+  }
+
+  &__price-block {
+    display: flex;
+    align-items: center;
+  }
+
+  &__price {
+    font-family: $font-family-base;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 140%;
+
+    &--old {
+      font-weight: 500;
+      line-height: 100%;
+      margin-left: 8px;
+      color: $color-secondary-grau;
+      text-decoration: line-through;
+    }
+  }
+
+  &__divider {
+    border: 1px solid $color-elements;
+  }
+
+  &__specs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 8px;
+  }
+
+  &__spec-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__spec-name {
+    @extend %small-text;
+  }
+  &__spec-value {
+    @extend %small-text;
+
+    font-weight: 700;
+    color: $color-primary;
+  }
+}
 </file>
 
 <file path="src/shared/components/ProductsSlider/ProductsSlider.scss">
@@ -2337,6 +2628,97 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
 }
 </file>
 
+<file path="src/shared/components/ProductCard/ProductCard.tsx">
+import React, { useContext} from 'react';
+import { Product } from '../../types';
+import FavoriteIconDefault from '../../assets/hearts/heart-default.svg?react';
+import FavoriteIconSelected from '../../assets/hearts/heart-selected.svg?react';
+
+import { IconButton } from '../Buttons/components/IconButton';
+import { ActionButton } from '../Buttons/components/ActionButton';
+
+import './ProductCard.scss';
+import { useFavorites } from '../../context/FavoriteContext';
+
+type Props = {
+  product: Product;
+};
+
+export const ProductCard: React.FC<Props> = ({ product }) => {
+  const { isFavorite, toggleFavorite } = useFavorites();
+
+  const isProductFavorite = isFavorite(product.id);
+  console.log('boolen status:', isProductFavorite)
+
+  return (
+    <article className="product-card">
+      {/* 1. Изображение товара */}
+      <div className="product-card__image-container">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="product-card__image"
+        />
+      </div>
+
+      {/* 2. Наименование продукта */}
+      <h3 className="product-card__title">{product.name}</h3>
+
+      {/* 3. Блок цен */}
+      <div className="product-card__price-block">
+        <span className="product-card__price product-card__price--current">
+          ${product.price}
+        </span>
+        <s className="product-card__price product-card__price--old">
+          ${product.fullPrice}
+        </s>
+      </div>
+
+      {/* Разделитель по дизайну, если нужен */}
+      <div className="product-card__divider" />
+
+      {/* 4. Блок характеристик */}
+      <div className="product-card__specs">
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">Screen</span>
+          <span className="product-card__spec-value">{product.screen}</span>
+        </div>
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">Capacity</span>
+          <span className="product-card__spec-value">{product.capacity}</span>
+        </div>
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">RAM</span>
+          <span className="product-card__spec-value">{product.ram}</span>
+        </div>
+      </div>
+
+      {/* 5. Блок действий (кнопки) */}
+      <div className="product-card__actions">
+        <ActionButton
+          className="product-card__btn-add"
+          aria-label="Add to cart"
+        >
+          Add to cart
+        </ActionButton>
+        <IconButton
+          className="product-card__btn-favorite"
+          aria-label="Add to favorites"
+          onClick={() => toggleFavorite(product)}
+
+          >
+          {isProductFavorite ? (
+            <FavoriteIconSelected className="product-card__favorite-icon" />
+          ) : (
+            <FavoriteIconDefault className="product-card__favorite-icon" />
+          )}
+        </IconButton>
+      </div>
+    </article>
+  );
+};
+</file>
+
 <file path="src/shared/components/ProductsSlider/ProductsSlider.tsx">
 import React, { useRef, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
@@ -2345,7 +2727,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { IconButton } from '../Buttons/components/IconButton';
 import { ProductCard } from '../ProductCard';
 import { Product } from '../../types';
-import { ProductCardSkeleton } from '../ProductCard/component/ProductCardS/ProductCardSkeleton';
+import { ProductCardSkeleton } from '../ProductCard/component/ProductCardSkeleton/ProductCardSkeleton';
 
 import './ProductsSlider.scss';
 import './ProductsSlider.scss';
@@ -2444,10 +2826,14 @@ import { HashRouter as Router } from 'react-router-dom';
 import { App } from './App';
 
 import './styles/index.scss';
+import { FavoritesProvider } from './shared/context/FavoriteContext';
 
-createRoot(document.getElementById('root') as HTMLElement).render(
+const container = document.getElementById('root') as HTMLDivElement;
+createRoot(container).render(
   <Router>
-    <App />
+    <FavoritesProvider>
+      <App />
+    </FavoritesProvider>
   </Router>,
 );
 </file>
@@ -2636,6 +3022,15 @@ $font-family-base: 'Mont', sans-serif;
   @content;
 }
 
+@mixin error-button {
+  @include base-button(120px, 40px, 8px) {
+    @extend %button-text;
+
+    color: $color-primary;
+    background-color: $color-hover-bg;
+  }
+}
+
 @mixin padding-block-content($top: 56px) {
   padding-top: 24px;
   padding-bottom: 64px;
@@ -2781,10 +3176,17 @@ $font-family-base: 'Mont', sans-serif;
 </file>
 
 <file path="src/App.tsx">
-import './App.scss';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { HomePage } from './modules/HomePage/components';
 import { Footer } from './shared/components/Footer';
 import { Header } from './shared/components/Header/Header';
+import { PhonesPage } from './modules/PhonesPage';
+import { TabletsPage } from './modules/TabletsPage';
+import { AccessoriesPage } from './modules/AccessoriesPage';
+import { NotFoundPage } from './modules/NotFoundPage';
+import { FavoritesPage } from './modules/FavoritesPage/components';
+import { CartPage } from './modules/CartPage';
+import './App.scss';
 
 export const App = () => {
   return (
@@ -2793,8 +3195,18 @@ export const App = () => {
 
       <main className="main">
         <h1 className="visually-hidden">Product Catalog</h1>
+        <Routes>
+          <Route index element={<HomePage />} />
+          <Route path='/phones' element={<PhonesPage />} />
+          <Route path='/tablets' element={<TabletsPage />} />
+          <Route path='/accessories' element={<AccessoriesPage />} />
+          <Route path='/favorites' element={<FavoritesPage />} />
+          <Route path='/cart' element={<CartPage />} />
 
-        <HomePage />
+          <Route path='/home' element={<Navigate to='/' replace />} />
+          <Route path='*' element={<NotFoundPage />} />
+        </Routes>
+
       </main>
 
       <Footer />

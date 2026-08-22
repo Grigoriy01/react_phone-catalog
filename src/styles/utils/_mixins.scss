@@ -95,12 +95,22 @@
   @content;
 }
 
-@mixin padding-block-content($top: 56px) {
-  padding-top: 24px;
-  padding-bottom: 64px;
+@mixin error-button {
+  @include base-button(120px, 40px, 8px) {
+    @extend %button-text;
+
+    color: $color-primary;
+    background-color: $color-hover-bg;
+  }
+}
+
+@mixin padding-block-content($top: 24px) {
+  padding-top: $top;
+  padding-bottom: 56px;
 
   @include on-tablet {
-    padding-top: 32px;
+    padding-top: $top;
+    padding-bottom: 64px;
   }
 
   @include on-desktop {

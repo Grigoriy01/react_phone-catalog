@@ -1,0 +1,61 @@
+@use '../../../styles/utils' as *;
+
+.breadcrumbs {
+  padding-bottom: 24px;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+    // Все элементы, кроме первого (с домиком), получают стрелочку слева
+    &:not(:first-child) {
+      &::before {
+        content: '';
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 8px;
+        flex-shrink: 0;
+
+        // Вставляем маску для SVG, чтобы управлялся цвет через background-color
+        background-color: $color-icons;
+        mask: url('/src/shared/assets/arrow-right/arrow-right.svg') no-repeat
+          center / contain;
+        -webkit-mask: url('/src/shared/assets/arrow-right/arrow-right.svg')
+          no-repeat center / contain;
+      }
+    }
+  }
+
+  &__link {
+    @extend %small-text; // Твой типографический стилизатор 12px / Mont SemiBold[cite: 2]
+
+    color: $color-primary; // Основной цвет текста
+    display: flex;
+    align-items: center;
+    transition: color $transition-duration ease;
+
+    &:hover {
+      color: $color-secondary; // Меняем цвет при наведении[cite: 1]
+    }
+
+    svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+      fill: currentColor; // Окрашивает иконку Home в цвет текста
+    }
+  }
+
+  &__current {
+    @extend %small-text; // Твой типографический стилизатор[cite: 2]
+
+    color: $color-secondary; // Активный элемент серым цветом по макету[cite: 1]
+  }
+}

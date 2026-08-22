@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext} from 'react';
 import { Product } from '../../types';
 import FavoriteIconDefault from '../../assets/hearts/heart-default.svg?react';
 import FavoriteIconSelected from '../../assets/hearts/heart-selected.svg?react';
@@ -7,18 +7,17 @@ import { IconButton } from '../Buttons/components/IconButton';
 import { ActionButton } from '../Buttons/components/ActionButton';
 
 import './ProductCard.scss';
+import { useFavorites } from '../../context/FavoriteContext';
 
 type Props = {
   product: Product;
 };
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite, toggleFavorite } = useFavorites();
 
-  const handleFavoriteClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsFavorite(prev => !prev);
-  };
+  const isProductFavorite = isFavorite(product.id);
+  console.log('boolen status:', isProductFavorite)
 
   return (
     <article className="product-card">
@@ -74,9 +73,10 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         <IconButton
           className="product-card__btn-favorite"
           aria-label="Add to favorites"
-          onClick={handleFavoriteClick}
-        >
-          {isFavorite ? (
+          onClick={() => toggleFavorite(product)}
+
+          >
+          {isProductFavorite ? (
             <FavoriteIconSelected className="product-card__favorite-icon" />
           ) : (
             <FavoriteIconDefault className="product-card__favorite-icon" />

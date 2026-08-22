@@ -1,0 +1,51 @@
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+import './BreadcrumbsNav.scss';
+
+type Props = {
+  productName?: string;
+};
+
+export const BreadcrumbsNav: React.FC<Props> = ({ productName }) => {
+  const location = useLocation();
+
+  const pathName = location.pathname.split('/').filter(Boolean);
+
+  const categoryPathName = pathName[0];
+
+  const categoryName = categoryPathName
+    ? categoryPathName.charAt(0).toUpperCase() + categoryPathName.slice(1)
+    : '';
+
+  return (
+    <nav className="breadcrumbs" aria-label="breadcrumbs">
+      <ol className="breadcrumbs__list">
+        <li className="breadcrumbs__item">
+          <Link to="/" className="breadcrumbs__link">
+            <img
+              src="/img/icons/home-icon/home.svg"
+              className="breadcrumbs__icon"
+            />
+          </Link>
+        </li>
+
+        <li className="breadcrumbs__item">
+          {categoryPathName ? (
+            <Link to={`/${categoryPathName}`} className="breadcrumbs__link">
+              {categoryName}
+            </Link>
+          ) : (
+            <span className="breadcrumbs__current">{categoryName}</span>
+          )}
+        </li>
+
+        {productName && (
+          <li className="breadcrumbs__item">
+            <span className="breadcrumbs__current">{productName}</span>
+          </li>
+        )}
+      </ol>
+    </nav>
+  );
+};
