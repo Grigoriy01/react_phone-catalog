@@ -1,16 +1,7 @@
 @use '../../../styles/utils/' as *;
 
 .favorites-page {
-  @extend %content-width;
   @include padding-block-content;
-
-  @include on-tablet {
-    padding: 0 24px;
-  }
-
-  @include on-desktop {
-    padding: 0 32px;
-  }
 
   &__title {
     @extend %h1-title;
