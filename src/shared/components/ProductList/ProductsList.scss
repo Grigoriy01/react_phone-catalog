@@ -1,0 +1,18 @@
+@use '../../../styles/utils/' as *;
+
+.products-list {
+  display: grid;
+  gap: 40px;
+
+  grid-template-columns: repeat(auto-fill, minmax(212px, 287px));
+
+  justify-content: center;
+
+  @include on-tablet {
+    column-gap: 16px;
+  }
+
+  @include on-desktop {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

@@ -7,13 +7,12 @@
     display: flex;
     align-items: center;
     gap: 8px;
+  }
 
   &__item {
     display: flex;
     align-items: center;
-  }
 
-    // Все элементы, кроме первого (с домиком), получают стрелочку слева
     &:not(:first-child) {
       &::before {
         content: '';
@@ -22,27 +21,31 @@
         height: 16px;
         margin-right: 8px;
         flex-shrink: 0;
+        background-color: $color-secondary-grau;
 
         // Вставляем маску для SVG, чтобы управлялся цвет через background-color
         background-color: $color-icons;
-        mask: url('/src/shared/assets/arrow-right/arrow-right.svg') no-repeat
+        mask: url('@/shared/assets/arrow-right/arrow-right.svg') no-repeat
           center / contain;
-        -webkit-mask: url('/src/shared/assets/arrow-right/arrow-right.svg')
+        -webkit-mask: url('@/shared/assets/arrow-right/arrow-right.svg')
           no-repeat center / contain;
       }
     }
   }
 
+  // Все элементы, кроме первого (с домиком), получают стрелочку слева
+
   &__link {
     @extend %small-text; // Твой типографический стилизатор 12px / Mont SemiBold[cite: 2]
 
-    color: $color-primary; // Основной цвет текста
+    font-size: 12px;
+    color: $color-secondary-grau; // Основной цвет текста
     display: flex;
     align-items: center;
     transition: color $transition-duration ease;
 
     &:hover {
-      color: $color-secondary; // Меняем цвет при наведении[cite: 1]
+      color: $color-primary; // Меняем цвет при наведении[cite: 1]
     }
 
     svg {
@@ -51,11 +54,17 @@
       height: 16px;
       fill: currentColor; // Окрашивает иконку Home в цвет текста
     }
+
+    &--page-name {
+      transform: translateY(1px);
+    }
   }
 
   &__current {
     @extend %small-text; // Твой типографический стилизатор[cite: 2]
 
-    color: $color-secondary; // Активный элемент серым цветом по макету[cite: 1]
+    font-size: 12px;
+    transform: translateY(1px);
+    color: $color-secondary-grau; // Активный элемент серым цветом по макету[cite: 1]
   }
 }

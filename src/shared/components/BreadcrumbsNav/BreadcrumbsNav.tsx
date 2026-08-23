@@ -31,8 +31,8 @@ export const BreadcrumbsNav: React.FC<Props> = ({ productName }) => {
         </li>
 
         <li className="breadcrumbs__item">
-          {categoryPathName ? (
-            <Link to={`/${categoryPathName}`} className="breadcrumbs__link">
+          {productName ? (
+            <Link to={`/${categoryPathName}`} className="breadcrumbs__link breadcrumbs__link--page-name">
               {categoryName}
             </Link>
           ) : (

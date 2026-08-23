@@ -1,1 +1,1 @@
-export './ProductList.tsx' as *;
+export * from './ProductsList.scss';

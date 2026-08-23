@@ -1,7 +1,9 @@
 @use '../../../../../styles/utils/' as *;
 
 .burger {
-  @include base-button;
+  @include base-button ($has-border: false);
+
+  border-left: 1px solid $color-elements;
 
   cursor: pointer;
   border-bottom: none;

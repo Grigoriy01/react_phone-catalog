@@ -6,28 +6,58 @@
   height: 48px;
 
   &__link {
-    @include base-button(48px) {
-      border-bottom: 0
-
-    };
-
+    @include base-button(48px, $has-border: false);
     @include active-underline;
 
     width: 50%;
-
-     @include on-tablet {
-       width: 48px;
-     }
-
-     @include on-desktop {
-       width: 64px;
-     }
-
     height: 100%;
+
+    border-top: 1px solid $color-elements;
+    border-right: 1px solid $color-elements;
+
+    @include on-tablet {
+      width: 48px;
+    }
+
+    @include on-desktop {
+      width: 64px;
+    }
+
+
+    &--left {
+      @include on-tablet {
+        border-right: 1px solid $color-elements;
+        border-left: 1px solid $color-elements;
+      }
+    }
+  }
+
+  &__wrapper-icon {
+    position: relative;
   }
 
   &__badge-counter {
-    // -
+    position: absolute;
+    top: -6px;
+    right: -6px;
+
+    min-width: 14px;
+
+    @extend %small-text;
+
+    display: grid;
+    place-items: center;
+
+
+    font-weight: 700;
+    font-size: 9px;
+    width: 14px;
+    height: 14px;
+    padding-top: 1px;
+    background-color: $color-secondary;
+    border-radius: 50%;
+    border: 1px solid $color-white;
+    color: $color-white;
   }
 
   @include on-desktop {
