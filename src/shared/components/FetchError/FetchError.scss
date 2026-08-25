@@ -1,30 +1,43 @@
 @use '../../../styles/utils/' as *;
 
-
 .error-message {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
-  text-align: center;
+
+  width: 100%;
+  max-width: 287px; // Ограничиваем шириной одной карточки товара
+  height: 512px;     // Фиксированная высота под размеры карточки
+  margin: 0 auto;    // Центрируем по горизонтали
+  padding: 32px;
+  box-sizing: border-box;
 
   &__image {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    margin-bottom: 24px;
+    height: 196px;
+    width: auto;
+    max-width: 100%;
     object-fit: contain;
+    margin-bottom: 16px; // Фиксируем нижний отступ
   }
 
   &__text {
-    margin-bottom: 24px;
-    font-size: 18px;
+    @extend %small-text; // Используем единый шрифт проекта
+
     color: $color-secondary-grau;
+    text-align: center;
+    margin: 0 0 24px;
+
+    // Ограничиваем высоту текста под 2-3 строки, чтобы кнопка не уезжала
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__button {
     @include error-button;
 
+    margin-top: auto; // Прижимаем кнопку вниз для идеального выравнивания
   }
 }

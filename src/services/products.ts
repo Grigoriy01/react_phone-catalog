@@ -20,7 +20,7 @@ export async function getProducts(): Promise<Product[]> {
   return (await response.json()) as Product[];
 }
 
-export async function getProductsDetails(category: string): Promise<Product[]> {
+export async function getProductDetails(category: string): Promise<Product[]> {
   const response = await fetch(`/api/${category}.json`);
 
   // keep this delay for testing purpose

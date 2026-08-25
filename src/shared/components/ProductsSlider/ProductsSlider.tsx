@@ -11,12 +11,15 @@ import { ProductCardSkeleton } from '../ProductCard/component/ProductCardSkeleto
 import './ProductsSlider.scss';
 import './ProductsSlider.scss';
 import cn from 'classnames';
+import { AsyncData } from './AsyncData';
 
 type Props = {
   isLoading: boolean;
   className?: string;
   title: string;
   products: Product[] | null;
+  hasError: boolean;
+  onRetry: () => void;
 };
 
 export const ProductsSlider: React.FC<Props> = ({
@@ -24,6 +27,8 @@ export const ProductsSlider: React.FC<Props> = ({
   title,
   products,
   isLoading,
+  hasError,
+  onRetry,
 }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -39,62 +44,59 @@ export const ProductsSlider: React.FC<Props> = ({
     <section className={cn('products-slider', className)}>
       <div className="products-slider__header">
         <h2 className="products-slider__title">{title}</h2>
-        <div className="products-slider__navigation">
-          <IconButton
-            className="products-slider__btn products-slider__btn--prev"
-            aria-label="Previous slide"
-            onClick={() => swiperRef.current?.slidePrev()}
-            disabled={isBeginning}
-          >
-            <ArrowIcon className="products-slider__icon" />
-            {/* <img
-              className="products-slider__icon"
-              src="/img/icons/arrow-right.svg"
-              alt="Previous"
-            /> */}
-          </IconButton>
+        {!hasError &&
+          (isLoading ? (
+            <div className="products-slider__navigation-skeleton" />
+          ) : (
+            <div className="products-slider__navigation">
+              <IconButton
+                className="products-slider__btn products-slider__btn--prev"
+                aria-label="Previous slide"
+                onClick={() => swiperRef.current?.slidePrev()}
+                disabled={isBeginning}
+              >
+                <ArrowIcon className="products-slider__icon" />
+              </IconButton>
 
-          <IconButton
-            className="products-slider__btn products-slider__btn--next"
-            aria-label="Next slide"
-            onClick={() => swiperRef.current?.slideNext()}
-            disabled={isEnd}
-          >
-            <ArrowIcon className="products-slider__icon" />
-            {/* <img
-              className="products-slider__icon"
-              src="/img/icons/arrow-right.svg"
-              alt="Next"
-            /> */}
-          </IconButton>
-        </div>
+              <IconButton
+                className="products-slider__btn products-slider__btn--next"
+                aria-label="Next slide"
+                onClick={() => swiperRef.current?.slideNext()}
+                disabled={isEnd}
+              >
+                <ArrowIcon className="products-slider__icon" />
+              </IconButton>
+            </div>
+          ))}
       </div>
 
       <div className="products-slider__swiper-wrapper">
-        <Swiper
-          onSwiper={swiper => (swiperRef.current = swiper)}
-          onSlideChange={handleSlideChange}
-          breakpoints={{
-            320: { slidesPerView: 'auto' },
-            640: { slidesPerView: 'auto' },
-            1200: { slidesPerView: 4 },
-          }}
-          //slidesPerView={'auto'}
-          spaceBetween={16}
-          className="styles-mySwiper"
-        >
-          {isLoading
-            ? Array.from({ length: 4 }).map((_, index) => (
-                <SwiperSlide className="mySwiper-slide" key={index}>
-                  <ProductCardSkeleton />
-                </SwiperSlide>
-              ))
-            : (products ?? []).map(product => (
-                <SwiperSlide className="mySwiper-slide" key={product.id}>
-                  <ProductCard product={product} />
-                </SwiperSlide>
-              ))}
-        </Swiper>
+        <AsyncData hasError={hasError} onRetry={onRetry}>
+          <Swiper
+            onSwiper={swiper => (swiperRef.current = swiper)}
+            onSlideChange={handleSlideChange}
+            breakpoints={{
+              320: { slidesPerView: 'auto' },
+              640: { slidesPerView: 'auto' },
+              1200: { slidesPerView: 4 },
+            }}
+            //slidesPerView={'auto'}
+            spaceBetween={16}
+            className="styles-mySwiper"
+          >
+            {isLoading
+              ? Array.from({ length: 4 }).map((_, index) => (
+                  <SwiperSlide className="mySwiper-slide" key={index}>
+                    <ProductCardSkeleton />
+                  </SwiperSlide>
+                ))
+              : (products ?? []).map(product => (
+                  <SwiperSlide className="mySwiper-slide" key={product.id}>
+                    <ProductCard product={product} />
+                  </SwiperSlide>
+                ))}
+          </Swiper>
+        </AsyncData>
       </div>
     </section>
   );

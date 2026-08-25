@@ -8,6 +8,8 @@ import { AccessoriesPage } from './modules/AccessoriesPage';
 import { NotFoundPage } from './modules/NotFoundPage';
 import { FavoritesPage } from './modules/FavoritesPage/components';
 import { CartPage } from './modules/CartPage';
+import { ProductDetailsPage } from './modules/ProductDetailsPage';
+
 import './App.scss';
 
 export const App = () => {
@@ -24,6 +26,7 @@ export const App = () => {
           <Route path='/accessories' element={<AccessoriesPage />} />
           <Route path='/favorites' element={<FavoritesPage />} />
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/:category/:productId' element={<ProductDetailsPage />} />
 
           <Route path='/home' element={<Navigate to='/' replace />} />
           <Route path='*' element={<NotFoundPage />} />

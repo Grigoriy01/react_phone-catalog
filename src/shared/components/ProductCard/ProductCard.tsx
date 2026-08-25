@@ -1,37 +1,32 @@
-import React, { useContext} from 'react';
+import React from 'react';
 import { Product } from '../../types';
-import FavoriteIconDefault from '../../assets/hearts/heart-default.svg?react';
-import FavoriteIconSelected from '../../assets/hearts/heart-selected.svg?react';
-
-import { IconButton } from '../Buttons/components/IconButton';
-import { ActionButton } from '../Buttons/components/ActionButton';
+import { Link } from 'react-router-dom';
 
 import './ProductCard.scss';
-import { useFavorites } from '../../context/FavoriteContext';
+import { ProductActions } from '../ProductActions';
+import { ProductSpecs } from '../ProductSpecs';
 
 type Props = {
   product: Product;
 };
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
-  const { isFavorite, toggleFavorite } = useFavorites();
-
-  const isProductFavorite = isFavorite(product.id);
-  console.log('boolen status:', isProductFavorite)
 
   return (
     <article className="product-card">
       {/* 1. Изображение товара */}
-      <div className="product-card__image-container">
+      <Link to={`/${product.category}/${product.itemId}`} className="product-card__image-container">
         <img
           src={product.image}
           alt={product.name}
           className="product-card__image"
         />
-      </div>
+      </Link>
 
       {/* 2. Наименование продукта */}
-      <h3 className="product-card__title">{product.name}</h3>
+      <h3 className="product-card__title">
+        <Link to={`/${product.category}/${product.itemId}`}>{product.name}</Link>
+      </h3>
 
       {/* 3. Блок цен */}
       <div className="product-card__price-block">
@@ -47,7 +42,8 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
       <div className="product-card__divider" />
 
       {/* 4. Блок характеристик */}
-      <div className="product-card__specs">
+      <ProductSpecs product={product} className="product-card__specs" />
+      {/* <div className="product-card__specs">
         <div className="product-card__spec-row">
           <span className="product-card__spec-name">Screen</span>
           <span className="product-card__spec-value">{product.screen}</span>
@@ -60,10 +56,11 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           <span className="product-card__spec-name">RAM</span>
           <span className="product-card__spec-value">{product.ram}</span>
         </div>
-      </div>
+      </div> */}
 
-      {/* 5. Блок действий (кнопки) */}
-      <div className="product-card__actions">
+      {/* (кнопки) */}
+      <ProductActions product={product} className="product-card__actions" />
+      {/* <div className="product-card__actions">
         <ActionButton
           className="product-card__btn-add"
           aria-label="Add to cart"
@@ -74,15 +71,14 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
           className="product-card__btn-favorite"
           aria-label="Add to favorites"
           onClick={() => toggleFavorite(product)}
-
-          >
+        >
           {isProductFavorite ? (
             <FavoriteIconSelected className="product-card__favorite-icon" />
           ) : (
             <FavoriteIconDefault className="product-card__favorite-icon" />
           )}
         </IconButton>
-      </div>
+      </div> */}
     </article>
   );
 };

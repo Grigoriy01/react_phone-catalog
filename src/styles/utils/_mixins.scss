@@ -124,3 +124,155 @@
   border-radius: 4px;
   animation: skeleton-glow 1.5s ease-in-out infinite;
 }
+
+// @mixin product-card-base {
+//   box-sizing: border-box;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+//   padding: 32px;
+//   border: 1px solid $color-elements;
+//   border-radius: 8px;
+//   height: 100%;
+//   background-color: $color-surface-1;
+
+//   &__image-container {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     width: 100%;
+//     height: 196px;
+//     flex-shrink: 0;
+//   }
+
+//   &__divider {
+//     border: none;
+//     border-top: 1px solid $color-elements;
+//     margin: 0;
+//   }
+
+//   &__price-block {
+//     display: flex;
+//     align-items: center;
+//     height: 31px; // Фиксированная высота блока цены
+//   }
+
+//   &__actions {
+//     display: flex;
+//     align-items: center;
+//     margin-top: auto; // Прижимает кнопки к низу
+//     height: 40px; // Фиксированная высота блока кнопок
+//   }
+
+// }
+
+// @mixin product-specs-base {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 8px;
+
+//   &__row {
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     height: 16px;
+//   }
+
+//   &__name {
+//     @extend %small-text;
+//   }
+
+//   &__value {
+//     @extend %small-text;
+
+//     font-weight: 700;
+//     color: $color-primary;
+//   }
+// }
+@mixin product-specs-base {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 16px;
+  }
+
+  &__name {
+    @extend %small-text;
+  }
+
+  &__value {
+    @extend %small-text;
+
+    font-weight: 700;
+    color: $color-primary;
+  }
+}
+
+@mixin product-card-base {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 32px;
+  border: 1px solid $color-elements;
+  border-radius: 8px;
+  height: 100%;
+  background-color: $color-surface-1;
+
+  &__image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 196px;
+    flex-shrink: 0;
+  }
+
+  &__divider {
+    border: none;
+    border-top: 1px solid $color-elements;
+    margin: 0;
+  }
+
+  // Задаем внутренний отступ контейнеру
+  &__specs {
+    padding-block: 8px;
+
+    // Подключаем стили для внутренних элементов ProductSpecs
+    .product-specs__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 16px;
+    }
+
+    .product-specs__name {
+      @extend %small-text;
+    }
+
+    .product-specs__value {
+      @extend %small-text;
+
+      font-weight: 700;
+      color: $color-primary;
+    }
+  }
+
+  &__price-block {
+    display: flex;
+    align-items: center;
+    height: 31px;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    height: 40px;
+  }
+}
