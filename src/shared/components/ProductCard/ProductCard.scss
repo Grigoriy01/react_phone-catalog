@@ -25,19 +25,5 @@
     margin: 0;
   }
 
-  &__price {
-    font-family: $font-family-base;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 1;
-
-    &--old {
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 1;
-      margin-left: 8px;
-      color: $color-secondary-grau;
-      text-decoration: line-through;
-    }
-  }
+  
 }

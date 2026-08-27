@@ -2,22 +2,22 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 type Props = {
-  catalogName?: string;
+  catalogTitle?: string;
 };
 
-export const BackHeader: React.FC<Props> = ({ catalogName }) => {
+export const BackHeader: React.FC<Props> = ({ catalogTitle }) => {
   const navigate = useNavigate();
 
   const handelBack = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <div className="back-header">
-      <button className="back-header__btn" type='button' onClick={handelBack}>
+      <button className="back-header__btn" type="button" onClick={handelBack}>
         Back
       </button>
-      <h1 className="back-header__title">{catalogName}</h1>
+      <h1 className="back-header__title">{catalogTitle}</h1>
     </div>
   );
 };

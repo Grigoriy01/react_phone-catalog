@@ -2,20 +2,24 @@ import React from 'react';
 import { Product } from '../../types';
 import { Link } from 'react-router-dom';
 
-import './ProductCard.scss';
 import { ProductActions } from '../ProductActions';
 import { ProductSpecs } from '../ProductSpecs';
+import { ProductPrice } from '../ProductPrice';
+
+import './ProductCard.scss';
 
 type Props = {
   product: Product;
 };
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
-
   return (
     <article className="product-card">
       {/* 1. Изображение товара */}
-      <Link to={`/${product.category}/${product.itemId}`} className="product-card__image-container">
+      <Link
+        to={`/${product.category}/${product.itemId}`}
+        className="product-card__image-container"
+      >
         <img
           src={product.image}
           alt={product.name}
@@ -25,18 +29,17 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
 
       {/* 2. Наименование продукта */}
       <h3 className="product-card__title">
-        <Link to={`/${product.category}/${product.itemId}`}>{product.name}</Link>
+        <Link to={`/${product.category}/${product.itemId}`}>
+          {product.name}
+        </Link>
       </h3>
 
       {/* 3. Блок цен */}
-      <div className="product-card__price-block">
-        <span className="product-card__price product-card__price--current">
-          ${product.price}
-        </span>
-        <s className="product-card__price product-card__price--old">
-          ${product.fullPrice}
-        </s>
-      </div>
+      <ProductPrice
+        className="product-card__price-block"
+        price={product.price}
+        fullPrice={product.fullPrice}
+      />
 
       {/* Разделитель по дизайну, если нужен */}
       <div className="product-card__divider" />

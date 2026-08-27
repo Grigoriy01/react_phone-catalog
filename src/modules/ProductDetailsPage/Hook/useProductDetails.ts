@@ -14,9 +14,9 @@ export function useProductDetails(productId?: string, category?: string) {
     setHasError(false);
 
     try {
-      const product = await getProductDetails(category);
+      const products = await getProductDetails(category);
 
-      const found = product.find(
+      const found = products.find(
         p => p.id === productId || p.itemId === productId,
       );
       if (found) {
