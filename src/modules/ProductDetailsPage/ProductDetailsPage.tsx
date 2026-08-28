@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
-import { BackHeader } from '@/shared/components/BackHeader';
-import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProductDetails } from './Hook';
+import { useProducts } from '../HomePage/components/Hook/useProducts';
+import { getSuggestedProducts } from '@/utils';
+import { Product } from '@/shared/types';
 import cn from 'classnames';
 
-import './ProductDetailsPage.scss';
-import { useProducts } from '../HomePage/components/Hook/useProducts';
-
-import { ProductActions } from '@/shared/components/ProductActions';
-import { Product } from '@/shared/types';
-import { ProductPrice } from '@/shared/components/ProductPrice';
-import { ProductSpecs } from '@/shared/components/ProductSpecs';
 import { AsyncData } from '@/shared/components/ProductsSlider/AsyncData';
+import { BackHeader } from '@/shared/components/BackHeader';
+import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
+import { ProductActions } from '@/shared/components/ProductActions';
+import { ProductPrice } from '@/shared/components/ProductPrice';
 import { ProductDetailsSkeleton } from './ProductDetailsSkeleton';
+import { ProductsSlider } from '@/shared/components/ProductsSlider';
+
+import './ProductDetailsPage.scss';
 
 export const ProductDetailsPage = () => {
   const { productId, category } = useParams<{
@@ -21,16 +22,13 @@ export const ProductDetailsPage = () => {
     category: string;
   }>();
 
-  const navigate = useNavigate();
-
+  const { products } = useProducts();
   const { isLoading, hasError, product, loadData } = useProductDetails(
     productId,
     category,
   );
-  // !!!console.log('Current Product:', product)
 
-  const { products } = useProducts();
-
+  const navigate = useNavigate();
   const [selectedImg, setSelectedImg] = useState(product?.images[0]);
   const [selectedColor, setSelectedColor] = useState(
     product?.colorsAvailable[0],
@@ -74,6 +72,8 @@ export const ProductDetailsPage = () => {
       navigate(`/${category}/${selectedProduct.itemId}`);
     }
   };
+
+  
 
   return (
     <section className="product-details container">
@@ -289,7 +289,11 @@ export const ProductDetailsPage = () => {
             <section className="product-details__recommended">
               <ProductsSlider
                 title="You may also like"
-                products={recommendedProducts}
+                products={getSuggestedProducts(products, product!.id)}
+                className="product-details__recommended"
+                hasError={hasError}
+                onRetry={loadData}
+                isLoading={isLoading}
               />
             </section>
           </>
