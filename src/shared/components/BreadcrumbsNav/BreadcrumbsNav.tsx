@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import homeIcon from '@/shared/assets/icons/home-icon/home.svg'
 
 import './BreadcrumbsNav.scss';
 
@@ -24,7 +25,7 @@ export const BreadcrumbsNav: React.FC<Props> = ({ productName }) => {
         <li className="breadcrumbs__item">
           <Link to="/" className="breadcrumbs__link">
             <img
-              src="/img/icons/home-icon/home.svg"
+              src={homeIcon}
               className="breadcrumbs__icon"
             />
           </Link>

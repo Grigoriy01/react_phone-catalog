@@ -22,7 +22,7 @@ export const ShopByCategory = () => {
           <div className="shop-by-category__img-wrapper">
             <img
               className="shop-by-category__img"
-              src="/public/img/category-accessories.png"
+              src={`${import.meta.env.BASE_URL}img/category-accessories.png`}
               alt="Accessories"
             />
           </div>

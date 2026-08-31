@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import cn from 'classnames';
+import logoIcon from '@/shared/assets/icons/logo/logo-light.svg'
 import './Logo.scss';
 
 type Props = {
@@ -11,7 +12,7 @@ export const Logo: React.FC<Props> = ({className}) => {
     className={cn(`logo ${className || ''}`)}
     to="/ "
     >
-      <img src="../public/img/logo/logo-light.svg" className="logo__img" alt="logo" />
+      <img src={logoIcon} className="logo__img" alt="logo" />
     </Link>
   );
 };

@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
-import cn from 'classnames';
-
-import './HaederActions.scss';
-
 import { useFavorites } from '@/shared/context/FavoriteContext';
+import cn from 'classnames';
+import favoriteIcon from '@/shared/assets/icons/icon-favorite.svg'
+import cartIcon from '@/shared/assets/icons/icon-cart.svg'
 
-export const HaederActions = () => {
+import './HeaderActions.scss';
+
+
+export const HeaderActions = () => {
   const { pathname } = useLocation();
   const { favorites } = useFavorites();
 
@@ -23,7 +25,7 @@ export const HaederActions = () => {
         <div className="header-actions__wrapper-icon">
           <img
             className="header-actions__icon"
-            src="/img/icons/icon-favorite.svg"
+            src={favoriteIcon}
           />
           {countProducts > 0 && (
             <span className="header-actions__badge-counter">
@@ -42,7 +44,7 @@ export const HaederActions = () => {
         <div className="header-actions__wrapper-icon">
           <img
             className="header-actions__icon"
-            src="/img/icons/icon-cart.svg"
+            src={cartIcon}
           />
 
           <span className="header-actions__badge-counter"></span>

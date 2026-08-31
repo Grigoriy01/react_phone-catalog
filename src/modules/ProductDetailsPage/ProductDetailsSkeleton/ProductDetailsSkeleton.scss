@@ -49,6 +49,7 @@
 
   &__thumb {
     @include skeleton-bg;
+    
     width: 50px;
     height: 50px;
     border-radius: 4px;
@@ -56,6 +57,7 @@
 
   &__main-image {
     @include skeleton-bg;
+
     width: 100%;
     height: 300px;
     border-radius: 8px;
@@ -92,6 +94,7 @@
 
   &__color-btn {
     @include skeleton-bg;
+
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -107,11 +110,13 @@
 
   &__capacity {
     @include divider;
+
     padding-block: 24px;
   }
 
   &__capacity-btn {
     @include skeleton-bg;
+
     width: 64px;
     height: 32px;
     border-radius: 4px;
@@ -119,6 +124,7 @@
 
   &__price-block {
     @include divider;
+
     display: flex;
     align-items: center;
     padding: 32px 0 16px;
@@ -142,6 +148,7 @@
     justify-content: space-between;
     align-items: center;
   }
+
   // #endregion
 
   // #region Элементы плашек (Skeleton Elements)
@@ -203,6 +210,7 @@
       }
     }
   }
+
   // #endregion
 
   // #region Нижний блок (About + Tech specs)
@@ -243,5 +251,6 @@
   &__description {
     margin-bottom: 24px;
   }
+
   // #endregion
 }

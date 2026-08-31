@@ -2,8 +2,8 @@ import React from 'react';
 import { Product } from '../../types';
 import { IconButton } from '../Buttons/components/IconButton';
 import { ActionButton } from '../Buttons/components/ActionButton';
-import FavoriteIconDefault from '../../assets/hearts/heart-default.svg?react';
-import FavoriteIconSelected from '../../assets/hearts/heart-selected.svg?react';
+import FavoriteIconDefault from '@/shared/assets/icons/hearts/heart-default.svg?react';
+import FavoriteIconSelected from '@/shared/assets/icons/hearts/heart-selected.svg?react';
 import { useFavorites } from '../../context/FavoriteContext';
 
 import './ProductActions.scss';

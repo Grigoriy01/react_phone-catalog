@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { Logo } from '../Logo/Logo';
-import { HaederActions } from './components/HaederActions';
+import { HeaderActions } from './components/HeaderActions';
 import { SearchField } from './components/SearchField/SearchField';
 import { Burger } from './components/Burger';
 import { BurgerMenu } from './components/BurgerMenu';
@@ -78,7 +78,7 @@ export const Header = () => {
         </div>
         {isSearchVisible && <SearchField />}
         <div className="header__desktop-actions">
-          <HaederActions />
+          <HeaderActions />
         </div>
 
         <Burger

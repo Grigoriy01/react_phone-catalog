@@ -1,17 +1,17 @@
 import React, { useRef, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import ArrowIcon from '@/shared/assets/arrow-right/arrow-right.svg?react';
+import { AsyncData } from './AsyncData';
 
 import { IconButton } from '../Buttons/components/IconButton';
 import { ProductCard } from '../ProductCard';
 import { Product } from '../../types';
 import { ProductCardSkeleton } from '../ProductCard/component/ProductCardSkeleton/ProductCardSkeleton';
 
+import { ArrowIcon } from '@/shared/assets/icons/arrow-right';
 import './ProductsSlider.scss';
 import './ProductsSlider.scss';
 import cn from 'classnames';
-import { AsyncData } from './AsyncData';
 
 type Props = {
   isLoading: boolean;
@@ -80,7 +80,7 @@ export const ProductsSlider: React.FC<Props> = ({
               640: { slidesPerView: 'auto' },
               1200: { slidesPerView: 4 },
             }}
-            //slidesPerView={'auto'}
+
             spaceBetween={16}
             className="styles-mySwiper"
           >

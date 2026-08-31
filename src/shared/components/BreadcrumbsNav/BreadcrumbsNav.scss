@@ -1,5 +1,6 @@
 @use '../../../styles/utils' as *;
 
+
 .breadcrumbs {
   padding-bottom: 24px;
 
@@ -25,9 +26,9 @@
 
         // Вставляем маску для SVG, чтобы управлялся цвет через background-color
         background-color: $color-icons;
-        mask: url('@/shared/assets/arrow-right/arrow-right.svg') no-repeat
+        mask: url('../../assets/icons/arrow-right/arrow-right.svg') no-repeat
           center / contain;
-        -webkit-mask: url('@/shared/assets/arrow-right/arrow-right.svg')
+        -webkit-mask: url('../../assets/icons/arrow-right/arrow-right.svg')
           no-repeat center / contain;
       }
     }
@@ -56,6 +57,7 @@
     }
 
     &--page-name {
+      color: $color-primary;
       transform: translateY(1px);
     }
   }

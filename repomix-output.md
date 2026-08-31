@@ -87,6 +87,10 @@ src/
       Hook/
         index.ts
         useProductDetails.ts
+      ProductDetailsSkeleton/
+        index.ts
+        ProductDetailsSkeleton.scss
+        ProductDetailsSkeleton.tsx
       index.ts
       ProductDetailsPage.scss
       ProductDetailsPage.tsx
@@ -105,6 +109,10 @@ src/
         heart-selected.svg
     components/
       BackHeader/
+        BackHeaderSkeleton/
+          BackHeaderSkeleton.scss
+          BackHeaderSkeleton.tsx
+          index.ts
         BackHeader.scss
         BackHeader.tsx
         index.ts
@@ -234,61 +242,6 @@ src/
 
 <files>
 This section contains the contents of the repository's files.
-
-<file path="src/shared/components/ProductPrice/index.ts">
-export * from './ProductPrice';
-</file>
-
-<file path="src/shared/components/ProductPrice/ProductPrice.scss">
-@use '../../../styles/utils/' as *;
-
-.product-price {
-
-  &__price {
-    font-family: $font-family-base;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 1;
-
-    &--old {
-      font-weight: 500;
-      font-size: 22px;
-      line-height: 1;
-      margin-left: 8px;
-      color: $color-secondary-grau;
-      text-decoration: line-through;
-    }
-  }
-}
-</file>
-
-<file path="src/shared/components/ProductPrice/ProductPrice.tsx">
-import React from 'react';
-
-import './ProductPrice.scss';
-
-type Props = {
-  price: number;
-  fullPrice: number;
-  className?: string;
-};
-export const ProductPrice: React.FC<Props> = ({
-  price,
-  fullPrice,
-  className = '',
-}) => {
-  return (
-    <div className={`"product-price" ${className}`.trim()}>
-      <span className="product-price__price product-price__price--current">
-        ${price}
-      </span>
-      <span className="product-price__price product-price__price--old">
-        ${fullPrice}
-      </span>
-    </div>
-  );
-};
-</file>
 
 <file path="src/modules/AccessoriesPage/AccessoriesPage.scss">
 // -
@@ -425,263 +378,12 @@ export const PhonesPage = () => {
 export * from './useProductDetails';
 </file>
 
-<file path="src/modules/ProductDetailsPage/Hook/useProductDetails.ts">
-import { useEffect, useState } from 'react';
-import { ProductDetails } from '@/shared/types';
-import { getProductDetails } from '@/services/products';
-
-export function useProductDetails(productId?: string, category?: string) {
-  const [product, setProduct] = useState<ProductDetails | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-
-  const fetchData = async () => {
-    if (!productId || !category) return;
-
-    setIsLoading(true);
-    setHasError(false);
-
-    try {
-      const products = await getProductDetails(category);
-
-      const found = products.find(
-        p => p.id === productId || p.itemId === productId,
-      );
-      if (found) {
-        setProduct(found as unknown as ProductDetails);
-      } else {
-        setHasError(true);
-      }
-    } catch {
-      setHasError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, [productId, category]);
-
-  return {
-    product,
-    isLoading,
-    hasError,
-  };
-}
+<file path="src/modules/ProductDetailsPage/ProductDetailsSkeleton/index.ts">
+export * from './ProductDetailsSkeleton';
 </file>
 
 <file path="src/modules/ProductDetailsPage/index.ts">
 export * from './ProductDetailsPage'
-</file>
-
-<file path="src/modules/ProductDetailsPage/ProductDetailsPage.scss">
-@use '../../styles/utils/' as *;
-
-.product-details {
-  @include padding-block-content;
-}
-</file>
-
-<file path="src/modules/ProductDetailsPage/ProductDetailsPage.tsx">
-import { useEffect, useState } from 'react';
-import { BackHeader } from '@/shared/components/BackHeader';
-import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useProductDetails } from './Hook';
-import cn from 'classnames';
-
-import './ProductDetailsPage.scss';
-import { useProducts } from '../HomePage/components/Hook/useProducts';
-
-import { ProductActions } from '@/shared/components/ProductActions';
-import { Product } from '@/shared/types';
-import { ProductPrice } from '@/shared/components/ProductPrice';
-
-export const ProductDetailsPage = () => {
-  const { productId, category } = useParams<{
-    productId: string;
-    category: string;
-  }>();
-
-  const navigate = useNavigate();
-
-  const { isLoading, hasError, product } = useProductDetails(
-    productId,
-    category,
-  );
-  // !!!console.log('Current Product:', product)
-
-  const { products } = useProducts();
-
-  const [selectedImg, setSelectedImg] = useState(product?.images[0]);
-  const [selectedColor, setSelectedColor] = useState(
-    product?.colorsAvailable[0],
-  );
-  const [selectedCapacity, setSelectedCapacity] = useState(
-    product?.capacityAvailable[0],
-  );
-
-  useEffect(() => {
-    if (product) {
-      setSelectedImg(product.images[0]);
-      setSelectedColor(product.color);
-      setSelectedCapacity(product.capacity);
-    }
-  }, [product]);
-
-  const handleColorChenge = (newColor: string) => {
-    if (!product) return;
-
-    const selectedProduct = products.find(
-      item =>
-        item.itemId.includes(product.namespaceId) &&
-        item.itemId.includes(newColor) &&
-        item.itemId.includes(product.capacity.toLowerCase()),
-    );
-
-    if (selectedProduct) {
-      navigate(`/${category}/${selectedProduct.itemId}`);
-    }
-  };
-
-  const handleCapacityChenge = (newCapacity: string) => {
-    const selectedProduct = products.find(
-      item =>
-        item.capacity === newCapacity &&
-        item.itemId === product?.id &&
-        item.color === product.color,
-    );
-
-    if (selectedProduct) {
-      navigate(`/${category}/${selectedProduct.itemId}`);
-    }
-  };
-
-  return (
-    <section className="product-details container">
-      <BreadcrumbsNav productName={product?.name} />
-      <BackHeader catalogTitle={product?.name} />
-
-      <div className="product-details__main">
-        {/* Галерея картинок */}
-        <section className="product-details__gallery">
-          <div className="product-details__thumbnails">
-            {/* Кнопка превью картинки (выбирается через state) */}
-            {product?.images.map((img, index) => (
-              <button
-                key={index}
-                type="button"
-                className={cn('product-details__thumb', {
-                  'product-details__thumb--active': selectedImg === img,
-                })}
-                onClick={() => setSelectedImg(img)}
-              >
-                <img src={img} alt={`{product.name}  view ${index + 1}`} />
-              </button>
-            ))}
-          </div>
-
-          {/* Главное увеличенное фото */}
-          <div className="product-details__main-image">
-            <img src={selectedImg} alt={product?.name} />
-          </div>
-        </section>
-
-        {/* Опции и покупка */}
-        <section className="product-details__actions">
-          {/* Выбор цвета */}
-          <div className="product-details__colors">
-            ""
-            <div className="product-details__wrapper-label">
-              <span className="product-details__label">Available colors</span>
-              <span className="product-details__id-product">ID: 802390</span>
-            </div>
-            <div className="product-details__color-list">
-              {product?.colorsAvailable.map(color => {
-                const isSelected = selectedColor === color;
-
-                return (
-                  <button
-                    key={color}
-                    type="button"
-                    className={cn('product-details__color-btn', {
-                      'product-details__color-btn--active': isSelected,
-                    })}
-                    style={{ background: color }}
-                    onClick={() => handleColorChenge(color)}
-                    aria-label=""
-                  ></button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="product-details__divider" />
-
-          {/* Выбор объема памяти */}
-          <div className="product-details__capacity">
-            <span className="product-details__label">Select capacity</span>
-            <div className="product-details__capacity-list">
-              {product?.capacityAvailable.map(capacity => {
-                const isSelected = selectedCapacity === capacity;
-
-                return (
-                  <button
-                    key={capacity}
-                    type="button"
-                    className={cn('product-details__capacity-btn', {
-                      'product-details__capacity-btn--active': isSelected,
-                    })}
-                    onClick={() => handleCapacityChenge(capacity)}
-                    aria-label=""
-                  >
-                    {selectedCapacity}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          <div className="product-details__divider" />
-
-          {/* Цена */}
-          <ProductPrice
-            className="product-details__price-block"
-            price={product?.priceDiscount ?? 0}
-            fullPrice={product?.priceRegular ?? 0}
-          />
-
-          {/* Кнопки действия */}
-          <ProductActions
-            product={product as unknown as Product}
-            className="product-details__buttons"
-          />
-
-          {/* Краткие характеристики */}
-          <dl className="product-details__specs-summary">
-            <div className="product-details__specs-item">
-              <dt>Screen</dt>
-              <dd>6.1' Liquid Retina HD</dd>
-            </div>
-            <div className="product-details__specs-item">
-              <dt>Resolution</dt>
-              <dd>1792x828</dd>
-            </div>
-            <div className="product-details__specs-item">
-              <dt>Processor</dt>
-              <dd>Apple A13 Bionic</dd>
-            </div>
-            <div className="product-details__specs-item">
-              <dt>RAM</dt>
-              <dd>4 GB</dd>
-            </div>
-          </dl>
-        </section>
-      </div>
-    </section>
-  );
-};
 </file>
 
 <file path="src/modules/TabletsPage/index.ts">
@@ -721,63 +423,58 @@ export const TabletsPage = () => {
 </svg>
 </file>
 
-<file path="src/shared/components/BackHeader/BackHeader.scss">
-@use '../../../styles/utils/' as *;
+<file path="src/shared/components/BackHeader/BackHeaderSkeleton/BackHeaderSkeleton.scss">
+@use '../../../../styles/utils/' as *;
 
-.back-header {
+.back-header-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+
+  @include on-tablet {
+    margin-bottom: 40px;
+  }
+
   &__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    @include skeleton-bg;
 
-    padding: 0;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-
-    @extend %buttons-text; // Твой стиль текста
-
-    color: $color-primary;
-
-    &::before {
-      content: '';
-      display: block;
-      width: 16px;
-      height: 16px;
-      background: url('/assets/icons/arrow-left.svg') no-repeat center / contain;
-    }
+    width: 60px;
+    height: 16px;
+    border-radius: 4px;
   }
 
   &__title {
-    @extend %h1-title;
+    @include skeleton-bg;
+    
+    width: 280px;
+    height: 32px; // Высота точно соответствует h1-title
+    border-radius: 4px;
+
+    @include on-tablet {
+      width: 400px;
+      height: 40px;
+    }
   }
 }
 </file>
 
-<file path="src/shared/components/BackHeader/BackHeader.tsx">
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+<file path="src/shared/components/BackHeader/BackHeaderSkeleton/BackHeaderSkeleton.tsx">
+import './BackHeaderSkeleton.scss';
 
-type Props = {
-  catalogTitle?: string;
-};
-
-export const BackHeader: React.FC<Props> = ({ catalogTitle }) => {
-  const navigate = useNavigate();
-
-  const handelBack = () => {
-    navigate(-1);
-  };
-
+ export const BackHeaderSkeleton = () => {
   return (
-    <div className="back-header">
-      <button className="back-header__btn" type="button" onClick={handelBack}>
-        Back
-      </button>
-      <h1 className="back-header__title">{catalogTitle}</h1>
+
+     <div className="back-header-skeleton">
+      <div className="back-header-skeleton__btn" />
+      <div className="back-header-skeleton__title" />
     </div>
   );
 };
+</file>
+
+<file path="src/shared/components/BackHeader/BackHeaderSkeleton/index.ts">
+export * from './BackHeaderSkeleton';
 </file>
 
 <file path="src/shared/components/BackHeader/index.ts">
@@ -1173,11 +870,66 @@ export const ProductActions: React.FC<Props> = ({ product, className = '' }) => 
 </file>
 
 <file path="src/shared/components/ProductCard/component/ProductCardSkeleton/index.ts">
-export
+export * from './ProductCardSkeleton';
 </file>
 
 <file path="src/shared/components/ProductCard/index.ts">
 export * from './ProductCard';
+</file>
+
+<file path="src/shared/components/ProductPrice/index.ts">
+export * from './ProductPrice';
+</file>
+
+<file path="src/shared/components/ProductPrice/ProductPrice.scss">
+@use '../../../styles/utils/' as *;
+
+.product-price {
+
+  &__price {
+    font-family: $font-family-base;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1;
+
+    &--old {
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1;
+      margin-left: 8px;
+      color: $color-secondary-grau;
+      text-decoration: line-through;
+    }
+  }
+}
+</file>
+
+<file path="src/shared/components/ProductPrice/ProductPrice.tsx">
+import React from 'react';
+
+import './ProductPrice.scss';
+
+type Props = {
+  price: number;
+  fullPrice: number;
+  className?: string;
+};
+export const ProductPrice: React.FC<Props> = ({
+  price,
+  fullPrice,
+  className = '',
+}) => {
+  return (
+    <div className={`product-price ${className}`.trim()}>
+      <span className="product-price__price product-price__price--current">
+        ${price}
+      </span>
+      <span className="product-price__price product-price__price--old">
+        ${fullPrice}
+      </span>
+    </div>
+  );
+};
 </file>
 
 <file path="src/shared/components/ProductsList/index.ts">
@@ -1255,36 +1007,6 @@ export * from './ProductSpecs';
   flex-direction: column;
   gap: 8px;
 }
-</file>
-
-<file path="src/shared/components/ProductSpecs/ProductSpecs.tsx">
-import React from 'react';
-import { Product } from '../../types';
-import './ProductSpecs.scss';
-
-type Props = {
-  product: Product;
-  className?: string;
-};
-
-export const ProductSpecs: React.FC<Props> = ({ product, className = '' }) => {
-  return (
-    <div className={`product-specs ${className}`.trim()}>
-      <div className="product-specs__row">
-        <span className="product-specs__name">Screen</span>
-        <span className="product-specs__value">{product.screen}</span>
-      </div>
-      <div className="product-specs__row">
-        <span className="product-specs__name">Capacity</span>
-        <span className="product-specs__value">{product.capacity}</span>
-      </div>
-      <div className="product-specs__row">
-        <span className="product-specs__name">RAM</span>
-        <span className="product-specs__value">{product.ram}</span>
-      </div>
-    </div>
-  );
-};
 </file>
 
 <file path="src/shared/components/ProductsSlider/AsyncData/AsyncData.tsx">
@@ -1566,6 +1288,395 @@ export const NotFoundPage = () => {
 };
 </file>
 
+<file path="src/modules/ProductDetailsPage/Hook/useProductDetails.ts">
+import { useEffect, useState } from 'react';
+import { ProductDetails } from '@/shared/types';
+import { getProductDetails } from '@/services/products';
+
+export function useProductDetails(productId?: string, category?: string) {
+  const [product, setProduct] = useState<ProductDetails | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  const fetchData = async () => {
+    if (!productId || !category) return;
+
+    setIsLoading(true);
+    setHasError(false);
+
+    try {
+      const products = await getProductDetails(category);
+
+      const found = products.find(
+        p => p.id === productId || p.itemId === productId,
+      );
+      if (found) {
+        setProduct(found as unknown as ProductDetails);
+      } else {
+        setHasError(true);
+      }
+    } catch {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [productId, category]);
+
+  return {
+    product,
+    isLoading,
+    hasError,
+    loadData: fetchData,
+  };
+}
+</file>
+
+<file path="src/modules/ProductDetailsPage/ProductDetailsSkeleton/ProductDetailsSkeleton.scss">
+@use '../../../styles/utils/' as *;
+
+.product-details-skeleton {
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 56px;
+
+    @include on-tablet {
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    @include on-desktop {
+      gap: 64px;
+      margin-bottom: 80px;
+    }
+  }
+
+  // #region Галерея
+  &__gallery {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 16px;
+    margin-bottom: 40px;
+
+    @include on-tablet {
+      grid-column: span 7;
+      flex-direction: row;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    @include on-desktop {
+      grid-column: span 7;
+    }
+  }
+
+  &__thumbnails {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    @include on-tablet {
+      flex-direction: column;
+    }
+  }
+
+  &__thumb {
+    @include skeleton-bg;
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+  }
+
+  &__main-image {
+    @include skeleton-bg;
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+
+    @include on-tablet {
+      height: 400px;
+    }
+  }
+  // #endregion
+
+  // #region Панель действий
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 56px;
+
+    @include on-tablet {
+      grid-column: span 5;
+      margin-bottom: 64px;
+    }
+
+    @include on-desktop {
+      grid-column: span 5;
+    }
+  }
+
+  &__color-list,
+  &__capacity-list {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  &__color-btn {
+    @include skeleton-bg;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  &__inner {
+    height: 100%;
+
+    @include on-tablet {
+      max-width: 320px;
+    }
+  }
+
+  &__capacity {
+    @include divider;
+    padding-block: 24px;
+  }
+
+  &__capacity-btn {
+    @include skeleton-bg;
+    width: 64px;
+    height: 32px;
+    border-radius: 4px;
+  }
+
+  &__price-block {
+    @include divider;
+    display: flex;
+    align-items: center;
+    padding: 32px 0 16px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  &__specs-summary,
+  &__specs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__specs-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  // #endregion
+
+  // #region Элементы плашек (Skeleton Elements)
+  &__skeleton-box {
+    @include skeleton-bg;
+
+    &--label {
+      width: 110px;
+      height: 12px;
+    }
+
+    &--price {
+      width: 140px;
+      height: 32px;
+    }
+
+    &--btn-add {
+      flex-grow: 1;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    &--btn-fav {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    &--spec-name {
+      width: 80px;
+      height: 12px;
+    }
+
+    &--spec-val {
+      width: 60px;
+      height: 12px;
+    }
+
+    &--title {
+      width: 160px;
+      height: 24px;
+      margin-bottom: 16px;
+    }
+
+    &--sub-title {
+      width: 200px;
+      height: 16px;
+      margin-bottom: 8px;
+    }
+
+    &--text {
+      width: 100%;
+      height: 12px;
+      margin-bottom: 6px;
+
+      &-short {
+        width: 60%;
+      }
+    }
+  }
+  // #endregion
+
+  // #region Нижний блок (About + Tech specs)
+  &__info {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+
+    @include on-tablet {
+      gap: 56px;
+    }
+
+    @include on-desktop {
+      grid-template-columns: repeat(12, 1fr);
+      gap: 64px;
+    }
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+
+    @include on-desktop {
+      grid-column: span 7;
+    }
+  }
+
+  &__tech-specs {
+    display: flex;
+    flex-direction: column;
+
+    @include on-desktop {
+      grid-column: span 5;
+    }
+  }
+
+  &__description {
+    margin-bottom: 24px;
+  }
+  // #endregion
+}
+</file>
+
+<file path="src/modules/ProductDetailsPage/ProductDetailsSkeleton/ProductDetailsSkeleton.tsx">
+import './ProductDetailsSkeleton.scss';
+
+export const ProductDetailsSkeleton = () => {
+  return (
+    <div className="product-details-skeleton">
+      <div className="product-details-skeleton__main">
+        {/* Галерея */}
+        <div className="product-details-skeleton__gallery">
+          <div className="product-details-skeleton__thumbnails">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="product-details-skeleton__thumb" />
+            ))}
+          </div>
+          <div className="product-details-skeleton__main-image" />
+        </div>
+
+        {/* Панель действий */}
+        <div className="product-details-skeleton__actions">
+          <div className="product-details-skeleton__colors">
+            <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--label" />
+            <div className="product-details-skeleton__color-list">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="product-details-skeleton__color-btn" />
+              ))}
+            </div>
+          </div>
+
+          <div className="product-details-skeleton__inner">
+            <div className="product-details-skeleton__capacity">
+              <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--label" />
+              <div className="product-details-skeleton__capacity-list">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="product-details-skeleton__capacity-btn"
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="product-details-skeleton__price-block">
+              <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--price" />
+            </div>
+
+            <div className="product-details-skeleton__buttons">
+              <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--btn-add" />
+              <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--btn-fav" />
+            </div>
+
+            <div className="product-details-skeleton__specs-summary">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="product-details-skeleton__specs-item">
+                  <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--spec-name" />
+                  <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--spec-val" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Нижний блок (About + Tech specs) */}
+        <div className="product-details-skeleton__info">
+          <div className="product-details-skeleton__about">
+            <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--title" />
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="product-details-skeleton__description">
+                <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--sub-title" />
+                <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--text" />
+                <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--text product-details-skeleton__skeleton-box--text-short" />
+              </div>
+            ))}
+          </div>
+
+          <div className="product-details-skeleton__tech-specs">
+            <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--title" />
+            <div className="product-details-skeleton__specs-list">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} className="product-details-skeleton__specs-item">
+                  <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--spec-name" />
+                  <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--spec-val" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+</file>
+
 <file path="src/services/products.ts">
 import { Product } from "../shared/types";
 
@@ -1600,6 +1711,48 @@ export async function getProductDetails(category: string): Promise<Product[]> {
   }
 
   return (await response.json()) as Product[];
+}
+</file>
+
+<file path="src/shared/components/BackHeader/BackHeader.scss">
+@use '../../../styles/utils/' as *;
+
+.back-header {
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding-bottom: 16px;
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      background: url('../../assets/arrow-right/arrow-right.svg') no-repeat
+        center / contain;
+      transform: rotate(180deg);
+
+    }
+
+    &__item {
+      @extend %button-text;
+
+      font-size: 12px;
+      line-height: 100%;
+      color: $color-secondary-grau;
+      transform: translateY(2px);
+    }
+  }
+
+  &__title {
+    @extend %h1-title;
+  }
 }
 </file>
 
@@ -1674,60 +1827,6 @@ export async function getProductDetails(category: string): Promise<Product[]> {
     color: $color-secondary-grau; // Активный элемент серым цветом по макету[cite: 1]
   }
 }
-</file>
-
-<file path="src/shared/components/BreadcrumbsNav/BreadcrumbsNav.tsx">
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-
-import './BreadcrumbsNav.scss';
-
-type Props = {
-  productName?: string;
-};
-
-export const BreadcrumbsNav: React.FC<Props> = ({ productName }) => {
-  const location = useLocation();
-
-  const pathName = location.pathname.split('/').filter(Boolean);
-
-  const categoryPathName = pathName[0];
-
-  const categoryName = categoryPathName
-    ? categoryPathName.charAt(0).toUpperCase() + categoryPathName.slice(1)
-    : '';
-
-  return (
-    <nav className="breadcrumbs" aria-label="breadcrumbs">
-      <ol className="breadcrumbs__list">
-        <li className="breadcrumbs__item">
-          <Link to="/" className="breadcrumbs__link">
-            <img
-              src="/img/icons/home-icon/home.svg"
-              className="breadcrumbs__icon"
-            />
-          </Link>
-        </li>
-
-        <li className="breadcrumbs__item">
-          {productName ? (
-            <Link to={`/${categoryPathName}`} className="breadcrumbs__link breadcrumbs__link--page-name">
-              {categoryName}
-            </Link>
-          ) : (
-            <span className="breadcrumbs__current">{categoryName}</span>
-          )}
-        </li>
-
-        {productName && (
-          <li className="breadcrumbs__item">
-            <span className="breadcrumbs__current">{productName}</span>
-          </li>
-        )}
-      </ol>
-    </nav>
-  );
-};
 </file>
 
 <file path="src/shared/components/Buttons/components/IconButton/IconButton.scss">
@@ -2099,46 +2198,32 @@ export const Nav = () => {
 }
 </file>
 
-<file path="src/shared/components/ProductCard/component/ProductCardSkeleton/ProductCardSkeleton.tsx">
-import './ProductCardSkeleton.scss';
+<file path="src/shared/components/ProductSpecs/ProductSpecs.tsx">
+import React from 'react';
+import { Product } from '../../types';
+import './ProductSpecs.scss';
 
-export const ProductCardSkeleton = () => {
+type Props = {
+  product: Product;
+  className?: string;
+};
+
+export const ProductSpecs: React.FC<Props> = ({ product, className = '' }) => {
   return (
-    <article className="product-card-skeleton">
-      <div className="product-card-skeleton__image-container">
-        <div className="product-card-skeleton__image" />
+    <dl className={`product-specs ${className}`.trim()}>
+      <div className="product-specs__row">
+        <dt className="product-specs__name">Screen</dt>
+        <dd className="product-specs__value">{product.screen}</dd>
       </div>
-
-      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--full" />
-      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--short" />
-
-      <div className="product-card-skeleton__price-block">
-        <div className="product-card-skeleton__price" />
+      <div className="product-specs__row">
+        <dt className="product-specs__name">Capacity</dt>
+        <dd className="product-specs__value">{product.capacity}</dd>
       </div>
-
-      <div className="product-card-skeleton__divider" />
-
-      {/* Используем универсальный селектор product-specs */}
-      <div className="product-card-skeleton__specs product-specs">
-        <div className="product-specs__row">
-          <div className="product-card-skeleton__spec-name" />
-          <div className="product-card-skeleton__spec-value" />
-        </div>
-        <div className="product-specs__row">
-          <div className="product-card-skeleton__spec-name" />
-          <div className="product-card-skeleton__spec-value" />
-        </div>
-        <div className="product-specs__row">
-          <div className="product-card-skeleton__spec-name" />
-          <div className="product-card-skeleton__spec-value" />
-        </div>
+      <div className="product-specs__row">
+        <dt className="product-specs__name">RAM</dt>
+        <dd className="product-specs__value">{product.ram}</dd>
       </div>
-
-      <div className="product-card-skeleton__actions">
-        <div className="product-card-skeleton__btn-add" />
-        <div className="product-card-skeleton__btn-favorite" />
-      </div>
-    </article>
+    </dl>
   );
 };
 </file>
@@ -2225,34 +2310,6 @@ button {
 @use './base/container';
 </file>
 
-<file path="src/utils/sortProducts.ts">
-import { Product } from "../shared/types";
-
-export function sortByYear (products: Product[] | null): Product[] | null {
-  if (!products) {
-    return null
-  }
-
-  return products.sort((productA, productB) => productB.year - productA.year)
-}
-
-export function getProductsWithHotPrices (products: Product[] | null): Product[] | null {
-  if (!products) {
-    return null;
-
-  }
-
-  const productsWithDiscount = products.filter(product => product.fullPrice !== product.price);
-
-  return productsWithDiscount.sort((productA, productB) => {
-    const discountA = productA.fullPrice - productA.price;
-    const discountB = productB.fullPrice - productB.price;
-
-    return discountB - discountA;
-  })
-}
-</file>
-
 <file path="src/modules/HomePage/components/ShopBycCategory/ShopByCategory.tsx">
 import { Link } from 'react-router-dom';
 import './ShopByCategory.scss';
@@ -2321,6 +2378,99 @@ export const ShopByCategory = () => {
     gap: 80px;
   }
 }
+</file>
+
+<file path="src/shared/components/BackHeader/BackHeader.tsx">
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import './BackHeader.scss';
+import { BackHeaderSkeleton } from './BackHeaderSkeleton';
+
+type Props = {
+  catalogTitle?: string;
+  className?: string;
+};
+
+export const BackHeader: React.FC<Props> = ({
+  catalogTitle,
+  className = '',
+}) => {
+  const navigate = useNavigate();
+
+  const handelBack = () => {
+    navigate(-1);
+  };
+
+  if (catalogTitle) {
+    return (
+      <div className={`back-header ${className}`.trim()}>
+        <button className="back-header__btn" type="button" onClick={handelBack}>
+          <span className="back-header__btn__item">Back</span>
+        </button>
+        <h1 className="back-header__title">{catalogTitle}</h1>
+      </div>
+    );
+  }
+  return <BackHeaderSkeleton />;
+};
+</file>
+
+<file path="src/shared/components/BreadcrumbsNav/BreadcrumbsNav.tsx">
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
+import './BreadcrumbsNav.scss';
+
+type Props = {
+  productName?: string;
+};
+
+export const BreadcrumbsNav: React.FC<Props> = ({ productName }) => {
+  const location = useLocation();
+
+  const pathName = location.pathname.split('/').filter(Boolean);
+
+  const categoryPathName = pathName[0];
+
+  const categoryName = categoryPathName
+    ? categoryPathName.charAt(0).toUpperCase() + categoryPathName.slice(1)
+    : '';
+
+  return (
+    <nav className="breadcrumbs" aria-label="breadcrumbs">
+      <ol className="breadcrumbs__list">
+        <li className="breadcrumbs__item">
+          <Link to="/" className="breadcrumbs__link">
+            <img
+              src="/img/icons/home-icon/home.svg"
+              className="breadcrumbs__icon"
+            />
+          </Link>
+        </li>
+
+        <li className="breadcrumbs__item">
+          {productName ? (
+            <Link to={`/${categoryPathName}`} className="breadcrumbs__link breadcrumbs__link--page-name">
+              {categoryName}
+            </Link>
+          ) : (
+            <span className="breadcrumbs__current">{categoryName}</span>
+          )}
+        </li>
+
+        {productName ? (
+          <li className="breadcrumbs__item">
+            <span className="breadcrumbs__current">{productName}</span>
+          </li>
+        ) : (
+          <span className="breadcrumbs__current breadcrumbs__current--loading">...</span>
+        )
+      }
+      </ol>
+    </nav>
+  );
+};
 </file>
 
 <file path="src/shared/components/FetchError/FetchError.scss">
@@ -2581,6 +2731,50 @@ export const Logo: React.FC<Props> = ({className}) => {
 }
 </file>
 
+<file path="src/shared/components/ProductCard/component/ProductCardSkeleton/ProductCardSkeleton.tsx">
+import './ProductCardSkeleton.scss';
+
+export const ProductCardSkeleton = () => {
+  return (
+    <article className="product-card-skeleton">
+      <div className="product-card-skeleton__image-container">
+        <div className="product-card-skeleton__image" />
+      </div>
+
+      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--full" />
+      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--short" />
+
+      <div className="product-card-skeleton__price-block">
+        <div className="product-card-skeleton__price" />
+      </div>
+
+      {/* <div className="product-card-skeleton__divider" /> */}
+
+      {/* Используем универсальный селектор product-specs */}
+      <div className="product-card-skeleton__specs product-specs">
+        <div className="product-specs__row">
+          <div className="product-card-skeleton__spec-name" />
+          <div className="product-card-skeleton__spec-value" />
+        </div>
+        <div className="product-specs__row">
+          <div className="product-card-skeleton__spec-name" />
+          <div className="product-card-skeleton__spec-value" />
+        </div>
+        <div className="product-specs__row">
+          <div className="product-card-skeleton__spec-name" />
+          <div className="product-card-skeleton__spec-value" />
+        </div>
+      </div>
+
+      <div className="product-card-skeleton__actions">
+        <div className="product-card-skeleton__btn-add" />
+        <div className="product-card-skeleton__btn-favorite" />
+      </div>
+    </article>
+  );
+};
+</file>
+
 <file path="src/shared/types/Product.ts">
 export interface Product {
   id: string;
@@ -2623,6 +2817,47 @@ export interface ProductDetails {
   camera: string;
   zoom: string;
   cell: string[];
+}
+</file>
+
+<file path="src/utils/sortProducts.ts">
+import { Product } from '../shared/types';
+
+export function sortByYear(products: Product[] | null): Product[] | null {
+  if (!products) {
+    return null;
+  }
+
+  return products.sort((productA, productB) => productB.year - productA.year);
+}
+
+export function getProductsWithHotPrices(
+  products: Product[] | null,
+): Product[] | null {
+  if (!products) {
+    return null;
+  }
+
+  const productsWithDiscount = products.filter(
+    product => product.fullPrice !== product.price,
+  );
+
+  return productsWithDiscount.sort((productA, productB) => {
+    const discountA = productA.fullPrice - productA.price;
+    const discountB = productB.fullPrice - productB.price;
+
+    return discountB - discountA;
+  });
+}
+
+export function getSuggestedProducts(
+  products: Product[],
+  currentProductID: string,
+): Product[] {
+  const filteredProducts = products.filter(
+    product => product.itemId !== currentProductID,
+  );
+  return [...filteredProducts].sort(() => Math.random() - 0.5).slice(0, 10);
 }
 </file>
 
@@ -2886,6 +3121,616 @@ export const PromoSlider = () => {
 };
 </file>
 
+<file path="src/modules/ProductDetailsPage/ProductDetailsPage.scss">
+@use '../../styles/utils/' as *;
+
+.product-details {
+  @include padding-block-content;
+
+  &__header {
+    margin-bottom: 32px;
+
+    @include on-tablet {
+      margin-bottom: 40px;
+    }
+  }
+
+  // Основная сетка: Галерея + Действия
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr;
+    // gap: 32px;
+    margin-bottom: 56px;
+
+    @include on-tablet {
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    @include on-desktop {
+      gap: 64px;
+      margin-bottom: 80px;
+    }
+  }
+
+  // #region Галерея
+  &__gallery {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 16px;
+    margin-bottom: 40px;
+
+    @include on-tablet {
+      grid-column: span 7;
+      flex-direction: row;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    @include on-desktop {
+      grid-column: span 7;
+    }
+  }
+
+  &__thumbnails {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    @include on-tablet {
+      flex-direction: column;
+    }
+  }
+
+  &__thumb {
+    width: 50px;
+    height: 50px;
+    padding: 4px;
+    border: 1px solid $color-elements;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color $transition-duration ease;
+
+    &--active {
+      border-color: $color-primary;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__main-image {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    height: 300px;
+
+    @include on-tablet {
+      height: 400px;
+    }
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  // #endregion
+
+  // #region Панель действий
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 56px;
+
+    @include on-tablet {
+      grid-column: span 5;
+      margin-bottom: 64px;
+    }
+
+    @include on-desktop {
+      grid-column: span 5;
+    }
+  }
+
+  &__wrapper-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__label {
+    @extend %small-text;
+
+    margin-bottom: 8px;
+  }
+
+  &__id-product {
+    @extend %small-text;
+
+    color: $color-icons;
+  }
+
+  &__color-list,
+  &__capacity-list {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__color-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid $color-elements;
+    cursor: pointer;
+
+    &--active {
+      border: 2px solid $color-primary;
+    }
+  }
+
+  &__inner {
+    height: 100%;
+
+    @include on-tablet {
+      max-width: 320px;
+    }
+  }
+
+  &__capacity {
+    @include divider;
+
+    padding-block: 24px;
+  }
+
+  &__capacity-btn {
+    padding: 8px 16px;
+    border: 1px solid $color-elements;
+    border-radius: 4px;
+
+    @extend %button-text;
+
+    color: $color-primary;
+    background: transparent;
+
+    &--active {
+      background-color: $color-primary;
+      color: $color-white;
+    }
+  }
+
+  &__price-block {
+    @include divider;
+
+    display: flex;
+    align-items: center;
+    padding: 32px 0 16px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  // Краткие характеристики (dl / dt / dd)
+  &__specs-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-block: 0;
+  }
+
+  &__specs-item {
+    display: flex;
+    justify-content: space-between;
+
+    dt {
+      @extend %small-text;
+    }
+
+    dd {
+      @extend %small-text;
+
+      font-weight: 700;
+      color: $color-primary;
+      margin: 0;
+    }
+  }
+
+  // #endregion
+
+  // #region Нижний блок (About + Tech specs)
+  &__info {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+
+    @include on-tablet {
+      gap: 56px;
+    }
+
+    @include on-desktop {
+      grid-template-columns: repeat(12, 1fr);
+      gap: 64px;
+    }
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @include on-desktop {
+      grid-column: span 7;
+    }
+  }
+
+  &__tech-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @include on-desktop {
+      grid-column: span 5;
+    }
+  }
+
+  &__section-title {
+    @include divider(bottom);
+    @extend %h2-title;
+
+    padding-bottom: 16px;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &-title {
+      @extend %h3-title;
+    }
+
+    &-text {
+      @extend %body-text;
+
+      color: $color-secondary-grau;
+    }
+  }
+
+  &__specs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-block: 0;
+
+    .product-details__specs-item {
+      dt {
+        @extend %body-text;
+
+        font-weight: 500;
+        color: $color-secondary-grau;
+      }
+      dd {
+        @extend %body-text;
+
+        font-weight: 600;
+        color: $color-primary;
+      }
+    }
+  }
+
+  // #endregion
+
+  &__recommended {
+    margin-top: 56px;
+
+    @include on-desktop {
+      margin-top: 80px;
+    }
+  }
+}
+</file>
+
+<file path="src/modules/ProductDetailsPage/ProductDetailsPage.tsx">
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useProductDetails } from './Hook';
+import { useProducts } from '../HomePage/components/Hook/useProducts';
+import { getSuggestedProducts } from '@/utils';
+import { Product } from '@/shared/types';
+import cn from 'classnames';
+
+import { AsyncData } from '@/shared/components/ProductsSlider/AsyncData';
+import { BackHeader } from '@/shared/components/BackHeader';
+import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
+import { ProductActions } from '@/shared/components/ProductActions';
+import { ProductPrice } from '@/shared/components/ProductPrice';
+import { ProductDetailsSkeleton } from './ProductDetailsSkeleton';
+import { ProductsSlider } from '@/shared/components/ProductsSlider';
+
+import './ProductDetailsPage.scss';
+
+export const ProductDetailsPage = () => {
+  const { productId, category } = useParams<{
+    productId: string;
+    category: string;
+  }>();
+
+  const { products } = useProducts();
+  const { isLoading, hasError, product, loadData } = useProductDetails(
+    productId,
+    category,
+  );
+
+  const navigate = useNavigate();
+  const [selectedImg, setSelectedImg] = useState(product?.images[0]);
+  const [selectedColor, setSelectedColor] = useState(
+    product?.colorsAvailable[0],
+  );
+  const [selectedCapacity, setSelectedCapacity] = useState(
+    product?.capacityAvailable[0],
+  );
+
+  useEffect(() => {
+    if (product) {
+      setSelectedImg(product.images[0]);
+      setSelectedColor(product.color);
+      setSelectedCapacity(product.capacity);
+    }
+  }, [product]);
+
+  const handleColorChenge = (newColor: string) => {
+    if (!product) return;
+
+    const selectedProduct = products.find(
+      item =>
+        item.itemId.includes(product.namespaceId) &&
+        item.itemId.includes(newColor) &&
+        item.itemId.includes(product.capacity.toLowerCase()),
+    );
+
+    if (selectedProduct) {
+      navigate(`/${category}/${selectedProduct.itemId}`);
+    }
+  };
+
+  const handleCapacityChenge = (newCapacity: string) => {
+    const selectedProduct = products.find(
+      item =>
+        item.capacity === newCapacity &&
+        item.itemId === product?.id &&
+        item.color === product.color,
+    );
+
+    if (selectedProduct) {
+      navigate(`/${category}/${selectedProduct.itemId}`);
+    }
+  };
+
+  return (
+    <section className="product-details container">
+      <BreadcrumbsNav productName={product?.name} />
+      <BackHeader
+        catalogTitle={product?.name}
+        className="product-details__header"
+      />
+
+      <AsyncData hasError={hasError} onRetry={loadData}>
+        {isLoading && !hasError ? (
+          <ProductDetailsSkeleton />
+        ) : (
+          <>
+            <div className="product-details__main">
+              {/* Галерея картинок */}
+              <section className="product-details__gallery">
+                <div className="product-details__thumbnails">
+                  {/* Кнопка превью картинки (выбирается через state) */}
+                  {product?.images.map((img, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      className={cn('product-details__thumb', {
+                        'product-details__thumb--active': selectedImg === img,
+                      })}
+                      onClick={() => setSelectedImg(img)}
+                    >
+                      <img
+                        src={img}
+                        alt={`{product.name}  view ${index + 1}`}
+                      />
+                    </button>
+                  ))}
+                </div>
+                {/* Главное увеличенное фото */}
+                <div className="product-details__main-image">
+                  <img src={selectedImg} alt={product?.name} />
+                </div>
+              </section>
+
+              {/* Colors */}
+              <section className="product-details__actions">
+                {/* Выбор цвета */}
+                <div className="product-details__colors">
+                  <div className="product-details__wrapper-label">
+                    <span className="product-details__label">
+                      Available colors
+                    </span>
+                    <span className="product-details__id-product">
+                      ID: 802390
+                    </span>
+                  </div>
+                  <div className="product-details__color-list">
+                    {product?.colorsAvailable.map(color => {
+                      const isSelected = selectedColor === color;
+
+                      return (
+                        <button
+                          key={color}
+                          type="button"
+                          className={cn('product-details__color-btn', {
+                            'product-details__color-btn--active': isSelected,
+                          })}
+                          style={{ background: color }}
+                          onClick={() => handleColorChenge(color)}
+                          aria-label={color}
+                        ></button>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="product-details__inner">
+                  {/* Выбор объема памяти */}
+                  <div className="product-details__capacity">
+                    <span className="product-details__label">
+                      Select capacity
+                    </span>
+                    <div className="product-details__capacity-list">
+                      {product?.capacityAvailable.map(capacity => {
+                        const isSelected = selectedCapacity === capacity;
+
+                        return (
+                          <button
+                            key={capacity}
+                            type="button"
+                            className={cn('product-details__capacity-btn', {
+                              'product-details__capacity-btn--active':
+                                isSelected,
+                            })}
+                            onClick={() => handleCapacityChenge(capacity)}
+                            aria-label={capacity}
+                          >
+                            {selectedCapacity}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Цена */}
+                  <ProductPrice
+                    className="product-details__price-block"
+                    price={product?.priceDiscount ?? 0}
+                    fullPrice={product?.priceRegular ?? 0}
+                  />
+
+                  {/* Кнопки действия */}
+                  <ProductActions
+                    product={product as unknown as Product}
+                    className="product-details__buttons"
+                  />
+
+                  {/* Краткие характеристики */}
+                  <dl className="product-details__specs-summary">
+                    <div className="product-details__specs-item">
+                      <dt>Screen</dt>
+                      <dd>{product?.screen}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Resolution</dt>
+                      <dd>{product?.resolution}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Processor</dt>
+                      <dd>{product?.processor}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>RAM</dt>
+                      <dd>{product?.ram}</dd>
+                    </div>
+                  </dl>
+                </div>
+              </section>
+
+              {/* Нижний блок: Описание и Технические характеристики */}
+              <div className="product-details__info">
+                {/* Описание */}
+                <section className="product-details__about">
+                  <h2 className="product-details__section-title">About</h2>
+
+                  {product?.description.map(({ title, text }, idx) => (
+                    <article className="product-details__description" key={idx}>
+                      <h3 className="product-details__description-title">
+                        {title}
+                      </h3>
+                      {text.map((paragraph, pIdx) => (
+                        <p className="product-details__description-text" key={pIdx}>
+                        {paragraph}
+                      </p>
+                      ))}
+                    </article>
+                  ))}
+                </section>
+
+                {/* Полные технические характеристики */}
+                <section className="product-details__tech-specs">
+                  <h2 className="product-details__section-title">Tech specs</h2>
+
+                  <dl className="product-details__specs-list">
+                    <div className="product-details__specs-item">
+                      <dt>Screen</dt>
+                      <dd>{product?.screen}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Resolution</dt>
+                      <dd>{product?.resolution}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Processor</dt>
+                      <dd>{product?.processor}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>RAM</dt>
+                      <dd>{product?.ram}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Built in memory</dt>
+                      <dd>{product?.capacity}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Camera</dt>
+                      <dd>{product?.camera}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Zoom</dt>
+                      <dd>{product?.zoom}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Cell</dt>
+                      <dd>{product?.cell.join(', ')}</dd>
+                    </div>
+                  </dl>
+                </section>
+              </div>
+            </div>
+
+            <section className="product-details__recommended">
+              <ProductsSlider
+                title="You may also like"
+                products={getSuggestedProducts(products, product!.id)}
+                className="product-details__recommended"
+                hasError={hasError}
+                onRetry={loadData}
+                isLoading={isLoading}
+              />
+            </section>
+          </>
+        )}
+      </AsyncData>
+    </section>
+  );
+};
+</file>
+
 <file path="src/shared/components/Header/components/Burger/Burger.scss">
 @use '../../../../../styles/utils/' as *;
 
@@ -3021,38 +3866,6 @@ export const PromoSlider = () => {
 }
 </file>
 
-<file path="src/shared/components/ProductCard/ProductCard.scss">
-@use '../../../styles/utils/' as *;
-
-.product-card {
-  @include product-card-base;
-
-  &__image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-
-  &__title {
-    @extend %body-text;
-
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-
-    height: 58px;
-    padding-top: 16px;
-    box-sizing: border-box;
-    margin: 0;
-  }
-
-  
-}
-</file>
-
 <file path="src/styles/base/_container.scss">
 @use '../utils/' as *;
 
@@ -3163,6 +3976,38 @@ export const FavoritesPage = () => {
   @include on-desktop {
     height: 100%;
   }
+}
+</file>
+
+<file path="src/shared/components/ProductCard/ProductCard.scss">
+@use '../../../styles/utils/' as *;
+
+.product-card {
+  @include product-card-base;
+
+  &__image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  &__title {
+    @extend %body-text;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    height: 58px;
+    padding-top: 16px;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  
 }
 </file>
 
@@ -3300,96 +4145,6 @@ export const HomePage = () => {
         hasError={hasError}
       />
     </div>
-  );
-};
-</file>
-
-<file path="src/shared/components/ProductCard/ProductCard.tsx">
-import React from 'react';
-import { Product } from '../../types';
-import { Link } from 'react-router-dom';
-
-import { ProductActions } from '../ProductActions';
-import { ProductSpecs } from '../ProductSpecs';
-import { ProductPrice } from '../ProductPrice';
-
-import './ProductCard.scss';
-
-type Props = {
-  product: Product;
-};
-
-export const ProductCard: React.FC<Props> = ({ product }) => {
-  return (
-    <article className="product-card">
-      {/* 1. Изображение товара */}
-      <Link
-        to={`/${product.category}/${product.itemId}`}
-        className="product-card__image-container"
-      >
-        <img
-          src={product.image}
-          alt={product.name}
-          className="product-card__image"
-        />
-      </Link>
-
-      {/* 2. Наименование продукта */}
-      <h3 className="product-card__title">
-        <Link to={`/${product.category}/${product.itemId}`}>
-          {product.name}
-        </Link>
-      </h3>
-
-      {/* 3. Блок цен */}
-      <ProductPrice
-        className="product-card__price-block"
-        price={product.price}
-        fullPrice={product.fullPrice}
-      />
-
-      {/* Разделитель по дизайну, если нужен */}
-      <div className="product-card__divider" />
-
-      {/* 4. Блок характеристик */}
-      <ProductSpecs product={product} className="product-card__specs" />
-      {/* <div className="product-card__specs">
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">Screen</span>
-          <span className="product-card__spec-value">{product.screen}</span>
-        </div>
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">Capacity</span>
-          <span className="product-card__spec-value">{product.capacity}</span>
-        </div>
-        <div className="product-card__spec-row">
-          <span className="product-card__spec-name">RAM</span>
-          <span className="product-card__spec-value">{product.ram}</span>
-        </div>
-      </div> */}
-
-      {/* (кнопки) */}
-      <ProductActions product={product} className="product-card__actions" />
-      {/* <div className="product-card__actions">
-        <ActionButton
-          className="product-card__btn-add"
-          aria-label="Add to cart"
-        >
-          Add to cart
-        </ActionButton>
-        <IconButton
-          className="product-card__btn-favorite"
-          aria-label="Add to favorites"
-          onClick={() => toggleFavorite(product)}
-        >
-          {isProductFavorite ? (
-            <FavoriteIconSelected className="product-card__favorite-icon" />
-          ) : (
-            <FavoriteIconDefault className="product-card__favorite-icon" />
-          )}
-        </IconButton>
-      </div> */}
-    </article>
   );
 };
 </file>
@@ -3543,6 +4298,96 @@ $transition-effect: ease-in-out;
 
 // ==================== FONTS ==============
 $font-family-base: 'Mont', sans-serif;
+</file>
+
+<file path="src/shared/components/ProductCard/ProductCard.tsx">
+import React from 'react';
+import { Product } from '../../types';
+import { Link } from 'react-router-dom';
+
+import { ProductActions } from '../ProductActions';
+import { ProductSpecs } from '../ProductSpecs';
+import { ProductPrice } from '../ProductPrice';
+
+import './ProductCard.scss';
+
+type Props = {
+  product: Product;
+};
+
+export const ProductCard: React.FC<Props> = ({ product }) => {
+  return (
+    <article className="product-card">
+      {/* 1. Изображение товара */}
+      <Link
+        to={`/${product.category}/${product.itemId}`}
+        className="product-card__image-container"
+      >
+        <img
+          src={product.image}
+          alt={product.name}
+          className="product-card__image"
+        />
+      </Link>
+
+      {/* 2. Наименование продукта */}
+      <h3 className="product-card__title">
+        <Link to={`/${product.category}/${product.itemId}`}>
+          {product.name}
+        </Link>
+      </h3>
+
+      {/* 3. Блок цен */}
+      <ProductPrice
+        className="product-card__price-block"
+        price={product.price}
+        fullPrice={product.fullPrice}
+      />
+
+      {/* Разделитель по дизайну, если нужен */}
+      {/* <div className="product-card__divider" /> */}
+
+      {/* 4. Блок характеристик */}
+      <ProductSpecs product={product} className="product-card__specs" />
+      {/* <div className="product-card__specs">
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">Screen</span>
+          <span className="product-card__spec-value">{product.screen}</span>
+        </div>
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">Capacity</span>
+          <span className="product-card__spec-value">{product.capacity}</span>
+        </div>
+        <div className="product-card__spec-row">
+          <span className="product-card__spec-name">RAM</span>
+          <span className="product-card__spec-value">{product.ram}</span>
+        </div>
+      </div> */}
+
+      {/* (кнопки) */}
+      <ProductActions product={product} className="product-card__actions" />
+      {/* <div className="product-card__actions">
+        <ActionButton
+          className="product-card__btn-add"
+          aria-label="Add to cart"
+        >
+          Add to cart
+        </ActionButton>
+        <IconButton
+          className="product-card__btn-favorite"
+          aria-label="Add to favorites"
+          onClick={() => toggleFavorite(product)}
+        >
+          {isProductFavorite ? (
+            <FavoriteIconSelected className="product-card__favorite-icon" />
+          ) : (
+            <FavoriteIconDefault className="product-card__favorite-icon" />
+          )}
+        </IconButton>
+      </div> */}
+    </article>
+  );
+};
 </file>
 
 <file path="src/styles/utils/_placeholder.scss">
@@ -3856,6 +4701,13 @@ $font-family-base: 'Mont', sans-serif;
 //     color: $color-primary;
 //   }
 // }
+
+@mixin divider($side: top) {
+  border: none;
+  border-#{$side}: 1px solid $color-elements;
+  margin: 0;
+}
+
 @mixin product-specs-base {
   display: flex;
   flex-direction: column;
@@ -3900,15 +4752,12 @@ $font-family-base: 'Mont', sans-serif;
     flex-shrink: 0;
   }
 
-  &__divider {
-    border: none;
-    border-top: 1px solid $color-elements;
-    margin: 0;
-  }
 
   // Задаем внутренний отступ контейнеру
   &__specs {
     padding-block: 8px;
+
+    @include divider;
 
     // Подключаем стили для внутренних элементов ProductSpecs
     .product-specs__row {
@@ -3927,6 +4776,7 @@ $font-family-base: 'Mont', sans-serif;
 
       font-weight: 700;
       color: $color-primary;
+      font-size: 12px;
     }
   }
 
@@ -3934,6 +4784,8 @@ $font-family-base: 'Mont', sans-serif;
     display: flex;
     align-items: center;
     height: 31px;
+
+
   }
 
   &__actions {

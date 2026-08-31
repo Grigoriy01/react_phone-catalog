@@ -1,4 +1,5 @@
 import { IconButton } from '../../../Buttons/components/IconButton';
+import { arrowPath } from '@/shared/assets/icons/arrow-right';
 import './ButtonTop.scss';
 
 export const ButtonTop = () => {
@@ -19,8 +20,8 @@ export const ButtonTop = () => {
       >
         <img
           className="back-to-top__icon"
-          src="/public/img/icons/Buttons/Icons/arrow-top.svg"
-          alt="button back to top"
+          src={arrowPath}
+          
         />
       </IconButton>
     </div>

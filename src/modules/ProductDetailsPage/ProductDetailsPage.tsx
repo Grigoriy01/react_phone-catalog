@@ -39,13 +39,13 @@ export const ProductDetailsPage = () => {
 
   useEffect(() => {
     if (product) {
-      setSelectedImg(product.images[0]);
+      setSelectedImg(`${import.meta.env.BASE_URL}${product.images[0]}`);
       setSelectedColor(product.color);
       setSelectedCapacity(product.capacity);
     }
   }, [product]);
 
-  const handleColorChenge = (newColor: string) => {
+  const handleColorChange = (newColor: string) => {
     if (!product) return;
 
     const selectedProduct = products.find(
@@ -60,7 +60,7 @@ export const ProductDetailsPage = () => {
     }
   };
 
-  const handleCapacityChenge = (newCapacity: string) => {
+  const handleCapacityChange = (newCapacity: string) => {
     const selectedProduct = products.find(
       item =>
         item.capacity === newCapacity &&
@@ -109,7 +109,7 @@ export const ProductDetailsPage = () => {
                 </div>
                 {/* Главное увеличенное фото */}
                 <div className="product-details__main-image">
-                  <img src={selectedImg} alt={product?.name} />
+                  <img src={`${import.meta.env.BASE_URL}${selectedImg}`} alt={product?.name} />
                 </div>
               </section>
 
@@ -137,7 +137,7 @@ export const ProductDetailsPage = () => {
                             'product-details__color-btn--active': isSelected,
                           })}
                           style={{ background: color }}
-                          onClick={() => handleColorChenge(color)}
+                          onClick={() => handleColorChange(color)}
                           aria-label={color}
                         ></button>
                       );
@@ -162,10 +162,10 @@ export const ProductDetailsPage = () => {
                               'product-details__capacity-btn--active':
                                 isSelected,
                             })}
-                            onClick={() => handleCapacityChenge(capacity)}
+                            onClick={() => handleCapacityChange(capacity)}
                             aria-label={capacity}
                           >
-                            {selectedCapacity}
+                            {capacity}
                           </button>
                         );
                       })}

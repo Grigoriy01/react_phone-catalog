@@ -14,4 +14,8 @@
   &__button {
     @include active-effect;
   }
+
+  &__icon {
+    transform: rotate(-90deg);
+  }
 }

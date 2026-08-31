@@ -1,7 +1,6 @@
-import { Product } from "../shared/types";
+import { Product } from '../shared/types';
 
-const PRODUCTS_URL =
-  '/api/products.json';
+const PRODUCTS_URL = `${import.meta.env.BASE_URL}api/products.json`;
 
 function wait(delay: number) {
   return new Promise(resolve => setTimeout(resolve, delay));
@@ -21,7 +20,7 @@ export async function getProducts(): Promise<Product[]> {
 }
 
 export async function getProductDetails(category: string): Promise<Product[]> {
-  const response = await fetch(`/api/${category}.json`);
+  const response = await fetch(`${import.meta.env.BASE_URL}api/${category}.json`);
 
   // keep this delay for testing purpose
   await wait(500);

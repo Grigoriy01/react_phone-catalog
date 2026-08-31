@@ -2,7 +2,7 @@ import { getProductsWithHotPrices, sortByYear } from '../../../utils';
 import { useProducts } from './Hook/useProducts';
 
 import { Hero } from './Hero/Hero';
-import { ShopByCategory } from './ShopBycCategory';
+import { ShopByCategory } from './ShopByCategory';
 import { ProductsSlider } from '../../../shared/components/ProductsSlider';
 
 import './HomePage.scss';

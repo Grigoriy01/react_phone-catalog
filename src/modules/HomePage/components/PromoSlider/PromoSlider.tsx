@@ -1,7 +1,11 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { IconButton } from '../../../../shared/components/Buttons/components/IconButton';
-import ArrowIcon from '@/shared/assets/arrow-right/arrow-right.svg?react';
+import ArrowIcon from '@/shared/assets/icons/arrow-right/arrow-right.svg?react';
+
+import bannerId1 from '@/shared/assets/home-page-img/banner/banner-accessories.png'
+import bannerId2 from '@/shared/assets/home-page-img/banner/banner-tablets.png'
+import bannerId3 from '@/shared/assets/home-page-img/banner/banner-phones.png'
 
 import 'swiper/swiper.css';
 import './PromoSlider.scss';
@@ -9,11 +13,11 @@ import './PromoSlider.scss';
 const BANNERS = [
   {
     id: 1,
-    src: '/public/img/banner-accessories.png',
+    src: bannerId1,
     alt: 'Accessories Promo Banner',
   },
-  { id: 2, src: '/public/img/banner-tablets.png', alt: 'Tablets Promo Banner' },
-  { id: 3, src: '/public/img/banner-phones.png', alt: 'Phones Promo Banner' },
+  { id: 2, src: bannerId2, alt: 'Tablets Promo Banner' },
+  { id: 3, src: bannerId3, alt: 'Phones Promo Banner' },
 ];
 
 export const PromoSlider = () => {
