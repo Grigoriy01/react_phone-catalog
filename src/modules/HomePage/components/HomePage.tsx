@@ -13,6 +13,12 @@ export const HomePage = () => {
   const visibleNewModels = sortByYear(products);
   const visibleHotPrice = getProductsWithHotPrices(products);
 
+  const categoriesCount = {
+    phones: products.filter(p => p.category === 'phones').length,
+    tablet: products.filter(p => p.category === 'tablet').length,
+    accessories: products.filter(p => p.category === 'accessories').length,
+  };
+
   return (
     <div className="home-page">
       <Hero />
@@ -26,7 +32,7 @@ export const HomePage = () => {
         hasError={hasError}
       />
 
-      <ShopByCategory />
+      <ShopByCategory categoriesCount={categoriesCount} />
 
       <ProductsSlider
         title="Hot prices"

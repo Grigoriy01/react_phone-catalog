@@ -14,7 +14,10 @@ import { ProductPrice } from '@/shared/components/ProductPrice';
 import { ProductDetailsSkeleton } from './ProductDetailsSkeleton';
 import { ProductsSlider } from '@/shared/components/ProductsSlider';
 
+
 import './ProductDetailsPage.scss';
+
+
 
 export const ProductDetailsPage = () => {
   const { productId, category } = useParams<{
@@ -109,7 +112,10 @@ export const ProductDetailsPage = () => {
                 </div>
                 {/* Главное увеличенное фото */}
                 <div className="product-details__main-image">
-                  <img src={`${import.meta.env.BASE_URL}${selectedImg}`} alt={product?.name} />
+                  <img
+                    src={`${import.meta.env.BASE_URL}${selectedImg}`}
+                    alt={product?.name}
+                  />
                 </div>
               </section>
 
@@ -219,9 +225,12 @@ export const ProductDetailsPage = () => {
                         {title}
                       </h3>
                       {text.map((paragraph, pIdx) => (
-                        <p className="product-details__description-text" key={pIdx}>
-                        {paragraph}
-                      </p>
+                        <p
+                          className="product-details__description-text"
+                          key={pIdx}
+                        >
+                          {paragraph}
+                        </p>
                       ))}
                     </article>
                   ))}

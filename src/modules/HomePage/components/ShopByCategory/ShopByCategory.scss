@@ -20,6 +20,17 @@
     }
   }
 
+  &__link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @include on-tablet {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+
   &__subtitle {
     @extend %h3-title;
 
@@ -27,15 +38,24 @@
   }
 
   &__img-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    aspect-ratio: 1 /1;
+    aspect-ratio: 1 / 1;
     border-radius: 8px;
     margin-bottom: 24px;
-    background-color: #f2ea10;
+    background-color: $color-surface-2;
     overflow: hidden;
+
+    &--phones {
+      background-color: #fcd26e;
+    }
+
+    &--tablets {
+      background-color: #8d8d92;
+    }
+
+    &--accessories {
+      background-color: #d8d3c4;
+    }
   }
 
   &__img {

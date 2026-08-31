@@ -1,4 +1,5 @@
 import React from 'react';
+import errorImg from '@/shared/assets/error-img/product-not-found.png'
 
 import './FetchError.scss';
 type Props = {
@@ -13,7 +14,7 @@ export const FetchError: React.FC<Props> = ({
     <div className="error-message" role="alert">
       <img
         className="error-message__image"
-        src="/img/product-not-found.png"
+        src={errorImg}
         alt="Error indicator"
       />
 
