@@ -11,5 +11,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: 'https://github.com/Grigoriy01/react_phone-catalog'
+  base: '/react_phone-catalog/'
 });
