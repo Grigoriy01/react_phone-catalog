@@ -3,11 +3,19 @@
 .product-details {
   @include padding-block-content;
 
+  &__header {
+    margin-bottom: 32px;
+
+    @include on-tablet {
+      margin-bottom: 40px;
+    }
+  }
+
   // Основная сетка: Галерея + Действия
   &__main {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 32px;
+    // gap: 32px;
     margin-bottom: 56px;
 
     @include on-tablet {
@@ -24,12 +32,16 @@
   // #region Галерея
   &__gallery {
     display: flex;
+    align-items: center;
     flex-direction: column-reverse;
     gap: 16px;
+    margin-bottom: 40px;
 
     @include on-tablet {
       grid-column: span 7;
       flex-direction: row;
+      align-items: start;
+      margin-bottom: 16px;
     }
 
     @include on-desktop {
@@ -71,7 +83,6 @@
   &__main-image {
     flex-grow: 1;
     display: flex;
-    align-items: center;
     justify-content: center;
     height: 300px;
 
@@ -93,9 +104,11 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
+    margin-bottom: 56px;
 
     @include on-tablet {
       grid-column: span 5;
+      margin-bottom: 64px;
     }
 
     @include on-desktop {
@@ -107,11 +120,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
   }
 
   &__label {
     @extend %small-text;
+
+    margin-bottom: 8px;
   }
 
   &__id-product {
@@ -138,6 +152,20 @@
     }
   }
 
+  &__inner {
+    height: 100%;
+
+    @include on-tablet {
+      max-width: 320px;
+    }
+  }
+
+  &__capacity {
+    @include divider;
+
+    padding-block: 24px;
+  }
+
   &__capacity-btn {
     padding: 8px 16px;
     border: 1px solid $color-elements;
@@ -154,20 +182,18 @@
     }
   }
 
-  &__divider {
-    height: 1px;
-    background-color: $color-elements;
-    width: 100%;
-  }
-
   &__price-block {
+    @include divider;
+
     display: flex;
     align-items: center;
+    padding: 32px 0 16px;
   }
 
   &__buttons {
     display: flex;
     gap: 8px;
+    margin-bottom: 32px;
   }
 
   // Краткие характеристики (dl / dt / dd)
@@ -175,6 +201,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-block: 0;
   }
 
   &__specs-item {
@@ -187,11 +214,13 @@
 
     dd {
       @extend %small-text;
+
       font-weight: 700;
       color: $color-primary;
       margin: 0;
     }
   }
+
   // #endregion
 
   // #region Нижний блок (About + Tech specs)
@@ -200,6 +229,10 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 56px;
+
+    @include on-tablet {
+      gap: 56px;
+    }
 
     @include on-desktop {
       grid-template-columns: repeat(12, 1fr);
@@ -228,7 +261,10 @@
   }
 
   &__section-title {
+    @include divider(bottom);
     @extend %h2-title;
+
+    padding-bottom: 16px;
   }
 
   &__description {
@@ -242,6 +278,7 @@
 
     &-text {
       @extend %body-text;
+
       color: $color-secondary-grau;
     }
   }
@@ -250,14 +287,19 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-block: 0;
 
     .product-details__specs-item {
       dt {
         @extend %body-text;
+
+        font-weight: 500;
         color: $color-secondary-grau;
       }
       dd {
         @extend %body-text;
+
+        font-weight: 600;
         color: $color-primary;
       }
     }

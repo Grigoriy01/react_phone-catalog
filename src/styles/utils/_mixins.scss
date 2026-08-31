@@ -189,6 +189,13 @@
 //     color: $color-primary;
 //   }
 // }
+
+@mixin divider($side: top) {
+  border: none;
+  border-#{$side}: 1px solid $color-elements;
+  margin: 0;
+}
+
 @mixin product-specs-base {
   display: flex;
   flex-direction: column;
@@ -233,15 +240,12 @@
     flex-shrink: 0;
   }
 
-  &__divider {
-    border: none;
-    border-top: 1px solid $color-elements;
-    margin: 0;
-  }
 
   // Задаем внутренний отступ контейнеру
   &__specs {
     padding-block: 8px;
+
+    @include divider;
 
     // Подключаем стили для внутренних элементов ProductSpecs
     .product-specs__row {
@@ -260,6 +264,7 @@
 
       font-weight: 700;
       color: $color-primary;
+      font-size: 12px;
     }
   }
 
@@ -267,6 +272,8 @@
     display: flex;
     align-items: center;
     height: 31px;
+
+
   }
 
   &__actions {

@@ -42,7 +42,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
       />
 
       {/* Разделитель по дизайну, если нужен */}
-      <div className="product-card__divider" />
+      {/* <div className="product-card__divider" /> */}
 
       {/* 4. Блок характеристик */}
       <ProductSpecs product={product} className="product-card__specs" />

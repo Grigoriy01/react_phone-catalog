@@ -1,1 +1,247 @@
-// -
+@use '../../../styles/utils/' as *;
+
+.product-details-skeleton {
+  &__main {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-bottom: 56px;
+
+    @include on-tablet {
+      grid-template-columns: repeat(12, 1fr);
+      gap: 16px;
+    }
+
+    @include on-desktop {
+      gap: 64px;
+      margin-bottom: 80px;
+    }
+  }
+
+  // #region Галерея
+  &__gallery {
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 16px;
+    margin-bottom: 40px;
+
+    @include on-tablet {
+      grid-column: span 7;
+      flex-direction: row;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+
+    @include on-desktop {
+      grid-column: span 7;
+    }
+  }
+
+  &__thumbnails {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+
+    @include on-tablet {
+      flex-direction: column;
+    }
+  }
+
+  &__thumb {
+    @include skeleton-bg;
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+  }
+
+  &__main-image {
+    @include skeleton-bg;
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+
+    @include on-tablet {
+      height: 400px;
+    }
+  }
+  // #endregion
+
+  // #region Панель действий
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 56px;
+
+    @include on-tablet {
+      grid-column: span 5;
+      margin-bottom: 64px;
+    }
+
+    @include on-desktop {
+      grid-column: span 5;
+    }
+  }
+
+  &__color-list,
+  &__capacity-list {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  &__color-btn {
+    @include skeleton-bg;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+
+  &__inner {
+    height: 100%;
+
+    @include on-tablet {
+      max-width: 320px;
+    }
+  }
+
+  &__capacity {
+    @include divider;
+    padding-block: 24px;
+  }
+
+  &__capacity-btn {
+    @include skeleton-bg;
+    width: 64px;
+    height: 32px;
+    border-radius: 4px;
+  }
+
+  &__price-block {
+    @include divider;
+    display: flex;
+    align-items: center;
+    padding: 32px 0 16px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  &__specs-summary,
+  &__specs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__specs-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  // #endregion
+
+  // #region Элементы плашек (Skeleton Elements)
+  &__skeleton-box {
+    @include skeleton-bg;
+
+    &--label {
+      width: 110px;
+      height: 12px;
+    }
+
+    &--price {
+      width: 140px;
+      height: 32px;
+    }
+
+    &--btn-add {
+      flex-grow: 1;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    &--btn-fav {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    &--spec-name {
+      width: 80px;
+      height: 12px;
+    }
+
+    &--spec-val {
+      width: 60px;
+      height: 12px;
+    }
+
+    &--title {
+      width: 160px;
+      height: 24px;
+      margin-bottom: 16px;
+    }
+
+    &--sub-title {
+      width: 200px;
+      height: 16px;
+      margin-bottom: 8px;
+    }
+
+    &--text {
+      width: 100%;
+      height: 12px;
+      margin-bottom: 6px;
+
+      &-short {
+        width: 60%;
+      }
+    }
+  }
+  // #endregion
+
+  // #region Нижний блок (About + Tech specs)
+  &__info {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 56px;
+
+    @include on-tablet {
+      gap: 56px;
+    }
+
+    @include on-desktop {
+      grid-template-columns: repeat(12, 1fr);
+      gap: 64px;
+    }
+  }
+
+  &__about {
+    display: flex;
+    flex-direction: column;
+
+    @include on-desktop {
+      grid-column: span 7;
+    }
+  }
+
+  &__tech-specs {
+    display: flex;
+    flex-direction: column;
+
+    @include on-desktop {
+      grid-column: span 5;
+    }
+  }
+
+  &__description {
+    margin-bottom: 24px;
+  }
+  // #endregion
+}

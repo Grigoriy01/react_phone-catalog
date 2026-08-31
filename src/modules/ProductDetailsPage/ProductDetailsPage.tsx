@@ -73,12 +73,13 @@ export const ProductDetailsPage = () => {
     }
   };
 
-  
-
   return (
     <section className="product-details container">
       <BreadcrumbsNav productName={product?.name} />
-      <BackHeader catalogTitle={product?.name} />
+      <BackHeader
+        catalogTitle={product?.name}
+        className="product-details__header"
+      />
 
       <AsyncData hasError={hasError} onRetry={loadData}>
         {isLoading && !hasError ? (
@@ -112,7 +113,7 @@ export const ProductDetailsPage = () => {
                 </div>
               </section>
 
-              {/* Опции и покупка */}
+              {/* Colors */}
               <section className="product-details__actions">
                 {/* Выбор цвета */}
                 <div className="product-details__colors">
@@ -137,75 +138,73 @@ export const ProductDetailsPage = () => {
                           })}
                           style={{ background: color }}
                           onClick={() => handleColorChenge(color)}
-                          aria-label=""
+                          aria-label={color}
                         ></button>
                       );
                     })}
                   </div>
                 </div>
+                <div className="product-details__inner">
+                  {/* Выбор объема памяти */}
+                  <div className="product-details__capacity">
+                    <span className="product-details__label">
+                      Select capacity
+                    </span>
+                    <div className="product-details__capacity-list">
+                      {product?.capacityAvailable.map(capacity => {
+                        const isSelected = selectedCapacity === capacity;
 
-                <div className="product-details__divider" />
-
-                {/* Выбор объема памяти */}
-                <div className="product-details__capacity">
-                  <span className="product-details__label">
-                    Select capacity
-                  </span>
-                  <div className="product-details__capacity-list">
-                    {product?.capacityAvailable.map(capacity => {
-                      const isSelected = selectedCapacity === capacity;
-
-                      return (
-                        <button
-                          key={capacity}
-                          type="button"
-                          className={cn('product-details__capacity-btn', {
-                            'product-details__capacity-btn--active': isSelected,
-                          })}
-                          onClick={() => handleCapacityChenge(capacity)}
-                          aria-label=""
-                        >
-                          {selectedCapacity}
-                        </button>
-                      );
-                    })}
+                        return (
+                          <button
+                            key={capacity}
+                            type="button"
+                            className={cn('product-details__capacity-btn', {
+                              'product-details__capacity-btn--active':
+                                isSelected,
+                            })}
+                            onClick={() => handleCapacityChenge(capacity)}
+                            aria-label={capacity}
+                          >
+                            {selectedCapacity}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
+
+                  {/* Цена */}
+                  <ProductPrice
+                    className="product-details__price-block"
+                    price={product?.priceDiscount ?? 0}
+                    fullPrice={product?.priceRegular ?? 0}
+                  />
+
+                  {/* Кнопки действия */}
+                  <ProductActions
+                    product={product as unknown as Product}
+                    className="product-details__buttons"
+                  />
+
+                  {/* Краткие характеристики */}
+                  <dl className="product-details__specs-summary">
+                    <div className="product-details__specs-item">
+                      <dt>Screen</dt>
+                      <dd>{product?.screen}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Resolution</dt>
+                      <dd>{product?.resolution}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>Processor</dt>
+                      <dd>{product?.processor}</dd>
+                    </div>
+                    <div className="product-details__specs-item">
+                      <dt>RAM</dt>
+                      <dd>{product?.ram}</dd>
+                    </div>
+                  </dl>
                 </div>
-
-                <div className="product-details__divider" />
-
-                {/* Цена */}
-                <ProductPrice
-                  className="product-details__price-block"
-                  price={product?.priceDiscount ?? 0}
-                  fullPrice={product?.priceRegular ?? 0}
-                />
-
-                {/* Кнопки действия */}
-                <ProductActions
-                  product={product as unknown as Product}
-                  className="product-details__buttons"
-                />
-
-                {/* Краткие характеристики */}
-                <dl className="product-details__specs-summary">
-                  <div className="product-details__specs-item">
-                    <dt>Screen</dt>
-                    <dd>{product?.screen}</dd>
-                  </div>
-                  <div className="product-details__specs-item">
-                    <dt>Resolution</dt>
-                    <dd>{product?.resolution}</dd>
-                  </div>
-                  <div className="product-details__specs-item">
-                    <dt>Processor</dt>
-                    <dd>{product?.processor}</dd>
-                  </div>
-                  <div className="product-details__specs-item">
-                    <dt>RAM</dt>
-                    <dd>{product?.ram}</dd>
-                  </div>
-                </dl>
               </section>
 
               {/* Нижний блок: Описание и Технические характеристики */}
@@ -214,72 +213,56 @@ export const ProductDetailsPage = () => {
                 <section className="product-details__about">
                   <h2 className="product-details__section-title">About</h2>
 
-                  <div className="product-details__divider" />
-
-                  <article className="product-details__description">
-                    <h3 className="product-details__description-title">
-                      {product?.description[0].title}
-                    </h3>
-                    <p className="product-details__description-text">
-                      {product?.description[0].text}
-                    </p>
-                  </article>
-                  <article className="product-details__description">
-                    <h3 className="product-details__description-title">
-                      {product?.description[1].title}
-                    </h3>
-                    <p className="product-details__description-text">
-                      {product?.description[1].text}
-                    </p>
-                  </article>
-                  <article className="product-details__description">
-                    <h3 className="product-details__description-title">
-                      {product?.description[2].title}
-                    </h3>
-                    <p className="product-details__description-text">
-                      {product?.description[2].text}
-                    </p>
-                  </article>
+                  {product?.description.map(({ title, text }, idx) => (
+                    <article className="product-details__description" key={idx}>
+                      <h3 className="product-details__description-title">
+                        {title}
+                      </h3>
+                      {text.map((paragraph, pIdx) => (
+                        <p className="product-details__description-text" key={pIdx}>
+                        {paragraph}
+                      </p>
+                      ))}
+                    </article>
+                  ))}
                 </section>
 
                 {/* Полные технические характеристики */}
                 <section className="product-details__tech-specs">
                   <h2 className="product-details__section-title">Tech specs</h2>
 
-                  <div className="product-details__divider" />
-
                   <dl className="product-details__specs-list">
                     <div className="product-details__specs-item">
                       <dt>Screen</dt>
-                      <dd>6.1' Liquid Retina HD</dd>
+                      <dd>{product?.screen}</dd>
                     </div>
                     <div className="product-details__specs-item">
                       <dt>Resolution</dt>
-                      <dd>1792x828</dd>
+                      <dd>{product?.resolution}</dd>
                     </div>
                     <div className="product-details__specs-item">
                       <dt>Processor</dt>
-                      <dd>1792x828</dd>
+                      <dd>{product?.processor}</dd>
                     </div>
                     <div className="product-details__specs-item">
                       <dt>RAM</dt>
-                      <dd>1792x828</dd>
+                      <dd>{product?.ram}</dd>
                     </div>
                     <div className="product-details__specs-item">
                       <dt>Built in memory</dt>
-                      <dd>1792x828</dd>
+                      <dd>{product?.capacity}</dd>
                     </div>
                     <div className="product-details__specs-item">
                       <dt>Camera</dt>
-                      <dd>1792x828</dd>
+                      <dd>{product?.camera}</dd>
                     </div>
                     <div className="product-details__specs-item">
                       <dt>Zoom</dt>
-                      <dd>1792x828</dd>
+                      <dd>{product?.zoom}</dd>
                     </div>
                     <div className="product-details__specs-item">
                       <dt>Cell</dt>
-                      <dd>1792x828</dd>
+                      <dd>{product?.cell.join(', ')}</dd>
                     </div>
                   </dl>
                 </section>

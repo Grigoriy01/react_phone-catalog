@@ -1,0 +1,33 @@
+@use '../../../../styles/utils/' as *;
+
+.back-header-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+
+  @include on-tablet {
+    margin-bottom: 40px;
+  }
+
+  &__btn {
+    @include skeleton-bg;
+
+    width: 60px;
+    height: 16px;
+    border-radius: 4px;
+  }
+
+  &__title {
+    @include skeleton-bg;
+    
+    width: 280px;
+    height: 32px; // Высота точно соответствует h1-title
+    border-radius: 4px;
+
+    @include on-tablet {
+      width: 400px;
+      height: 40px;
+    }
+  }
+}

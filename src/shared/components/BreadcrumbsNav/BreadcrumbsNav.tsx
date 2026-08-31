@@ -40,11 +40,14 @@ export const BreadcrumbsNav: React.FC<Props> = ({ productName }) => {
           )}
         </li>
 
-        {productName && (
+        {productName ? (
           <li className="breadcrumbs__item">
             <span className="breadcrumbs__current">{productName}</span>
           </li>
-        )}
+        ) : (
+          <span className="breadcrumbs__current breadcrumbs__current--loading">...</span>
+        )
+      }
       </ol>
     </nav>
   );
