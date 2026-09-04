@@ -15,7 +15,7 @@ export const HomePage = () => {
 
   const categoriesCount = {
     phones: products.filter(p => p.category === 'phones').length,
-    tablet: products.filter(p => p.category === 'tablet').length,
+    tablets: products.filter(p => p.category === 'tablets').length,
     accessories: products.filter(p => p.category === 'accessories').length,
   };
 

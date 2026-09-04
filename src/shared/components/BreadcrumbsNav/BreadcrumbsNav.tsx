@@ -6,7 +6,7 @@ import './BreadcrumbsNav.scss';
 
 type Props = {
   productName?: string;
-  className: string;
+  className?: string;
 };
 
 export const BreadcrumbsNav: React.FC<Props> = ({
