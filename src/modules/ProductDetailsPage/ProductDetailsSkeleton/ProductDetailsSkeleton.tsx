@@ -3,7 +3,7 @@ import './ProductDetailsSkeleton.scss';
 export const ProductDetailsSkeleton = () => {
   return (
     <div className="product-details-skeleton">
-      <div className="product-details-skeleton__main">
+      <div className="product-details-skeleton__main container">
         {/* Галерея */}
         <div className="product-details-skeleton__gallery">
           <div className="product-details-skeleton__thumbnails">

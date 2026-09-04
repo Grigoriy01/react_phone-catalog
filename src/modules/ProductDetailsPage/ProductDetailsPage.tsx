@@ -95,14 +95,16 @@ export const ProductDetailsPage = () => {
   }
 
   if (isLoading) {
-    <section className="product-details container">
-      <BreadcrumbsNav productName={product?.name} className="container" />
-      <BackHeader
-        catalogTitle={product?.name}
-        className="product-details__header"
-      />
-      <ProductDetailsSkeleton />
-    </section>;
+    return (
+      <section className="product-details container">
+        <BreadcrumbsNav productName={product?.name}  />
+        <BackHeader
+          catalogTitle={product?.name}
+          className="product-details__header"
+        />
+        <ProductDetailsSkeleton />
+      </section>
+    );
   }
 
   return (

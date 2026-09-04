@@ -1,10 +1,9 @@
 @use '../../../styles/utils/' as *;
 
 .product-details-skeleton {
-
   &__main {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     margin-bottom: 56px;
 
     @include on-tablet {
@@ -25,6 +24,7 @@
     flex-direction: column-reverse;
     gap: 16px;
     margin-bottom: 40px;
+    min-width: 0;
 
     @include on-tablet {
       grid-column: span 7;
@@ -47,8 +47,6 @@
 
     @include on-tablet {
       flex-direction: column;
-      justify-content: flex-start;
-      width: auto;
     }
   }
 
@@ -68,6 +66,7 @@
     height: 300px;
     max-height: 300px;
     border-radius: 8px;
+    min-width: 0;
 
     @include on-tablet {
       height: 400px;
@@ -119,7 +118,7 @@
   }
 
   &__capacity {
-    @include divider;
+    @include divider; // Синхронизировано с основным блоком
 
     padding-block: 24px;
   }
@@ -133,7 +132,7 @@
   }
 
   &__price-block {
-    @include divider;
+    @include divider; // Синхронизировано с основным блоком
 
     display: flex;
     align-items: center;
@@ -146,11 +145,11 @@
     margin-bottom: 32px;
   }
 
-  &__specs-summary,
-  &__specs-list {
+  &__specs-summary {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px; // В оригинале gap: 8px
+    margin-block: 0;
   }
 
   &__specs-item {
@@ -166,18 +165,9 @@
     @include skeleton-bg;
 
     &--title {
-      width: 90%;
-      height: 28px;
-    }
-
-    &--title-sub {
-      width: 55%;
-      height: 28px;
-
-      // Скрываем вторую строку заголовка на экранах > 640px
-      @include on-tablet {
-        display: none;
-      }
+      width: 160px;
+      height: 31px;
+      margin-bottom: 16px;
     }
 
     &--label {
@@ -192,13 +182,13 @@
 
     &--btn-add {
       flex-grow: 1;
-      height: 40px;
+      height: 48px; // В оригинальной кнопке height: 48px
       border-radius: 8px;
     }
 
     &--btn-fav {
-      width: 40px;
-      height: 40px;
+      width: 48px; // В оригинале 48px x 48px
+      height: 48px;
       border-radius: 8px;
       flex-shrink: 0;
     }
@@ -213,16 +203,10 @@
       height: 12px;
     }
 
-    &--title-section {
-      width: 160px;
-      height: 24px;
-      margin-bottom: 16px;
-    }
-
     &--sub-title {
       width: 200px;
-      height: 16px;
-      margin-bottom: 8px;
+      height: 20px;
+      margin-bottom: 12px;
     }
 
     &--text {
@@ -242,7 +226,7 @@
   &__info {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 56px;
 
     @include on-tablet {
@@ -258,6 +242,7 @@
   &__about {
     display: flex;
     flex-direction: column;
+    gap: 32px; // Синхронизировано с .product-details__about
 
     @include on-desktop {
       grid-column: span 7;
@@ -267,6 +252,7 @@
   &__tech-specs {
     display: flex;
     flex-direction: column;
+    gap: 32px; // Синхронизировано с .product-details__tech-specs
 
     @include on-desktop {
       grid-column: span 5;
@@ -274,7 +260,16 @@
   }
 
   &__description {
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__specs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; // В оригинале gap: 8px
+    margin-block: 0;
   }
 
   // #endregion
