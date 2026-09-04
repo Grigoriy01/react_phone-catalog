@@ -75,12 +75,14 @@ export const ProductsSlider: React.FC<Props> = ({
           <Swiper
             onSwiper={swiper => (swiperRef.current = swiper)}
             onSlideChange={handleSlideChange}
+            roundLengths={true}
+            onReachEnd={() => setIsEnd(true)}
+            onReachBeginning={() => setIsBeginning(true)}
             breakpoints={{
               320: { slidesPerView: 'auto' },
               640: { slidesPerView: 'auto' },
               1200: { slidesPerView: 4 },
             }}
-
             spaceBetween={16}
             className="styles-mySwiper"
           >

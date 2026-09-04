@@ -155,7 +155,7 @@
     @extend %small-text;
 
     color: $color-secondary-grau;
-    //flex-shrink: 0;
+   
   }
 
   &__value {
@@ -231,6 +231,6 @@
     align-items: center;
     margin-top: auto;
     height: 40px;
-    
+
   }
 }
