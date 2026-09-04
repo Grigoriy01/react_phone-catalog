@@ -8,11 +8,19 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    width: 100%;
   }
 
   &__item {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
+
+    &:last-child {
+      min-width: 0;
+      flex-shrink: 1;
+    }
+
 
     &:not(:first-child) {
       &::before {
@@ -42,6 +50,8 @@
     font-size: 12px;
     color: $color-secondary-grau; // Основной цвет текста
     display: flex;
+    flex-shrink: 0;
+    white-space: nowrap;
     align-items: center;
     transition: color $transition-duration ease;
 
@@ -63,10 +73,22 @@
   }
 
   &__current {
-    @extend %small-text; // Твой типографический стилизатор[cite: 2]
+    @extend %small-text;
 
+    display: block; // Заменяем inline-block на block для строгого расчета границ
+    flex-shrink: 1;
     font-size: 12px;
     transform: translateY(1px);
-    color: $color-secondary-grau; // Активный элемент серым цветом по макету[cite: 1]
+    color: $color-secondary-grau;
+
+    // Трио для троеточия:
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    // Управление шириной во flexbox:
+    min-width: 0;
+
+    // width: 100%;  Заставляем занять всю доступную ширину родителя
   }
 }

@@ -49,6 +49,7 @@
   // Подключаем правильную геометрию строк спецификаций
   &__specs {
     @include product-specs-base;
+    @include divider;
 
     padding-block: 8px;
   }
@@ -62,7 +63,7 @@
 
   &__spec-value {
     @include skeleton-bg;
-
+    
     width: 36px;
     height: 12px;
   }

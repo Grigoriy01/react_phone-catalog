@@ -18,16 +18,35 @@
     border-radius: 4px;
   }
 
+  // Обертка под строки заголовка
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   &__title {
     @include skeleton-bg;
-    
-    width: 280px;
-    height: 32px; // Высота точно соответствует h1-title
+
+    height: 32px; // Высота строки соответствует шрифту h1
     border-radius: 4px;
 
-    @include on-tablet {
-      width: 400px;
-      height: 40px;
+    &--main {
+      width: 90%; // Первая длинная строка на мобильном
+
+      @include on-tablet {
+        width: 400px;
+        height: 40px;
+      }
+    }
+
+    &--sub {
+      width: 50%; // Вторая короткая строка под перенос
+
+      // На планшетах и ПК заголовок помещается в 1 строку — скрываем вторую полосу
+      @include on-tablet {
+        display: none;
+      }
     }
   }
 }

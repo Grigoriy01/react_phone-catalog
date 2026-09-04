@@ -3,7 +3,7 @@ import { Product } from '../../types';
 import { Link } from 'react-router-dom';
 
 import { ProductActions } from '../ProductActions';
-import { ProductSpecs } from '../ProductSpecs';
+import { ProductSpecsItem } from '../ProductSpecsItem';
 import { ProductPrice } from '../ProductPrice';
 
 import './ProductCard.scss';
@@ -41,7 +41,11 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
       />
 
       {/* 4. Specs-block */}
-      <ProductSpecs product={product} className="product-card__specs" />
+      <dl className="product-card__specs product-specs">
+        <ProductSpecsItem label='Screen' value={product?.screen} />
+        <ProductSpecsItem label='Capacity' value={product?.capacity} />
+        <ProductSpecsItem label='RAM' value={product?.ram} />
+      </dl>
 
       {/* Buttons */}
       <ProductActions product={product} className="product-card__actions" />

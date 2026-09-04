@@ -25,5 +25,7 @@
     margin: 0;
   }
 
-  
+  &__specs {
+    @include product-specs-base;
+  }
 }

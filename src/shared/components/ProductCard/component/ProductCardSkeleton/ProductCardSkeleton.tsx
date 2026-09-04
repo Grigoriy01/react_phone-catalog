@@ -14,8 +14,6 @@ export const ProductCardSkeleton = () => {
         <div className="product-card-skeleton__price" />
       </div>
 
-      {/* <div className="product-card-skeleton__divider" /> */}
-
       {/* Используем универсальный селектор product-specs */}
       <div className="product-card-skeleton__specs product-specs">
         <div className="product-specs__row">

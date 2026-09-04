@@ -9,7 +9,7 @@ import { useProducts } from '@/modules/HomePage/components/Hook/useProducts';
 export const FavoritesPage = () => {
   const { favorites } = useFavorites();
   const {isLoading} = useProducts()
-
+console.log('fav:', favorites)
   const countProduct = favorites.length;
 
   return (

@@ -1,6 +1,7 @@
 @use '../../../styles/utils/' as *;
 
 .product-details-skeleton {
+
   &__main {
     display: grid;
     grid-template-columns: 1fr;
@@ -39,20 +40,25 @@
 
   &__thumbnails {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 8px;
+    width: 100%;
 
     @include on-tablet {
       flex-direction: column;
+      justify-content: flex-start;
+      width: auto;
     }
   }
 
   &__thumb {
     @include skeleton-bg;
-    
+
     width: 50px;
     height: 50px;
     border-radius: 4px;
+    flex-shrink: 0;
   }
 
   &__main-image {
@@ -60,10 +66,12 @@
 
     width: 100%;
     height: 300px;
+    max-height: 300px;
     border-radius: 8px;
 
     @include on-tablet {
       height: 400px;
+      max-height: 400px;
     }
   }
   // #endregion
@@ -74,6 +82,7 @@
     flex-direction: column;
     gap: 24px;
     margin-bottom: 56px;
+    min-width: 0;
 
     @include on-tablet {
       grid-column: span 5;
@@ -88,6 +97,7 @@
   &__color-list,
   &__capacity-list {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin-top: 8px;
   }
@@ -155,6 +165,21 @@
   &__skeleton-box {
     @include skeleton-bg;
 
+    &--title {
+      width: 90%;
+      height: 28px;
+    }
+
+    &--title-sub {
+      width: 55%;
+      height: 28px;
+
+      // Скрываем вторую строку заголовка на экранах > 640px
+      @include on-tablet {
+        display: none;
+      }
+    }
+
     &--label {
       width: 110px;
       height: 12px;
@@ -188,7 +213,7 @@
       height: 12px;
     }
 
-    &--title {
+    &--title-section {
       width: 160px;
       height: 24px;
       margin-bottom: 16px;

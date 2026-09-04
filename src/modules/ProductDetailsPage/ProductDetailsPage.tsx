@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useProductDetails } from './Hook';
 import { useProducts } from '../HomePage/components/Hook/useProducts';
 import { getSuggestedProducts } from '@/utils';
+import { getColorHex } from '@/utils';
 import { Product } from '@/shared/types';
 import cn from 'classnames';
 
@@ -14,10 +15,8 @@ import { ProductPrice } from '@/shared/components/ProductPrice';
 import { ProductDetailsSkeleton } from './ProductDetailsSkeleton';
 import { ProductsSlider } from '@/shared/components/ProductsSlider';
 
-
 import './ProductDetailsPage.scss';
-
-
+import { ProductSpecsItem } from '@/shared/components/ProductSpecsItem';
 
 export const ProductDetailsPage = () => {
   const { productId, category } = useParams<{
@@ -31,51 +30,59 @@ export const ProductDetailsPage = () => {
     category,
   );
 
+
+
   const navigate = useNavigate();
-  const [selectedImg, setSelectedImg] = useState(product?.images[0]);
-  const [selectedColor, setSelectedColor] = useState(
-    product?.colorsAvailable[0],
-  );
-  const [selectedCapacity, setSelectedCapacity] = useState(
-    product?.capacityAvailable[0],
-  );
+  const [selectedImg, setSelectedImg] = useState('');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [productId]);
 
   useEffect(() => {
     if (product) {
-      setSelectedImg(`${import.meta.env.BASE_URL}${product.images[0]}`);
-      setSelectedColor(product.color);
-      setSelectedCapacity(product.capacity);
+      setSelectedImg(product.images[0]);
     }
   }, [product]);
 
   const handleColorChange = (newColor: string) => {
-    if (!product) return;
+  if (!product) return;
 
-    const selectedProduct = products.find(
-      item =>
-        item.itemId.includes(product.namespaceId) &&
-        item.itemId.includes(newColor) &&
-        item.itemId.includes(product.capacity.toLowerCase()),
-    );
+  const targetColor = newColor.toLowerCase();
+  const targetCapacity = product.capacity.toLowerCase();
 
-    if (selectedProduct) {
-      navigate(`/${category}/${selectedProduct.itemId}`);
-    }
-  };
+  const selectedProduct = products.find(
+    item =>
+      item.category === category &&
+      item.itemId.includes(product.namespaceId) &&
+      item.itemId.endsWith(`-${targetCapacity}-${targetColor}`)
+  );
 
-  const handleCapacityChange = (newCapacity: string) => {
-    const selectedProduct = products.find(
-      item =>
-        item.capacity === newCapacity &&
-        item.itemId === product?.id &&
-        item.color === product.color,
-    );
+  if (selectedProduct) {
+    navigate(`/${category}/${selectedProduct.itemId}`);
+  }
+};
 
-    if (selectedProduct) {
-      navigate(`/${category}/${selectedProduct.itemId}`);
-    }
-  };
+const handleCapacityChange = (newCapacity: string) => {
+  if (!product) return;
 
+  const targetCapacity = newCapacity.toLowerCase();
+  const targetColor = product.color.toLowerCase();
+
+  const selectedProduct = products.find(
+    item =>
+      item.category === category &&
+      item.itemId.includes(product.namespaceId) &&
+      item.itemId.endsWith(`-${targetCapacity}-${targetColor}`)
+  );
+
+  if (selectedProduct) {
+    navigate(`/${category}/${selectedProduct.itemId}`);
+  }
+};
+
+  const currentProduct = products.find(product => product.itemId === productId);
+console.log('currentProduct:', product)
   return (
     <section className="product-details container">
       <BreadcrumbsNav productName={product?.name} />
@@ -93,7 +100,7 @@ export const ProductDetailsPage = () => {
               {/* Галерея картинок */}
               <section className="product-details__gallery">
                 <div className="product-details__thumbnails">
-                  {/* Кнопка превью картинки (выбирается через state) */}
+
                   {product?.images.map((img, index) => (
                     <button
                       key={index}
@@ -105,7 +112,7 @@ export const ProductDetailsPage = () => {
                     >
                       <img
                         src={img}
-                        alt={`{product.name}  view ${index + 1}`}
+                        alt={`${product.name}  view ${index + 1}`}
                       />
                     </button>
                   ))}
@@ -121,7 +128,6 @@ export const ProductDetailsPage = () => {
 
               {/* Colors */}
               <section className="product-details__actions">
-                {/* Выбор цвета */}
                 <div className="product-details__colors">
                   <div className="product-details__wrapper-label">
                     <span className="product-details__label">
@@ -133,7 +139,7 @@ export const ProductDetailsPage = () => {
                   </div>
                   <div className="product-details__color-list">
                     {product?.colorsAvailable.map(color => {
-                      const isSelected = selectedColor === color;
+                      const isSelected = product.color === color;
 
                       return (
                         <button
@@ -142,9 +148,10 @@ export const ProductDetailsPage = () => {
                           className={cn('product-details__color-btn', {
                             'product-details__color-btn--active': isSelected,
                           })}
-                          style={{ background: color }}
+                          style={{ background: getColorHex(color) }}
                           onClick={() => handleColorChange(color)}
                           aria-label={color}
+                          title={color}
                         ></button>
                       );
                     })}
@@ -158,7 +165,7 @@ export const ProductDetailsPage = () => {
                     </span>
                     <div className="product-details__capacity-list">
                       {product?.capacityAvailable.map(capacity => {
-                        const isSelected = selectedCapacity === capacity;
+                        const isSelected = product.capacity === capacity;
 
                         return (
                           <button
@@ -187,7 +194,7 @@ export const ProductDetailsPage = () => {
 
                   {/* Кнопки действия */}
                   <ProductActions
-                    product={product as unknown as Product}
+                    product={currentProduct as Product}
                     className="product-details__buttons"
                   />
 
@@ -241,38 +248,14 @@ export const ProductDetailsPage = () => {
                   <h2 className="product-details__section-title">Tech specs</h2>
 
                   <dl className="product-details__specs-list">
-                    <div className="product-details__specs-item">
-                      <dt>Screen</dt>
-                      <dd>{product?.screen}</dd>
-                    </div>
-                    <div className="product-details__specs-item">
-                      <dt>Resolution</dt>
-                      <dd>{product?.resolution}</dd>
-                    </div>
-                    <div className="product-details__specs-item">
-                      <dt>Processor</dt>
-                      <dd>{product?.processor}</dd>
-                    </div>
-                    <div className="product-details__specs-item">
-                      <dt>RAM</dt>
-                      <dd>{product?.ram}</dd>
-                    </div>
-                    <div className="product-details__specs-item">
-                      <dt>Built in memory</dt>
-                      <dd>{product?.capacity}</dd>
-                    </div>
-                    <div className="product-details__specs-item">
-                      <dt>Camera</dt>
-                      <dd>{product?.camera}</dd>
-                    </div>
-                    <div className="product-details__specs-item">
-                      <dt>Zoom</dt>
-                      <dd>{product?.zoom}</dd>
-                    </div>
-                    <div className="product-details__specs-item">
-                      <dt>Cell</dt>
-                      <dd>{product?.cell.join(', ')}</dd>
-                    </div>
+                    <ProductSpecsItem label='Screen' value={product?.screen} className="product-details__specs-item" />
+                    <ProductSpecsItem label='Resolution' value={product?.resolution} className="product-details__specs-item" />
+                    <ProductSpecsItem label='Processor' value={product?.processor} className="product-details__specs-item" />
+                    <ProductSpecsItem label='RAM' value={product?.ram} className="product-details__specs-item" />
+                    <ProductSpecsItem label='Built in memory' value={product?.capacity} className="product-details__specs-item" />
+                    <ProductSpecsItem label='Camera' value={product?.camera} className="product-details__specs-item" />
+                    <ProductSpecsItem label='Zoom' value={product?.zoom} className="product-details__specs-item" />
+                    <ProductSpecsItem label='Cell' value={product?.cell.join(', ')} className="product-details__specs-item" />
                   </dl>
                 </section>
               </div>
