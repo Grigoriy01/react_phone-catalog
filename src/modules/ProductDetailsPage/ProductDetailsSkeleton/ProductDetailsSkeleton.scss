@@ -47,6 +47,7 @@
 
     @include on-tablet {
       flex-direction: column;
+      width: auto;
     }
   }
 
@@ -62,15 +63,16 @@
   &__main-image {
     @include skeleton-bg;
 
-    width: 100%;
+    width: 227px;
     height: 300px;
     max-height: 300px;
     border-radius: 8px;
     min-width: 0;
+    margin-inline: auto;
 
     @include on-tablet {
       height: 400px;
-      max-height: 400px;
+      max-height: 300px;
     }
   }
   // #endregion

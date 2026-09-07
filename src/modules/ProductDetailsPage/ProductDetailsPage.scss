@@ -58,6 +58,7 @@
 
     @include on-tablet {
       flex-direction: column;
+      width: auto;
     }
   }
 
@@ -309,7 +310,7 @@
         font-weight: 600;
         color: $color-primary;
       }
-     
+
     }
   }
 

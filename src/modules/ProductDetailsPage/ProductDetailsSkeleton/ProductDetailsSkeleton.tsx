@@ -3,11 +3,11 @@ import './ProductDetailsSkeleton.scss';
 export const ProductDetailsSkeleton = () => {
   return (
     <div className="product-details-skeleton">
-      <div className="product-details-skeleton__main container">
+      <div className="product-details-skeleton__main">
         {/* Галерея */}
         <div className="product-details-skeleton__gallery">
           <div className="product-details-skeleton__thumbnails">
-            {Array.from({ length: 4 }).map((_, i) => (
+            {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="product-details-skeleton__thumb" />
             ))}
           </div>

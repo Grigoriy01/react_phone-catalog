@@ -9,5 +9,15 @@
 
   &__count {
     @extend %small-text;
+
+    user-select: none
+  }
+
+  &__count-skeleton {
+    @include skeleton-bg;
+
+    width: 55px;
+    height: 13px;
+    // border-radius: 4px;
   }
 }

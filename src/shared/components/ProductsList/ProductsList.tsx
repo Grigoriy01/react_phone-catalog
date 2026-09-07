@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const ProductsList: React.FC<Props> = ({
-  skeletonCount = 1,
+  skeletonCount = 8,
   products,
   isLoading,
 }) => {
@@ -25,6 +25,11 @@ export const ProductsList: React.FC<Props> = ({
       </div>
     );
   }
+
+  if (products.length === 0) {
+    return <p className="products-list__empty">There are no products available</p>;
+  }
+  
   return (
     <div className="products-list">
       {products.map(product => (
