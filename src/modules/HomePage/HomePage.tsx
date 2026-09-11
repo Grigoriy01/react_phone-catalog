@@ -1,0 +1,48 @@
+
+import { useProducts } from './Hook/useProducts';
+import { getProductsWithHotPrices, sortByYear } from '@/utils';
+
+import { Hero } from './components/Hero';
+import { ProductsSlider } from '@/shared/components/ProductsSlider';
+import { ShopByCategory } from './components/ShopByCategory';
+
+import './HomePage.scss';
+
+export const HomePage = () => {
+  const { products, isLoading, loadData, hasError } = useProducts();
+
+  const visibleNewModels = sortByYear(products);
+  const visibleHotPrice = getProductsWithHotPrices(products);
+
+  const categoriesCount = {
+    phones: products.filter(p => p.category === 'phones').length,
+    tablets: products.filter(p => p.category === 'tablets').length,
+    accessories: products.filter(p => p.category === 'accessories').length,
+  };
+
+  return (
+    <div className="home-page">
+      <Hero />
+
+      <ProductsSlider
+        title="Brand New Models"
+        isLoading={isLoading}
+        className="home-page__section"
+        products={visibleNewModels}
+        onRetry={loadData}
+        hasError={hasError}
+      />
+
+      <ShopByCategory categoriesCount={categoriesCount} />
+
+      <ProductsSlider
+        title="Hot prices"
+        isLoading={isLoading}
+        className="home-page__section"
+        products={visibleHotPrice}
+        onRetry={loadData}
+        hasError={hasError}
+      />
+    </div>
+  );
+};

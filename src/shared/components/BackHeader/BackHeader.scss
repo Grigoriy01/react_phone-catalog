@@ -9,28 +9,22 @@
     padding-bottom: 16px;
     border: none;
     background: transparent;
-
     cursor: pointer;
+  }
 
-    &::before {
-      content: '';
-      display: block;
-      width: 12px;
-      height: 12px;
-      background: url('../../assets/icons/arrow-right/arrow-right.svg') no-repeat
-        center / contain;
-      transform: rotate(180deg);
+  &__btn-item {
+    @extend %button-text;
 
-    }
+    font-size: 12px;
+    line-height: 100%;
+    color: $color-secondary-grau;
+    transform: translateY(1px);
+  }
 
-    &__item {
-      @extend %button-text;
-
-      font-size: 12px;
-      line-height: 100%;
-      color: $color-secondary-grau;
-      transform: translateY(1px);
-    }
+  &__btn-arrow {
+    @extend %arrow-icon;
+    
+    transform: rotate(180deg)
   }
 
   &__title {

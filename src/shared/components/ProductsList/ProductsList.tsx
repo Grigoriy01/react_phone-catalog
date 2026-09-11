@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductCard } from '../ProductCard';
 import { Product } from '../../types';
-import { ProductCardSkeleton } from '../ProductCard/component/ProductCardSkeleton/ProductCardSkeleton';
+import { ProductCardSkeleton } from '../ProductCard/ProductCardSkeleton';
 
 import './ProductsList.scss';
 
@@ -27,9 +27,11 @@ export const ProductsList: React.FC<Props> = ({
   }
 
   if (products.length === 0) {
-    return <p className="products-list__empty">There are no products available</p>;
+    return (
+      <p className="products-list__empty">There are no products available</p>
+    );
   }
-  
+
   return (
     <div className="products-list">
       {products.map(product => (

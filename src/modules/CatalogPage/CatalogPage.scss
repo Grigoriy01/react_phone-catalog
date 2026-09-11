@@ -1,0 +1,42 @@
+@use '../../styles/utils/' as *;
+
+.catalog-page {
+  @include padding-block-content;
+
+  padding-bottom: 64px;
+
+  @include on-desktop {
+    padding-bottom: 80px;
+  }
+
+  &__breadcrumbs {
+    margin-bottom: 24px;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-block: 32px 24px;
+    min-width: 0;
+
+    @include on-tablet {
+      margin-block: 40px 24px;
+    }
+  }
+  &__select-page {
+    max-width: 136px;
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    min-width: 0;
+
+    @include on-desktop {
+      margin-top: 80px;
+    }
+  }
+}

@@ -1,0 +1,91 @@
+@use '../../../styles/utils/' as *;
+
+.dropdown-select {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 176px;
+  min-width: 0;
+
+  &__label {
+    @extend %small-text;
+  }
+
+  &__trigger {
+    @extend %body-text;
+    @include base-button(100%, 40px, 8px, true);
+
+    justify-content: space-between;
+
+    padding-inline: 12px;
+    background-color: $color-white;
+    border: 1px solid $color-icons;
+    text-align: left;
+    cursor: pointer;
+
+    &--open {
+      border-color: $color-primary;
+    }
+  }
+
+  &__arrow {
+    @extend %arrow-icon;
+    
+    flex-shrink: 0;
+    color: $color-icons;
+    transform: rotate(90deg);
+    transition: transform $transition-duration $transition-effect;
+
+    &--open {
+      transform: rotate(270deg);
+    }
+  }
+
+  &__value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__list {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    z-index: z('dropdown');
+    width: 100%;
+    margin: 0;
+    padding: 8px 0;
+    list-style: none;
+    background-color: $color-white;
+    border: 1px solid $color-elements;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px 0 #0000000d;
+  }
+
+  &__item {
+    min-width: 0;
+  }
+
+  &__option {
+    @extend %body-text;
+
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 32px;
+    padding-inline: 12px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: $color-secondary-grau;
+    cursor: pointer;
+
+    @include hover(background-color, $color-hover-bg);
+
+    &--selected {
+      color: $color-primary;
+    }
+  }
+}

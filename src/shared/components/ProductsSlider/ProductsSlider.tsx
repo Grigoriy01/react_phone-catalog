@@ -6,12 +6,11 @@ import { AsyncData } from './AsyncData';
 import { IconButton } from '../Buttons/components/IconButton';
 import { ProductCard } from '../ProductCard';
 import { Product } from '../../types';
-import { ProductCardSkeleton } from '../ProductCard/component/ProductCardSkeleton/ProductCardSkeleton';
+import { ProductCardSkeleton } from '../ProductCard/ProductCardSkeleton';
 
 import { ArrowIcon } from '@/shared/assets/icons/arrow-right';
-import './ProductsSlider.scss';
-import './ProductsSlider.scss';
 import cn from 'classnames';
+import './ProductsSlider.scss';
 
 type Props = {
   isLoading: boolean;

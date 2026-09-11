@@ -1,6 +1,5 @@
 @use '../../../styles/utils' as *;
 
-
 .breadcrumbs {
   padding-bottom: 24px;
 
@@ -9,6 +8,7 @@
     align-items: center;
     gap: 8px;
     width: 100%;
+    min-height: 16px;
   }
 
   &__item {
@@ -20,51 +20,19 @@
       min-width: 0;
       flex-shrink: 1;
     }
-
-
-    &:not(:first-child) {
-      &::before {
-        content: '';
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        margin-right: 8px;
-        flex-shrink: 0;
-        background-color: $color-secondary-grau;
-
-        // Вставляем маску для SVG, чтобы управлялся цвет через background-color
-        background-color: $color-icons;
-        mask: url('../../assets/icons/arrow-right/arrow-right.svg') no-repeat
-          center / contain;
-        -webkit-mask: url('../../assets/icons/arrow-right/arrow-right.svg')
-          no-repeat center / contain;
-      }
-    }
   }
 
-  // Все элементы, кроме первого (с домиком), получают стрелочку слева
-
   &__link {
-    @extend %small-text; // Твой типографический стилизатор 12px / Mont SemiBold[cite: 2]
+    @extend %small-text;
 
     font-size: 12px;
-    color: $color-secondary-grau; // Основной цвет текста
+    color: $color-secondary-grau;
     display: flex;
     flex-shrink: 0;
     white-space: nowrap;
     align-items: center;
+
     transition: color $transition-duration ease;
-
-    &:hover {
-      color: $color-primary; // Меняем цвет при наведении[cite: 1]
-    }
-
-    svg {
-      display: block;
-      width: 16px;
-      height: 16px;
-      fill: currentColor; // Окрашивает иконку Home в цвет текста
-    }
 
     &--page-name {
       color: $color-primary;
@@ -72,23 +40,39 @@
     }
   }
 
+  &__arrow {
+    color: $color-icons;
+
+    &--two {
+      margin-left: 8px;
+    }
+  }
+
   &__current {
     @extend %small-text;
 
-    display: block; // Заменяем inline-block на block для строгого расчета границ
+    display: block;
     flex-shrink: 1;
     font-size: 12px;
     transform: translateY(1px);
     color: $color-secondary-grau;
 
-    // Трио для троеточия:
+    // Three Dots
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
-    // Управление шириной во flexbox:
     min-width: 0;
 
-    // width: 100%;  Заставляем занять всю доступную ширину родителя
+
+  }
+
+  &__skeleton {
+    @include skeleton-bg;
+
+    display: block;
+    width: 120px;
+    height: 16px;
+    border-radius: 4px;
+    margin-bottom: 24px;
   }
 }

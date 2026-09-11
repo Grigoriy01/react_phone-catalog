@@ -1,0 +1,78 @@
+@use '../../../styles/utils/' as *;
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-width: 0;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    min-width: 0;
+  }
+
+  &__item {
+    min-width: 0;
+  }
+
+  &__button {
+    @extend %button-text;
+
+    font-weight: 600;
+    color: $color-primary;
+    background-color: $color-white;
+    cursor: pointer;
+
+    &--active {
+      background-color: $color-primary;
+      color: $color-white;
+      border-color: $color-primary;
+    }
+
+    &--disabled {
+      border-color: $color-elements;
+      color: $color-icons;
+      cursor: not-allowed;
+      pointer-events: none;
+
+      .pagination__icon {
+        fill: $color-icons;
+      }
+    }
+
+    &__dots {
+      @extend %button-text;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      color: $color-secondary-grau;
+      user-select: none;
+    }
+
+    &--skeleton {
+      @include skeleton-bg;
+
+      border: none;
+      cursor: default;
+    }
+  }
+
+  &__arrow {
+    @extend %arrow-icon;
+
+    fill: $color-primary;
+
+    &--prev {
+      transform: rotate(180deg);
+    }
+  }
+}

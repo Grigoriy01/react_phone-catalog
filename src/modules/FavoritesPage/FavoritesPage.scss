@@ -1,0 +1,13 @@
+@use '../../styles/utils/' as *;
+
+.favorites-page {
+  @include padding-block-content;
+
+  >:last-child {
+    padding-top: 32px;
+
+    @include on-tablet {
+      padding-top: 40px;
+    }
+  }
+}

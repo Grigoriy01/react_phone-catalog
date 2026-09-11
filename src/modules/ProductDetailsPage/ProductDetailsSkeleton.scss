@@ -1,20 +1,11 @@
 @use '../../styles/utils/' as *;
 
-.product-details {
-  @include padding-block-content;
+.product-details-skeleton {
 
-  &__header {
-    margin-bottom: 32px;
-
-    @include on-tablet {
-      margin-bottom: 40px;
-    }
-  }
-
-  // Основная сетка: Галерея + Действия
   &__main {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
+    margin-bottom: 56px;
 
     @include on-tablet {
       grid-template-columns: repeat(12, 1fr);
@@ -23,6 +14,7 @@
 
     @include on-desktop {
       gap: 64px;
+      margin-bottom: 80px;
     }
   }
 
@@ -61,43 +53,30 @@
   }
 
   &__thumb {
+    @include skeleton-bg;
+
     width: 50px;
     height: 50px;
-    padding: 4px;
-    border: 1px solid $color-elements;
+
+    // padding: 4px;
     border-radius: 4px;
-    background: transparent;
-    cursor: pointer;
-    transition: border-color $transition-duration ease;
-
-    &--active {
-      border-color: $color-primary;
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+    flex-shrink: 0;
+    border: 1px solid transparent;
   }
 
   &__main-image {
-    flex-grow: 1;
-    display: flex;
-    justify-content: center;
-    max-height: 300px;
-    min-height: 300px;
-    min-width: 0;
+    @include skeleton-bg;
+
     width: 100%;
+    height: 300px;
+    max-height: 300px;
+    border-radius: 8px;
+    min-width: 0;
+    margin-inline: auto;
 
     @include on-tablet {
       height: 400px;
-    }
-
-    img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
+      max-height: none;
     }
   }
 
@@ -111,6 +90,7 @@
     margin-bottom: 56px;
     min-width: 0;
 
+
     @include on-tablet {
       grid-column: span 5;
       margin-bottom: 64px;
@@ -121,24 +101,6 @@
     }
   }
 
-  &__wrapper-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__label {
-    @extend %small-text;
-
-    margin-bottom: 8px;
-  }
-
-  &__id-product {
-    @extend %small-text;
-
-    color: $color-icons;
-  }
-
   &__color-list,
   &__capacity-list {
     display: flex;
@@ -147,15 +109,11 @@
   }
 
   &__color-btn {
+    @include skeleton-bg;
+
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1px solid $color-elements;
-    cursor: pointer;
-
-    &--active {
-      border: 2px solid $color-primary;
-    }
   }
 
   &__inner {
@@ -167,29 +125,21 @@
   }
 
   &__capacity {
-    @include divider;
+    @include divider; // Синхронизировано с основным блоком
 
     padding-block: 24px;
   }
 
   &__capacity-btn {
-    padding: 8px 16px;
-    border: 1px solid $color-elements;
+    @include skeleton-bg;
+
+    width: 64px;
+    height: 32px;
     border-radius: 4px;
-
-    @extend %button-text;
-
-    color: $color-primary;
-    background: transparent;
-
-    &--active {
-      background-color: $color-primary;
-      color: $color-white;
-    }
   }
 
   &__price-block {
-    @include divider;
+    @include divider; // Синхронизировано с основным блоком
 
     display: flex;
     align-items: center;
@@ -202,34 +152,86 @@
     margin-bottom: 32px;
   }
 
-  // (dl / dt / dd)
   &__specs-summary {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 8px; // В оригинале gap: 8px
     margin-block: 0;
   }
 
   &__specs-item {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    height: 16px;
+  }
 
-    dt {
-      @extend %small-text;
+  // #endregion
+
+  // #region Элементы плашек (Skeleton Elements)
+  &__skeleton-box {
+    @include skeleton-bg;
+
+    &--title {
+      width: 160px;
+      height: 31px;
+      margin-bottom: 0;
     }
 
-    dd {
-      @extend %small-text;
+    &--label {
+      width: 110px;
+      height: 12px;
+      margin-bottom: 8px;
+    }
 
-      font-weight: 700;
-      color: $color-primary;
-      margin: 0;
+    &--price {
+      width: 140px;
+      height: 32px;
+    }
+
+    &--btn-add {
+      flex-grow: 1;
+      height: 40px; // В оригинальной кнопке height: 48px
+      border-radius: 8px;
+    }
+
+    &--btn-fav {
+      width: 48px; // В оригинале 48px x 48px
+      height: 40px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    &--spec-name {
+      width: 80px;
+      height: 12px;
+    }
+
+    &--spec-val {
+      width: 60px;
+      height: 12px;
+    }
+
+    &--sub-title {
+      width: 200px;
+      height: 20px;
+      margin-bottom: 12px;
+    }
+
+    &--text {
+      width: 100%;
+      height: 12px;
+      margin-bottom: 6px;
+
+      &-short {
+        width: 60%;
+      }
     }
   }
 
   // #endregion
 
-  // #region (About + Tech specs)
+  // #region Нижний блок (About + Tech specs)
   &__info {
     grid-column: 1 / -1;
     display: grid;
@@ -249,7 +251,7 @@
   &__about {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 32px; // Синхронизировано с .product-details__about
 
     @include on-desktop {
       grid-column: span 7;
@@ -259,46 +261,25 @@
   &__tech-specs {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 32px; // Синхронизировано с .product-details__tech-specs
 
     @include on-desktop {
       grid-column: span 5;
     }
   }
 
-  &__section-title {
-    @include divider(bottom);
-    @extend %h2-title;
-
-    padding-bottom: 16px;
-  }
-
   &__description {
     display: flex;
     flex-direction: column;
     gap: 16px;
-
-    &-title {
-      @extend %h3-title;
-    }
-
-    &-text {
-      @extend %body-text;
-
-      color: $color-secondary-grau;
-    }
   }
 
   &__specs-list {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 8px; // В оригинале gap: 8px
     margin-block: 0;
   }
 
   // #endregion
-
-  &__recommended {
-  @include padding-block-content($top: 0)
-  }
 }
