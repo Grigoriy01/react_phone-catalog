@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 
 import { Logo } from '../Logo/Logo';
 import { HeaderActions } from './components/HeaderActions';
-import { SearchField } from './components/SearchField/SearchField';
+import { SearchImput } from './components/SearchImput';
 import { Burger } from './components/Burger';
 import { BurgerMenu } from './components/BurgerMenu';
 import { Nav } from '../Nav';
@@ -76,7 +76,7 @@ export const Header = () => {
         <div className="header__desktop-nav">
           <Nav />
         </div>
-        {isSearchVisible && <SearchField />}
+        {isSearchVisible && <SearchImput />}
         <div className="header__desktop-actions">
           <HeaderActions />
         </div>

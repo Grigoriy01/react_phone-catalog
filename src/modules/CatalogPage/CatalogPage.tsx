@@ -1,9 +1,18 @@
-//#region import
-import React from 'react';
+
+import React, { useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
-import { SelectOption, SortBy, SORT_BY, isSortBy } from '@/shared/types';
-import { getSortBySelected } from '@/utils';
+import { useProducts } from '../HomePage/Hook/useProducts';
+import { SelectOption, SORT_BY} from '@/shared/types';
+import {
+  PER_PAGE_PARAM,
+  processProducts,
+  SORT_PARAM,
+  PAGE_PARAM,
+  getSortByFromSearchParams,
+  getPerPageFromSearchParams,
+  getPageFromSearchParams
+} from '@/utils';
 
 import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
 import { CatalogHeader } from '@/shared/components/CatalogHeader';
@@ -16,26 +25,16 @@ import {
 import {
   Pagination,
   PaginationSkeleton,
-  PAGE_PARAM,
   PER_PAGE_ALL,
   DEFAULT_PAGE,
   PER_PAGE_OPTIONS,
-  getPageFromSearchParams,
-  getPerPageFromSearchParams,
 } from '@/shared/components/Pagination';
 
 import './CatalogPage.scss';
-import { useProducts } from '../HomePage/Hook/useProducts';
-//#endregion import
 
-const SORT_PARAM = 'sort';
-//const PAGE_PARAM = 'page';
-const PER_PAGE_PARAM = 'perPage';
 
-//const PER_PAGE_ALL = 'all';
 
 const VALID_CATEGORIES = ['phones', 'tablets', 'accessories'] as const;
-
 const CATEGORY_TITLES: Record<string, string> = {
   phones: 'Mobile phones',
   tablets: 'Tablets',
@@ -48,11 +47,7 @@ const SORT_OPTIONS: SelectOption[] = [
   { value: SORT_BY.PRICE, label: 'Cheapest' },
 ];
 
-function getSortByFromSearchParams(searchParams: URLSearchParams): SortBy {
-  const sort = searchParams.get(SORT_PARAM);
 
-  return isSortBy(sort) ? sort : SORT_BY.AGE;
-}
 
 export const CatalogPage: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -64,27 +59,33 @@ export const CatalogPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { products, isLoading } = useProducts();
 
-  const categoryTitle = CATEGORY_TITLES[category];
-  const categoryProducts = products.filter(
-    product => product.category === category,
-  );
-  const countProducts = categoryProducts.length;
-
-  const sortBy = getSortByFromSearchParams(searchParams);
-  const sortedPhones = getSortBySelected(categoryProducts, sortBy);
-
-  //#region Pagination logic
-  const currentPage = getPageFromSearchParams(searchParams);
+  //#region Url params
+  const query = searchParams.get('query') || '';
   const perPageStr = getPerPageFromSearchParams(searchParams);
-  const perPageNum =
-    perPageStr === PER_PAGE_ALL ? countProducts : Number(perPageStr);
-  const startIndex = (currentPage - 1) * perPageNum;
-  const endIndex = startIndex + perPageNum;
-  const visibleProducts =
-    perPageStr === PER_PAGE_ALL
-      ? sortedPhones
-      : sortedPhones.slice(startIndex, endIndex);
+  const currentPage = getPageFromSearchParams(searchParams);
+  const sortBy = getSortByFromSearchParams(searchParams);
 
+  //#endregion Url params
+  const categoryProducts = useMemo(() => {
+    return products.filter(product => product.category === category);
+  }, [products, category]);
+
+  const categoryTitle = CATEGORY_TITLES[category];
+
+  // sort - search - pagination
+  const { totalCount, processedProducts } = useMemo(() => {
+    return processProducts(categoryProducts, {
+      query,
+      sortBy,
+      page: currentPage,
+      perPage: perPageStr === PER_PAGE_ALL ? PER_PAGE_ALL : Number(perPageStr),
+    });
+  }, [query, perPageStr, currentPage, categoryProducts, sortBy]);
+
+  const perPageNum =
+    perPageStr === PER_PAGE_ALL ? totalCount : Number(perPageStr);
+
+  //#region update URL handles
   const updateUrlParams = (newParams: Record<string, string | null>) => {
     const nextParams = new URLSearchParams(searchParams);
 
@@ -111,21 +112,21 @@ export const CatalogPage: React.FC = () => {
       [PAGE_PARAM]: page === DEFAULT_PAGE ? null : String(page),
     });
   };
-  //#endregion Pagination logic
 
   const handleSortChange = (value: string) => {
-    const nextParams = new URLSearchParams(searchParams);
-
-    nextParams.set(SORT_PARAM, value);
-    setSearchParams(nextParams);
+    updateUrlParams({
+      [SORT_PARAM]: value === SORT_BY.AGE ? null : value,
+      [PAGE_PARAM]: null,
+    });
   };
+  //#endregion Pagination logic
 
   return (
     <section className="catalog-page container">
       <BreadcrumbsNav isLoading={isLoading} />
       <CatalogHeader
         catalogName={categoryTitle}
-        countProduct={countProducts}
+        countProduct={totalCount}
         isLoading={isLoading}
       />
 
@@ -154,7 +155,7 @@ export const CatalogPage: React.FC = () => {
         )}
       </div>
 
-      <ProductsList products={visibleProducts} isLoading={isLoading} />
+      <ProductsList products={processedProducts} isLoading={isLoading} />
 
       <div className="catalog-page__pagination">
         {isLoading ? (
@@ -162,7 +163,7 @@ export const CatalogPage: React.FC = () => {
         ) : (
           perPageStr !== PER_PAGE_ALL && (
             <Pagination
-              total={countProducts}
+              total={totalCount}
               perPage={perPageNum}
               currentPage={currentPage}
               onPageChange={handlePageChange}

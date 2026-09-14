@@ -25,15 +25,18 @@
   }
 
   &__link {
+     @extend %uppercase-text;
+    @include active-underline;
+
     display: flex;
     height: 100%;
     align-items: center;
+    transform: translateY(2px);
 
     // &:hover {
     //   color: $color-primary;
     // }
 
-    @extend %uppercase-text;
-    @include active-underline;
+
   }
 }

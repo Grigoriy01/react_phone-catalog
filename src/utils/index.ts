@@ -1,3 +1,7 @@
 export * from './sortProducts';
 export * from './colorMap';
 export * from './getSortBySelected';
+export * from './getSearchWith';
+export * from './filterProductsByQuery';
+export * from './processProducts';
+export * from './catalogParams';

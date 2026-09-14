@@ -66,7 +66,10 @@ export const ProductDetailsSkeleton: React.FC<Props> = ({ className = '' }) => {
         {/* Нижний блок (About + Tech specs) */}
         <div className="product-details-skeleton__info">
           <div className="product-details-skeleton__about">
-            <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--title" />
+            <h2 className="product-details-skeleton__section-title">
+              <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--title" />
+            </h2>
+
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="product-details-skeleton__description">
                 <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--sub-title" />
@@ -77,7 +80,9 @@ export const ProductDetailsSkeleton: React.FC<Props> = ({ className = '' }) => {
           </div>
 
           <div className="product-details-skeleton__tech-specs">
-            <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--title" />
+            <h2 className="product-details-skeleton__section-title">
+              <div className="product-details-skeleton__skeleton-box product-details-skeleton__skeleton-box--title" />
+            </h2>
             <div className="product-details-skeleton__specs-list">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div key={i} className="product-details-skeleton__specs-item">

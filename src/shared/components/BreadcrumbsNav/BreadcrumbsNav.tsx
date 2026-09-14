@@ -28,7 +28,9 @@ export const BreadcrumbsNav: React.FC<Props> = ({
 
   if (isLoading || !categoryName) {
     return (
-      <div className={`breadcrumbs__skeleton ${className}`.trim()}></div>
+      <nav className={`breadcrumbs ${className}`.trim()} aria-label="breadcrumbs loading">
+        <div className="breadcrumbs__skeleton" />
+      </nav>
     )
   }
 

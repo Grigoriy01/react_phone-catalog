@@ -103,7 +103,7 @@ export const ProductDetailsPage = () => {
       <section className="product-details container">
         <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
 
-        <BackHeaderSkeleton  />
+        <BackHeaderSkeleton className="product-details__header" />
         <ProductDetailsSkeleton  />
       </section>
     );

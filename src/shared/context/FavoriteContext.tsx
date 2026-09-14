@@ -58,8 +58,8 @@ export const FavoritesProvider = ({
   };
 
   const isFavorite = (productId: string) => {
-    return state.favorites.some(item => item.id === productId)
-  }
+    return state.favorites.some(item => item.id === productId);
+  };
 
   return (
     <FavoritesContext.Provider
@@ -70,9 +70,8 @@ export const FavoritesProvider = ({
       }}
     >
       {children}
-
     </FavoritesContext.Provider>
-  )
+  );
 };
 
 export const useFavorites = () => {

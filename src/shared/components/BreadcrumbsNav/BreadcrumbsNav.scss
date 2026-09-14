@@ -57,13 +57,10 @@
     transform: translateY(1px);
     color: $color-secondary-grau;
 
-    // Three Dots
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 0;
-
-
   }
 
   &__skeleton {
@@ -73,6 +70,6 @@
     width: 120px;
     height: 16px;
     border-radius: 4px;
-    margin-bottom: 24px;
+    margin-bottom: 0;
   }
 }
