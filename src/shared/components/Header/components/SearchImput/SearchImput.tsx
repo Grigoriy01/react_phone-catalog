@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getSearchWith, QUERY_PARAM } from '@/utils';
 
-import { DeleteIcon } from '@/shared/assets/icons';
+import { DeleteIcon, SearchIcon } from '@/shared/assets/icons';
 
 import './SearchImput.scss';
 
-export const SearchImput = () => {
+type Props = {
+  className: string;
+};
+
+export const SearchImput: React.FC<Props> = ({ className }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get(QUERY_PARAM) || '';
 
@@ -38,9 +42,10 @@ export const SearchImput = () => {
   };
 
   return (
-    <label className="search-input" aria-label="Search feild">
+    <label className={`search-input ${className}`.trim()} aria-label="Search feild">
+      <SearchIcon className="search-input__search-icon" />
       <input
-      className="search-input__control"
+        className="search-input__control"
         type="text"
         value={inputValue}
         onChange={handleInputChange}

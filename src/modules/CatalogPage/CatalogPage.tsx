@@ -1,9 +1,8 @@
-
 import React, { useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
 import { useProducts } from '../HomePage/Hook/useProducts';
-import { SelectOption, SORT_BY} from '@/shared/types';
+import { SORT_BY } from '@/shared/types';
 import {
   PER_PAGE_PARAM,
   processProducts,
@@ -11,7 +10,10 @@ import {
   PAGE_PARAM,
   getSortByFromSearchParams,
   getPerPageFromSearchParams,
-  getPageFromSearchParams
+  getPageFromSearchParams,
+  VALID_CATEGORIES,
+  CATEGORY_TITLES,
+  SORT_OPTIONS,
 } from '@/utils';
 
 import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
@@ -32,23 +34,6 @@ import {
 
 import './CatalogPage.scss';
 
-
-
-const VALID_CATEGORIES = ['phones', 'tablets', 'accessories'] as const;
-const CATEGORY_TITLES: Record<string, string> = {
-  phones: 'Mobile phones',
-  tablets: 'Tablets',
-  accessories: 'Accessories',
-};
-
-const SORT_OPTIONS: SelectOption[] = [
-  { value: SORT_BY.AGE, label: 'Newest' },
-  { value: SORT_BY.TITLE, label: 'Alphabetically' },
-  { value: SORT_BY.PRICE, label: 'Cheapest' },
-];
-
-
-
 export const CatalogPage: React.FC = () => {
   const { category } = useParams<{ category: string }>();
 
@@ -64,8 +49,8 @@ export const CatalogPage: React.FC = () => {
   const perPageStr = getPerPageFromSearchParams(searchParams);
   const currentPage = getPageFromSearchParams(searchParams);
   const sortBy = getSortByFromSearchParams(searchParams);
-
   //#endregion Url params
+
   const categoryProducts = useMemo(() => {
     return products.filter(product => product.category === category);
   }, [products, category]);
@@ -85,7 +70,7 @@ export const CatalogPage: React.FC = () => {
   const perPageNum =
     perPageStr === PER_PAGE_ALL ? totalCount : Number(perPageStr);
 
-  //#region update URL handles
+  //#region handles (updating Urls)
   const updateUrlParams = (newParams: Record<string, string | null>) => {
     const nextParams = new URLSearchParams(searchParams);
 
@@ -119,7 +104,7 @@ export const CatalogPage: React.FC = () => {
       [PAGE_PARAM]: null,
     });
   };
-  //#endregion Pagination logic
+  //#endregion handles (updating Urls)
 
   return (
     <section className="catalog-page container">

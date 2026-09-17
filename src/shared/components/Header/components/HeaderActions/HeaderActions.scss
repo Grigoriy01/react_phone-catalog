@@ -23,7 +23,6 @@
       width: 64px;
     }
 
-
     &--left {
       @include on-tablet {
         border-right: 1px solid $color-elements;
@@ -34,30 +33,34 @@
 
   &__wrapper-icon {
     position: relative;
+    display: flex;
+    color: $color-primary;
+    align-items: center;
+    justify-content: center;
   }
 
   &__badge-counter {
+    @extend %small-text;
+
     position: absolute;
     top: -6px;
     right: -6px;
 
-    min-width: 14px;
-
-    @extend %small-text;
-
-    display: grid;
-    place-items: center;
-
+    display: block;
+    text-align: center;
 
     font-weight: 700;
     font-size: 9px;
+
     width: 14px;
+    min-width: 14px;
     height: 14px;
-    padding-top: 1px;
-    background-color: $color-secondary;
+
+    background-color: $color-secondary-blue;
     border-radius: 50%;
     border: 1px solid $color-white;
     color: $color-white;
+    line-height: 14px;
   }
 
   @include on-desktop {

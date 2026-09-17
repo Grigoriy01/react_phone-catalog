@@ -7,23 +7,39 @@ import FavoriteIconSelected from '@/shared/assets/icons/hearts/heart-selected.sv
 import { useFavorites } from '../../context/FavoriteContext';
 
 import './ProductActions.scss';
+import { useCartItem } from '@/shared/context/CartContext';
 
 type Props = {
   product: Product;
   className?: string;
 };
 
-export const ProductActions: React.FC<Props> = ({ product, className = '' }) => {
+export const ProductActions: React.FC<Props> = ({
+  product,
+  className = '',
+}) => {
   const { isFavorite, toggleFavorite } = useFavorites();
+  const { isInCart, addToCart } = useCartItem();
+  const inCart = isInCart(product.id);
   const isProductFavorite = isFavorite(product.id);
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (inCart) return;
+
+    addToCart(product);
+  };
 
   return (
     <div className={`product-actions ${className}`.trim()}>
       <ActionButton
         className="product-actions__btn-add"
         aria-label="Add to cart"
+        onClick={handleAddToCart}
+        isActive={inCart}
       >
-        Add to cart
+        {!inCart ? 'Add to cart' : 'Added to cart'}
       </ActionButton>
 
       <IconButton

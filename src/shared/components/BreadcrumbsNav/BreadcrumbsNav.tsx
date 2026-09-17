@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import homeIcon from '@/shared/assets/icons/home-icon/home.svg';
 
 import './BreadcrumbsNav.scss';
-import { ArrowIcon } from '@/shared/assets/icons/arrow-right';
+import { ArrowIcon } from '@/shared/assets/icons';
+
 
 type Props = {
   productName?: string;

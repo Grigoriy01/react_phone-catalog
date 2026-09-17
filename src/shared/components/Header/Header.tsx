@@ -76,7 +76,7 @@ export const Header = () => {
         <div className="header__desktop-nav">
           <Nav />
         </div>
-        {isSearchVisible && <SearchImput />}
+        {isSearchVisible && <SearchImput className="header__search" />}
         <div className="header__desktop-actions">
           <HeaderActions />
         </div>

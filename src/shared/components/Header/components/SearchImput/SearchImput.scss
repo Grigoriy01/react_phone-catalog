@@ -5,13 +5,43 @@
   display: flex;
   align-items: center;
   width: 100%;
-  
+  max-width: 320px;
+  height: 27px;
+
+  &__search-icon {
+    position: absolute;
+    left: 12px;
+    width: 26px;
+    height: 26px;
+    color: $color-icons;
+    pointer-events: none;
+    transition: color $transition-duration $transition-effect;
+  }
 
   &__control {
     @extend%small-text;
 
     width: 100%;
-    padding-right: 32px; // Отступ справа, чтобы текст не заезжал под крестик
+    height: 100%;
+    padding-right: 32px;
+    padding-left: 42px;
+
+    background-color: $color-surface-2;
+    border: 1px solid $color-elements;
+    border-radius: 8px;
+
+    transition:
+      border-color $transition-duration $transition-effect,
+      background-color $transition-duration $transition-effect,
+      box-shadow $transition-duration $transition-effect;
+
+    &::placeholder {
+      color: $color-icons;
+    }
+
+    &:hover {
+      border-color: $color-icons;
+    }
   }
 
   &__clear-btn {
@@ -22,14 +52,39 @@
     justify-content: center;
     width: 24px;
     height: 24px;
+
+
   }
 
   &__clear-icon {
+    padding: 5px;
+    box-sizing: content-box;
+
     color: $color-icons;
+
+    
+    transition: color $transition-duration $transition-effect;
+
+    &:hover {
+      color: $color-primary;
+    }
   }
 
   ::placeholder {
     font-weight: 400;
     font-style: italic;
+  }
+
+  &:focus-within {
+    .search-input__control {
+      @include hover-shadow; // Используем наш готовый миксин тени
+
+      background-color: $color-surface-1;
+      border-color: $color-primary;
+    }
+
+    .search-input__search-icon {
+      color: $color-primary; // Меняем цвет лупы при активном вводе
+    }
   }
 }

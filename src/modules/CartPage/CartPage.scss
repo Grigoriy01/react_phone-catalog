@@ -1,1 +1,106 @@
-// -
+@use '../../styles/utils/' as *;
+
+.cart-page {
+  @include padding-block-content;
+
+  @include on-tablet {
+    padding-top: 40px;
+  }
+
+  &__back {
+    margin-bottom: 32px;
+  }
+
+  &__content {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: minmax(0, 1fr);
+
+    @include on-desktop {
+      grid-template-columns: repeat(12, 1fr);
+    }
+  }
+
+  &__list {
+    @include on-desktop {
+      grid-column: span 8;
+    }
+  }
+
+  &__checkout {
+    @include on-desktop {
+      grid-column: span 4;
+    }
+  }
+
+  &__empty {
+    padding-block: 40px;
+    text-align: center;
+
+    &-text {
+      @extend %h3-title;
+
+      color: $color-secondary-grau;
+    }
+  }
+}
+
+.checkout-block {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border: 1px solid $color-elements;
+  border-radius: 8px;
+  background-color: $color-surface-1;
+  user-select: none;
+
+  &__total {
+    @extend %h1-title;
+
+    text-align: center;
+    margin-bottom: 8px;
+
+  }
+
+  &__count {
+    @extend %body-text;
+
+    text-align: center;
+    color: $color-secondary-grau;
+    margin-bottom: 16px;
+
+     @include on-desktop {
+       margin-bottom: 24px;
+    }
+
+  }
+
+  &__divider {
+    @include divider;
+
+    margin-bottom: 16px;
+
+    @include on-desktop {
+       margin-bottom: 24px;
+    }
+  }
+
+  &__btn {
+    @include base-button(100%, 48px, 8px, false) {
+      @extend %button-text;
+
+      color: $color-white;
+      background-color: $color-accent;
+      transition:
+        background-color $transition-duration ease,
+        box-shadow $transition-duration ease;
+
+      @include hover-shadow;
+      @include active-effect;
+
+      &:hover {
+        background-color: $color-accent;
+      }
+    }
+  }
+}

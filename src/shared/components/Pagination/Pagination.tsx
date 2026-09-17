@@ -1,11 +1,12 @@
 import React from 'react';
 import { IconButton } from '../Buttons/components/IconButton';
-import { ArrowIcon } from '@/shared/assets/icons/arrow-right';
+
 import { getMobilePaginationPages } from './getMobilePaginationPages';
 import { DOTS } from './getMobilePaginationPages';
 import cn from 'classnames';
 
 import './Pagination.scss';
+import { ArrowIcon } from '@/shared/assets/icons';
 
 type Props = {
   total: number;

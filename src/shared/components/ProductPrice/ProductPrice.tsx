@@ -4,7 +4,7 @@ import './ProductPrice.scss';
 
 type Props = {
   price: number;
-  fullPrice: number;
+  fullPrice?: number;
   className?: string;
 };
 export const ProductPrice: React.FC<Props> = ({
@@ -17,9 +17,12 @@ export const ProductPrice: React.FC<Props> = ({
       <span className="product-price__price product-price__price--current">
         ${price}
       </span>
-      <span className="product-price__price product-price__price--old">
-        ${fullPrice}
-      </span>
+
+      {fullPrice && (
+        <span className="product-price__price product-price__price--old">
+          ${fullPrice}
+        </span>
+      )}
     </div>
   );
 };

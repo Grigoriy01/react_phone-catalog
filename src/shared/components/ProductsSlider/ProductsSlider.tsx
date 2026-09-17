@@ -7,8 +7,9 @@ import { IconButton } from '../Buttons/components/IconButton';
 import { ProductCard } from '../ProductCard';
 import { Product } from '../../types';
 import { ProductCardSkeleton } from '../ProductCard/ProductCardSkeleton';
+import { ArrowIcon } from '@/shared/assets/icons';
 
-import { ArrowIcon } from '@/shared/assets/icons/arrow-right';
+
 import cn from 'classnames';
 import './ProductsSlider.scss';
 

@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { BackHeaderSkeleton } from './BackHeaderSkeleton';
 
+import { ArrowIcon } from '@/shared/assets/icons';
 import './BackHeader.scss';
-import { ArrowIcon } from '@/shared/assets/icons/arrow-right';
+
 
 type Props = {
   catalogTitle?: string;

@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SelectOption } from '@/shared/types';
-import { ArrowIcon } from '@/shared/assets/icons/arrow-right';
+
 import cn from 'classnames';
 
 import './DropdownSelect.scss';
+import { ArrowIcon } from '@/shared/assets/icons';
 
 type Props = {
   label: string;

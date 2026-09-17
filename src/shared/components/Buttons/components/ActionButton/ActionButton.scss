@@ -1,7 +1,6 @@
 @use '../../../../../styles/utils/' as *;
 
 .action-button {
-  // Интегрируем универсальный миксин кнопки
   @include base-button(
     $width: 100%,
     $height: 40px,
@@ -9,10 +8,8 @@
     $has-border: false
   );
 
-
   flex-shrink: 1;
 
-  // Специфичные стили типографики и цвета для ActionButton
   font-family: $font-family-base;
   font-size: 14px;
   font-weight: 700;
@@ -21,7 +18,6 @@
   color: $color-white;
   background-color: $color-accent;
 
-  // Плавность цвета и тени при hover
   transition:
     background-color $transition-duration ease,
     color $transition-duration ease,
@@ -30,14 +26,13 @@
   @include hover-shadow;
   @include active-effect;
 
-  // Состояние, когда товар уже добавлен в корзину ("Added")
+  // ("Added")
   &--active {
     color: $color-primary;
     background-color: $color-surface-2;
-
-    &:hover {
-      background-color: $color-elements;
-    }
+    border: 1px solid $color-elements;
+    pointer-events: none;
+    cursor: default;
   }
 
   &:disabled {

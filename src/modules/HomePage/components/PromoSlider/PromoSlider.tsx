@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { IconButton } from '../../../../shared/components/Buttons/components/IconButton';
-import ArrowIcon from '@/shared/assets/icons/arrow-right/arrow-right.svg?react';
+import { ArrowIcon } from '@/shared/assets/icons';
 
 import bannerId1 from '@/shared/assets/home-page-img/banner/banner-accessories.png'
 import bannerId2 from '@/shared/assets/home-page-img/banner/banner-tablets.png'

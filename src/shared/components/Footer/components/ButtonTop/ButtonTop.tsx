@@ -1,5 +1,6 @@
+import { ArrowIcon } from '@/shared/assets/icons';
 import { IconButton } from '../../../Buttons/components/IconButton';
-import { arrowPath } from '@/shared/assets/icons/arrow-right';
+
 import './ButtonTop.scss';
 
 export const ButtonTop = () => {
@@ -18,11 +19,7 @@ export const ButtonTop = () => {
         aria-label="Back to top"
         onClick={scrollToTop}
       >
-        <img
-          className="back-to-top__icon"
-          src={arrowPath}
-          
-        />
+        <ArrowIcon className="back-to-top__icon" />
       </IconButton>
     </div>
   );

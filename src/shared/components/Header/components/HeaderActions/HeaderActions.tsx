@@ -1,15 +1,15 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useFavorites } from '@/shared/context/FavoriteContext';
+import { CartIcon, HeartDefaultIcon } from '@/shared/assets/icons';
+
 import cn from 'classnames';
-import favoriteIcon from '@/shared/assets/icons/icon-favorite.svg'
-import cartIcon from '@/shared/assets/icons/icon-cart.svg'
-
 import './HeaderActions.scss';
-
+import { useCartItem } from '@/shared/context/CartContext';
 
 export const HeaderActions = () => {
   const { pathname } = useLocation();
   const { favorites } = useFavorites();
+  const { totalCount } = useCartItem();
 
   const countProducts = favorites.length;
 
@@ -23,10 +23,8 @@ export const HeaderActions = () => {
         aria-label="Favorite batton"
       >
         <div className="header-actions__wrapper-icon">
-          <img
-            className="header-actions__icon"
-            src={favoriteIcon}
-          />
+          <HeartDefaultIcon className="header-actions__icon" />
+
           {countProducts > 0 && (
             <span className="header-actions__badge-counter">
               {countProducts}
@@ -42,12 +40,11 @@ export const HeaderActions = () => {
         aria-label="Cart batton"
       >
         <div className="header-actions__wrapper-icon">
-          <img
-            className="header-actions__icon"
-            src={cartIcon}
-          />
+          <CartIcon className="header-actions__icon" />
 
-          <span className="header-actions__badge-counter"></span>
+          {totalCount > 0 && (
+            <span className="header-actions__badge-counter">{totalCount}</span>
+          )}
         </div>
       </Link>
     </div>
