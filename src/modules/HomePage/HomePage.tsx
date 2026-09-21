@@ -33,7 +33,7 @@ export const HomePage = () => {
         hasError={hasError}
       />
 
-      <ShopByCategory categoriesCount={categoriesCount} />
+      <ShopByCategory categoriesCount={categoriesCount} hasError={hasError} />
 
       <ProductsSlider
         title="Hot prices"

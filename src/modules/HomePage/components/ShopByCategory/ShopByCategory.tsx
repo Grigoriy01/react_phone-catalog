@@ -1,54 +1,59 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ShopByCategoryProps } from '@/modules/HomePage/components/ShopByCategory/ShopByCategory.type';
 import {
-  CategoryConfig,
-  ShopByCategoryProps,
-} from '@/modules/HomePage/components/ShopByCategory/ShopByCategory.type';
-
-import phoneCategoryImg from '@/shared/assets/home-page-img/category-phones.png';
-import tabletsCategoryImg from '@/shared/assets/home-page-img/category-tablets.png';
-import accesCategoryImg from '@/shared/assets/home-page-img/category-accessories.webp';
+  CATEGORIES_CONFIG,
+  ERROR_CATEGORIES_CONFIG,
+} from './ShopByCategory.constants';
 
 import './ShopByCategory.scss';
 
-export const CATEGORIES_CONFIG: CategoryConfig[] = [
-  {
-    id: 'phones',
-    title: 'Mobile phones',
-    path: '/phones',
-    img: phoneCategoryImg,
-    alt: 'Mobile phones category',
-  },
-  {
-    id: 'tablets',
-    title: 'Tablets',
-    path: '/tablets',
-    img: tabletsCategoryImg,
-    alt: 'Tablets category',
-  },
-  {
-    id: 'accessories',
-    title: 'Accessories',
-    path: '/accessories',
-    img: accesCategoryImg,
-    alt: 'Accessories category',
-  },
-];
+interface Props extends ShopByCategoryProps {
+  hasError?: boolean;
+}
 
-export const ShopByCategory: React.FC<ShopByCategoryProps> = ({ categoriesCount }) => {
+export const ShopByCategory: React.FC<Props> = ({
+  categoriesCount,
+  hasError = false,
+}) => {
+  const currentConfig = hasError ? ERROR_CATEGORIES_CONFIG : CATEGORIES_CONFIG;
   return (
-    <section className="shop-by-category">
+    <section className="shop-by-category container">
       <h2 className="shop-by-category__title">Shop by category</h2>
       <div className="shop-by-category__wrapper">
-        {CATEGORIES_CONFIG.map(({ id, title, path, img, alt }) => {
-          const count = categoriesCount[id as keyof typeof categoriesCount] ?? 0;
+        {currentConfig.map(category => {
+          const { id, title, path } = category;
+          const count =
+            categoriesCount[id as keyof typeof categoriesCount] ?? 0;
+
           return (
-            <Link className="shop-by-category__link" to={path} key={id}>
-              <div className={`shop-by-category__img-wrapper shop-by-category__img-wrapper--${id}`}>
-                <img className="shop-by-category__img" src={img} alt={alt} />
+            <Link
+              className={`shop-by-category__link ${
+                hasError ? 'shop-by-category__link--disabled' : ''
+              }`}
+              to={path}
+              key={id}
+            >
+              <div
+                className={`shop-by-category__img-wrapper shop-by-category__img-wrapper--${id}`}
+              >
+                {hasError && category.Icon ? (
+                  <category.Icon
+                    className="shop-by-category__placeholder-icon"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <img
+                    className="shop-by-category__img"
+                    src={category.img}
+                    alt={category.alt}
+                  />
+                )}
               </div>
               <h3 className="shop-by-category__subtitle">{title}</h3>
-              <div className="shop-by-category__count-modeles">{`${count} models`}</div>
+              {!hasError && (
+                <div className="shop-by-category__count-modeles">{`${count} models`}</div>
+              )}
             </Link>
           );
         })}

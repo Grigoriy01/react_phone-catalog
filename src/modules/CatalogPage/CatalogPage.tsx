@@ -42,7 +42,7 @@ export const CatalogPage: React.FC = () => {
   }
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const { products, isLoading } = useProducts();
+  const { products, isLoading, hasError, loadData } = useProducts();
 
   //#region Url params
   const query = searchParams.get('query') || '';
@@ -113,34 +113,43 @@ export const CatalogPage: React.FC = () => {
         catalogName={categoryTitle}
         countProduct={totalCount}
         isLoading={isLoading}
+        hasError={hasError}
       />
 
-      <div className="catalog-page__controls">
-        {isLoading ? (
-          <>
-            <DropdownSelectSkeleton />
-            <DropdownSelectSkeleton />
-          </>
-        ) : (
-          <>
-            <DropdownSelect
-              label="Sort by"
-              value={sortBy}
-              options={SORT_OPTIONS}
-              onChange={handleSortChange}
-            />
-            <DropdownSelect
-              label="Items on page"
-              value={perPageStr}
-              options={PER_PAGE_OPTIONS}
-              onChange={handlePerPageChange}
-              className="catalog-page__select-page"
-            />
-          </>
-        )}
-      </div>
+      {!hasError && (
+        <div className="catalog-page__controls">
+          {isLoading ? (
+            <>
+              <DropdownSelectSkeleton />
+              <DropdownSelectSkeleton />
+            </>
+          ) : (
+            <>
+              <DropdownSelect
+                label="Sort by"
+                value={sortBy}
+                options={SORT_OPTIONS}
+                onChange={handleSortChange}
+              />
+              <DropdownSelect
+                label="Items on page"
+                value={perPageStr}
+                options={PER_PAGE_OPTIONS}
+                onChange={handlePerPageChange}
+                className="catalog-page__select-page"
+              />
+            </>
+          )}
+        </div>
+      )}
 
-      <ProductsList products={processedProducts} isLoading={isLoading} />
+      <ProductsList
+        products={processedProducts}
+        isLoading={isLoading}
+        hasError={hasError}
+        onRetry={loadData}
+        massege='There are no products available'
+      />
 
       <div className="catalog-page__pagination">
         {isLoading ? (

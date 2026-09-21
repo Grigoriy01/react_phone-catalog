@@ -22,6 +22,12 @@
     }
   }
 
+  &__icon {
+    &--home {
+      transform: translateY(-1px)
+    }
+  }
+
   &__link {
     @extend %small-text;
 

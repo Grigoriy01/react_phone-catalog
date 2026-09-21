@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import homeIcon from '@/shared/assets/icons/home-icon/home.svg';
+import { ArrowIcon, HomeIcon } from '@/shared/assets/icons';
 
 import './BreadcrumbsNav.scss';
-import { ArrowIcon } from '@/shared/assets/icons';
-
 
 type Props = {
   productName?: string;
@@ -29,10 +27,13 @@ export const BreadcrumbsNav: React.FC<Props> = ({
 
   if (isLoading || !categoryName) {
     return (
-      <nav className={`breadcrumbs ${className}`.trim()} aria-label="breadcrumbs loading">
+      <nav
+        className={`breadcrumbs ${className}`.trim()}
+        aria-label="breadcrumbs loading"
+      >
         <div className="breadcrumbs__skeleton" />
       </nav>
-    )
+    );
   }
 
   return (
@@ -40,7 +41,7 @@ export const BreadcrumbsNav: React.FC<Props> = ({
       <ol className="breadcrumbs__list">
         <li className="breadcrumbs__item">
           <Link to="/" className="breadcrumbs__link">
-            <img src={homeIcon} className="breadcrumbs__icon" />
+            <HomeIcon className="breadcrumbs__icon breadcrumbs__icon--home" />
           </Link>
         </li>
 
@@ -48,13 +49,15 @@ export const BreadcrumbsNav: React.FC<Props> = ({
 
         <li className="breadcrumbs__item">
           {productName ? (
-            <Link
-              to={`/${categoryPathName}`}
-              className="breadcrumbs__link breadcrumbs__link--page-name"
-            >
-              {categoryName}
+            <>
+              <Link
+                to={`/${categoryPathName}`}
+                className="breadcrumbs__link breadcrumbs__link--page-name"
+              >
+                {categoryName}
+              </Link>
               <ArrowIcon className="breadcrumbs__arrow breadcrumbs__arrow--two" />
-            </Link>
+            </>
           ) : (
             <span className="breadcrumbs__current">{categoryName}</span>
           )}

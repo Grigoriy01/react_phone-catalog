@@ -20,6 +20,8 @@
 
   &__title {
     @extend %h2-title;
+
+    margin-right: 72px;
   }
   &__navigation-skeleton {
     @include skeleton-bg;

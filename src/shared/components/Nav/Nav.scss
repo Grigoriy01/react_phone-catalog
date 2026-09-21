@@ -13,7 +13,7 @@
     @include on-tablet {
       flex-direction: row;
       padding: 0;
-      gap: clamp(32px, 3vw, 64px);
+      gap: clamp(19px, 3vw, 64px);
     }
   }
   &__item {

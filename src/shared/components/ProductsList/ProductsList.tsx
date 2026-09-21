@@ -1,21 +1,32 @@
 import React from 'react';
-import { ProductCard } from '../ProductCard';
+import { FetchError } from '../FetchError';
+import { ProductCard, ProductCardSkeleton } from '../ProductCard';
 import { Product } from '../../types';
-import { ProductCardSkeleton } from '../ProductCard/ProductCardSkeleton';
 
 import './ProductsList.scss';
+import { ActionButton } from '../Buttons/components/ActionButton';
 
 type Props = {
   products: Product[];
   isLoading?: boolean;
   skeletonCount?: number;
+  hasError?: boolean;
+  massege?: string;
+  onRetry?: () => any;
 };
 
 export const ProductsList: React.FC<Props> = ({
   skeletonCount = 8,
   products,
   isLoading,
+  hasError,
+  onRetry,
+  massege,
 }) => {
+  if (hasError) {
+    return <FetchError onRetry={onRetry} />;
+  }
+
   if (isLoading) {
     return (
       <div className="products-list">
@@ -28,7 +39,13 @@ export const ProductsList: React.FC<Props> = ({
 
   if (products.length === 0) {
     return (
-      <p className="products-list__empty">There are no products available</p>
+      <>
+        <div className="products-list__empty">
+          {massege}
+
+          <ActionButton to="/phones">Go to catalog</ActionButton>
+        </div>
+      </>
     );
   }
 

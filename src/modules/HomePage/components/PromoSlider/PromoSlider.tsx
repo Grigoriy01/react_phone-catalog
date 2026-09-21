@@ -3,12 +3,14 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { IconButton } from '../../../../shared/components/Buttons/components/IconButton';
 import { ArrowIcon } from '@/shared/assets/icons';
 
-import bannerId1 from '@/shared/assets/home-page-img/banner/banner-accessories.png'
-import bannerId2 from '@/shared/assets/home-page-img/banner/banner-tablets.png'
-import bannerId3 from '@/shared/assets/home-page-img/banner/banner-phones.png'
+import bannerId1 from '@/shared/assets/home-page-img/banner/banner-accessories.png';
+import bannerId2 from '@/shared/assets/home-page-img/banner/banner-tablets.png';
+import bannerId3 from '@/shared/assets/home-page-img/banner/banner-phones.png';
 
 import 'swiper/swiper.css';
 import './PromoSlider.scss';
+import { useProducts } from '../../Hook/useProducts';
+import { FishungImg } from '@/shared/assets/error-img';
 
 const BANNERS = [
   {
@@ -21,6 +23,22 @@ const BANNERS = [
 ];
 
 export const PromoSlider = () => {
+  const { hasError } = useProducts();
+
+  if (hasError) {
+    return (
+      <div className="promo-slider promo-slider--error" role="alert">
+        <FishungImg
+          className="promo-slider__placeholder-icon"
+          aria-hidden="true"
+        />
+        <p className="promo-slider__placeholder-text">
+          Promo content is temporarily unavailable
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="promo-slider">
       <IconButton

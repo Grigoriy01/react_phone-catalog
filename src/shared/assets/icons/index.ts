@@ -7,6 +7,8 @@ import HeartSelectedtIcon from './hearts/heart-selected.svg?react';
 import CartIcon from './icon-cart.svg?react';
 import FavoriteIcon from './icon-favorite.svg?react';
 import ArrowIcon from './arrow-right.svg?react';
+import HomeIcon from './home-icon/home.svg?react';
+
 
 export { DeleteIcon };
 export { SearchIcon };
@@ -17,3 +19,4 @@ export { HeartSelectedtIcon };
 export { CartIcon };
 export { ArrowIcon };
 export { FavoriteIcon };
+export { HomeIcon };

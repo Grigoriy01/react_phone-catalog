@@ -98,7 +98,7 @@
 }
 
 @mixin error-button {
-  @include base-button(120px, 40px, 8px) {
+  @include base-button(100%, 40px, 8px) {
     @extend %button-text;
 
     color: $color-primary;

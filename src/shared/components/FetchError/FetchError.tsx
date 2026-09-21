@@ -1,10 +1,12 @@
 import React from 'react';
-import errorImg from '@/shared/assets/error-img/product-not-found.png'
 
 import './FetchError.scss';
+import { ConnectionLostImg } from '@/shared/assets/error-img';
+import { ActionButton } from '../Buttons/components/ActionButton';
+
 type Props = {
   message?: string;
-  onRetry: () => void;
+  onRetry?: () => void;
 };
 export const FetchError: React.FC<Props> = ({
   message = 'Something went wrong. Failed to load data.',
@@ -12,17 +14,16 @@ export const FetchError: React.FC<Props> = ({
 }) => {
   return (
     <div className="error-message" role="alert">
-      <img
-        className="error-message__image"
-        src={errorImg}
-        alt="Error indicator"
-      />
+      <ConnectionLostImg className="error-message__image" />
 
-      <p className="error-message__text">{message}</p>
+      <h2 className="error-message__text">{message}</h2>
 
-      <button type="button" className="error-message__button" onClick={onRetry}>
-        Reload page
-      </button>
+      {onRetry && (
+        <ActionButton className="error-message__button" onClick={onRetry} variant='secondary' >
+          Reload page
+        </ActionButton>
+
+      )}
     </div>
   );
 };

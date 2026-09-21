@@ -7,9 +7,9 @@
   justify-content: center;
 
   width: 100%;
-  max-width: 287px; // Ограничиваем шириной одной карточки товара
-  height: 512px;     // Фиксированная высота под размеры карточки
-  margin: 0 auto;    // Центрируем по горизонтали
+  max-width: 287px;
+  height: 512px;
+  margin: 0 auto;
   padding: 32px;
   box-sizing: border-box;
 
@@ -18,18 +18,19 @@
     width: auto;
     max-width: 100%;
     object-fit: contain;
-    margin-bottom: 16px; // Фиксируем нижний отступ
+    margin-bottom: 16px;
   }
 
   &__text {
-    @extend %small-text; // Используем единый шрифт проекта
+    @extend %small-text;
 
     color: $color-secondary-grau;
     text-align: center;
     margin: 0 0 24px;
 
-    // Ограничиваем высоту текста под 2-3 строки, чтобы кнопка не уезжала
+    
     display: -webkit-box;
+    line-clamp: 3;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -37,7 +38,5 @@
 
   &__button {
     @include error-button;
-
-    margin-top: auto; // Прижимаем кнопку вниз для идеального выравнивания
   }
 }

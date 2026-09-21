@@ -9,10 +9,21 @@
   @include on-tablet {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 16px;
-   
   }
 
   @include on-desktop {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  &__empty {
+    @extend %button-text;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    max-width: fit-content;
+    margin-inline: auto;
+    color: $color-secondary-grau;
   }
 }

@@ -39,4 +39,9 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  &--secondary {
+    @include error-button;
+    
+  }
 }

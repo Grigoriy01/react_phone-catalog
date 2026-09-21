@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useCartItem } from '@/shared/context/CartContext';
 import { Link } from 'react-router-dom';
-import { CartItem, Product } from '@/shared/types';
+import { CartItem } from '@/shared/types';
 import {
   DeleteIcon,
   MathDecreaseIcon,
@@ -11,7 +11,7 @@ import { IconButton } from '@/shared/components/Buttons/components/IconButton';
 import { ProductPrice } from '@/shared/components/ProductPrice';
 
 import cn from 'classnames';
-import './CartProduct.scss'
+import './CartProduct.scss';
 
 type Props = {
   item: CartItem;
@@ -45,7 +45,10 @@ export const CartProduct: React.FC<Props> = ({ item, className }) => {
           />
         </Link>
         {/* 3. title Link */}
-        <Link to={`/${item.product.category}/${item.product.itemId}`} className="cart-product__title">
+        <Link
+          to={`/${item.product.category}/${item.product.itemId}`}
+          className="cart-product__title"
+        >
           {item.product.name}
         </Link>
       </div>
@@ -54,12 +57,18 @@ export const CartProduct: React.FC<Props> = ({ item, className }) => {
         {/* 4. controls quantity change */}
         <div className="cart-product__quantity-controls">
           <IconButton
-            className={cn("cart-product__quantity-btn", {"cart-product__quantity-btn--disabled": hasMoreThanOne})}
+            className={cn('cart-product__quantity-btn', {
+              'cart-product__quantity-btn--disabled': hasMoreThanOne,
+            })}
             aria-label="Decrease quantity"
             disabled={hasMoreThanOne}
             onClick={() => changeQuantity(item.id, -1)}
           >
-            <MathDecreaseIcon className={cn("cart-product__btn-icon", {"cart-product__btn-icon--active": !hasMoreThanOne})} />
+            <MathDecreaseIcon
+              className={cn('cart-product__btn-icon', {
+                'cart-product__btn-icon--active': !hasMoreThanOne,
+              })}
+            />
           </IconButton>
 
           <span className="cart-product__quantity-value">{item.quantity}</span>
@@ -73,8 +82,10 @@ export const CartProduct: React.FC<Props> = ({ item, className }) => {
           </IconButton>
         </div>
         {/* 5. Price pro item */}
-        <ProductPrice className="cart-product__price" price={item.product.price} />
-
+        <ProductPrice
+          className="cart-product__price"
+          price={item.product.price}
+        />
       </div>
     </article>
   );

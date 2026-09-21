@@ -13,7 +13,7 @@ import './FavoritesPage.scss';
 export const FavoritesPage = () => {
   const [searchParams] = useSearchParams();
   const { favorites } = useFavorites();
-  const { isLoading } = useProducts();
+  const { isLoading, hasError, loadData } = useProducts();
 
   const query = searchParams.get('query') ?? undefined;
 
@@ -28,12 +28,16 @@ export const FavoritesPage = () => {
         catalogName="Favourites"
         countProduct={totalCount}
         isLoading={isLoading}
+        hasError={hasError}
       />
 
       <ProductsList
         products={processedProducts}
         isLoading={isLoading}
         skeletonCount={totalCount}
+        hasError={hasError}
+        massege='Your favorites list is empty'
+        onRetry={loadData}
       />
     </section>
   );
