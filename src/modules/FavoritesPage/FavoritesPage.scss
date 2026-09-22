@@ -3,11 +3,30 @@
 .favorites-page {
   @include padding-block-content;
 
-  >:last-child {
+  > :last-child {
     padding-top: 32px;
 
     @include on-tablet {
       padding-top: 40px;
     }
+  }
+
+  &__error {
+    margin-top: 40px;
+  }
+}
+
+.empty-icon-heart {
+  width: 100%;
+  height: 100%;
+
+  &__fill {
+    fill: #aad4c8; // Цвет самого сердца
+    transition: fill 0.3s ease;
+  }
+
+  &__stroke {
+    fill: #616e7d; // Цвет контура и плюсика
+    transition: fill 0.3s ease;
   }
 }

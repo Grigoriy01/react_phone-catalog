@@ -2,6 +2,8 @@ import { BackHeader } from '@/shared/components/BackHeader';
 import { CartList } from './components/CartList';
 import { useCartItem } from '@/shared/context/CartContext';
 
+import { FetchError } from '@/shared/components/FetchError';
+import { EmptyState } from '@/shared/components/EmptyState';
 import { ActionButton } from '@/shared/components/Buttons/components/ActionButton';
 import { ProductPrice } from '@/shared/components/ProductPrice';
 import { Modal } from './components/Modal';
@@ -10,7 +12,7 @@ import { useProducts } from '../HomePage/Hook/useProducts';
 import { EmptyCart } from '@/shared/assets/cart-img';
 
 import './CartPage.scss';
-import { FetchError } from '@/shared/components/FetchError';
+
 const CHECKOUT_SKELETON = (
   <div className="checkout-block checkout-block--skeleton">
     <div className="checkout-block__total-skeleton" />
@@ -34,7 +36,7 @@ export const CartPage = () => {
     return (
       <section className="cart-page container">
         <div className="cart-page__back">
-          <BackHeader catalogTitle="Cart" />
+          <BackHeader catalogTitle="Cart" hasError={hasError} />
         </div>
         <FetchError onRetry={loadData} />
       </section>
@@ -44,7 +46,7 @@ export const CartPage = () => {
   return (
     <section className="cart-page container">
       <div className="cart-page__back">
-        <BackHeader catalogTitle="Cart" />
+        <BackHeader catalogTitle="Cart" hasError={hasError} />
       </div>
 
       {/* cart include the items */}
@@ -81,13 +83,9 @@ export const CartPage = () => {
           </section>
         </div>
       ) : (
-        <div className="cart-page__empty">
-          <p className="cart-page__empty-text">Your cart is empty</p>
+        <EmptyState className="cart-page__empty" title="Your cart is empty">
           <EmptyCart className="cart-page__empty-img" />
-          <ActionButton to='/phones' className="cart-page__empty-btn" >
-            Go to catalog
-          </ActionButton>
-        </div>
+        </EmptyState>
       )}
 
       <Modal

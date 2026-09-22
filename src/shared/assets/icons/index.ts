@@ -8,6 +8,7 @@ import CartIcon from './icon-cart.svg?react';
 import FavoriteIcon from './icon-favorite.svg?react';
 import ArrowIcon from './arrow-right.svg?react';
 import HomeIcon from './home-icon/home.svg?react';
+import EmptyFavIcon from './empty-fav-light.svg?react';
 
 
 export { DeleteIcon };
@@ -20,3 +21,4 @@ export { CartIcon };
 export { ArrowIcon };
 export { FavoriteIcon };
 export { HomeIcon };
+export { EmptyFavIcon };

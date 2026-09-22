@@ -9,6 +9,9 @@ import { BreadcrumbsNav } from '../../shared/components/BreadcrumbsNav';
 import { ProductsList } from '@/shared/components/ProductsList/ProductsList';
 
 import './FavoritesPage.scss';
+import { FetchError } from '@/shared/components/FetchError';
+import { EmptyFavIcon } from '@/shared/assets/icons';
+import { EmptyState } from '@/shared/components/EmptyState';
 
 export const FavoritesPage = () => {
   const [searchParams] = useSearchParams();
@@ -17,28 +20,48 @@ export const FavoritesPage = () => {
 
   const query = searchParams.get('query') ?? undefined;
 
-  const {totalCount, processedProducts} = useMemo(() => {
+  const { totalCount, processedProducts } = useMemo(() => {
     return processProducts(favorites, { query });
   }, [favorites, query]);
+
+  if (hasError) {
+    return (
+      <section className="favorites-page container">
+        <CatalogHeader
+          catalogName="Favorites"
+          countProduct={totalCount}
+          isLoading={false}
+          hasError={true}
+        />
+        <FetchError onRetry={loadData} className="favorites-page__error" />
+      </section>
+    );
+  }
 
   return (
     <section className="favorites-page container">
       <BreadcrumbsNav isLoading={isLoading} />
       <CatalogHeader
-        catalogName="Favourites"
+        catalogName="Favorites"
         countProduct={totalCount}
         isLoading={isLoading}
         hasError={hasError}
       />
 
-      <ProductsList
-        products={processedProducts}
-        isLoading={isLoading}
-        skeletonCount={totalCount}
-        hasError={hasError}
-        massege='Your favorites list is empty'
-        onRetry={loadData}
-      />
+      {processedProducts.length === 0 && !isLoading ? (
+        <EmptyState
+          className="favorites-page__empty"
+          title="Your favorites list is empty"
+        >
+          <EmptyFavIcon className="empty-icon-heart" />
+        </EmptyState>
+      ) : (
+        <ProductsList
+          products={processedProducts}
+          isLoading={isLoading}
+          skeletonCount={totalCount}
+        />
+      )}
     </section>
   );
 };

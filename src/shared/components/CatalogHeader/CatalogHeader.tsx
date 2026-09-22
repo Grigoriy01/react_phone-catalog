@@ -14,18 +14,11 @@ export const CatalogHeader: React.FC<Props> = ({
   isLoading,
   hasError,
 }) => {
-  if (hasError) {
-    return (
-      <div className="catalog-header">
-        <h1 className="catalog-header__title">{catalogName}</h1>
-      </div>
-    );
-  }
   return (
     <div className="catalog-header">
       <h1 className="catalog-header__title">{catalogName}</h1>
 
-      {isLoading || countProduct === undefined ? (
+      {hasError ? null : isLoading || countProduct === undefined ? (
         <div className="catalog-header__count-skeleton"></div>
       ) : (
         <div className="catalog-header__count">{countProduct} items</div>

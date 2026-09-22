@@ -41,11 +41,15 @@ export const ProductDetailsPage = () => {
     }
   }, [product]);
 
+  const normalizeForUrl = (str: string): string => {
+    return str.toLowerCase().trim().replace(/\s+/g, '-');
+  };
+
   const handleColorChange = (newColor: string) => {
     if (!product) return;
 
-    const targetColor = newColor.toLowerCase();
-    const targetCapacity = product.capacity.toLowerCase();
+    const targetColor = normalizeForUrl(newColor);
+    const targetCapacity = normalizeForUrl(product.capacity);
 
     const selectedProduct = products.find(
       item =>
@@ -62,8 +66,8 @@ export const ProductDetailsPage = () => {
   const handleCapacityChange = (newCapacity: string) => {
     if (!product) return;
 
-    const targetCapacity = newCapacity.toLowerCase();
-    const targetColor = product.color.toLowerCase();
+    const targetCapacity = normalizeForUrl(newCapacity);
+    const targetColor = normalizeForUrl(product.color);
 
     const selectedProduct = products.find(
       item =>
@@ -81,45 +85,39 @@ export const ProductDetailsPage = () => {
 
   //#endregion Logic
 
-  if (hasError) {
-    return (
-      <section className="product-details container">
-        <BreadcrumbsNav
-          isLoading={isLoading}
-          productName={product?.name}
-          className="container"
-        />
-        <BackHeader
-          catalogTitle={product?.name}
-          className="product-details__header"
-        />
-        <FetchError onRetry={loadData} />
-      </section>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <section className="product-details container">
-        <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
-
-        <BackHeaderSkeleton className="product-details__header" />
-        <ProductDetailsSkeleton  />
-      </section>
-    );
-  }
+  const categoryName = category
+    ? category.charAt(0).toUpperCase() + category.slice(1)
+    : 'Product Details';
 
   return (
     <>
       <section className="product-details container ">
         <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
+        {hasError && (
+          <>
+            <BackHeader
+              catalogTitle={product?.name ?? categoryName}
+              className="product-details__header"
+              hasError={hasError}
+            />
+            <FetchError onRetry={loadData} />
+          </>
+        )}
+
+        {isLoading && (
+          <>
+            <BackHeaderSkeleton className="product-details__header" />
+            <ProductDetailsSkeleton />
+          </>
+        )}
+
         <BackHeader
           catalogTitle={product?.name}
           className="product-details__header"
+          hasError={hasError}
         />
 
         <div className="product-details__main">
-          {/* Галерея картинок */}
           <section className="product-details__gallery">
             <div className="product-details__thumbnails">
               {product?.images.map((img, index) => (
@@ -135,7 +133,7 @@ export const ProductDetailsPage = () => {
                 </button>
               ))}
             </div>
-            {/* Главное увеличенное фото */}
+
             <div className="product-details__main-image">
               <img
                 src={`${import.meta.env.BASE_URL}${selectedImg}`}
@@ -172,7 +170,7 @@ export const ProductDetailsPage = () => {
               </div>
             </div>
             <div className="product-details__inner">
-              {/* Выбор объема памяти */}
+              {/* Capacity */}
               <div className="product-details__capacity">
                 <span className="product-details__label">Select capacity</span>
                 <div className="product-details__capacity-list">
@@ -196,14 +194,14 @@ export const ProductDetailsPage = () => {
                 </div>
               </div>
 
-              {/* Цена */}
+              {/* Price */}
               <ProductPrice
                 className="product-details__price-block"
                 price={product?.priceDiscount ?? 0}
                 fullPrice={product?.priceRegular ?? 0}
               />
 
-              {/* Кнопки действия */}
+              {/* Buttons */}
               {currentProduct && (
                 <ProductActions
                   product={currentProduct as Product}
@@ -211,7 +209,7 @@ export const ProductDetailsPage = () => {
                 />
               )}
 
-              {/* Краткие характеристики */}
+              {/* Spec */}
               <dl className="product-details__specs-summary">
                 <ProductSpecsItem
                   label="Screen"
@@ -237,9 +235,8 @@ export const ProductDetailsPage = () => {
             </div>
           </section>
 
-          {/* Нижний блок: Описание и Технические характеристики */}
+          {/* Down Block: About - Spec */}
           <div className="product-details__info">
-            {/* Описание */}
             <section className="product-details__about">
               <h2 className="product-details__section-title">About</h2>
 
@@ -257,7 +254,7 @@ export const ProductDetailsPage = () => {
               ))}
             </section>
 
-            {/* Полные технические характеристики */}
+            {/* Full Spec */}
             <section className="product-details__tech-specs">
               <h2 className="product-details__section-title">Tech specs</h2>
 

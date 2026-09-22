@@ -4,11 +4,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
 
   width: 100%;
   max-width: 287px;
-  height: 512px;
+  //height: 512px;
   margin: 0 auto;
   padding: 32px;
   box-sizing: border-box;
@@ -28,7 +28,7 @@
     text-align: center;
     margin: 0 0 24px;
 
-    
+
     display: -webkit-box;
     line-clamp: 3;
     -webkit-line-clamp: 3;

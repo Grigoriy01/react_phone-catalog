@@ -16,6 +16,7 @@ import {
   SORT_OPTIONS,
 } from '@/utils';
 
+import { FetchError } from '@/shared/components/FetchError';
 import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
 import { CatalogHeader } from '@/shared/components/CatalogHeader';
 import { ProductsList } from '@/shared/components/ProductsList/ProductsList';
@@ -106,6 +107,10 @@ export const CatalogPage: React.FC = () => {
   };
   //#endregion handles (updating Urls)
 
+  if (hasError) {
+    return <FetchError onRetry={loadData} />;
+  }
+
   return (
     <section className="catalog-page container">
       <BreadcrumbsNav isLoading={isLoading} />
@@ -143,13 +148,10 @@ export const CatalogPage: React.FC = () => {
         </div>
       )}
 
-      <ProductsList
-        products={processedProducts}
-        isLoading={isLoading}
-        hasError={hasError}
-        onRetry={loadData}
-        massege='There are no products available'
-      />
+      {processedProducts.length > 0 || isLoading ? null : (
+        <span className="catalog-page__text-info">There are no products available</span>
+      )}
+      <ProductsList products={processedProducts} isLoading={isLoading} />
 
       <div className="catalog-page__pagination">
         {isLoading ? (
