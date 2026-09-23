@@ -11,7 +11,7 @@ export const PER_PAGE_PARAM = 'perPage';
 export const PAGE_PARAM = 'page';
 export const QUERY_PARAM = 'query';
 
-// vali
+
 export const VALID_CATEGORIES = ['phones', 'tablets', 'accessories'] as const;
 // category titles
 export const CATEGORY_TITLES: Record<string, string> = {

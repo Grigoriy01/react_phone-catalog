@@ -19,7 +19,7 @@ type Props = {
 };
 export const CartProduct: React.FC<Props> = ({ item, className }) => {
   const { removeFromCart, changeQuantity } = useCartItem();
-  const hasMoreThanOne = item.quantity <= 1;
+  const isMinQuantity = item.quantity <= 1;
 
   return (
     <article className={`cart-product ${className}`.trim()}>
@@ -40,7 +40,7 @@ export const CartProduct: React.FC<Props> = ({ item, className }) => {
         >
           <img
             src={`${import.meta.env.BASE_URL}${item.product.image}`}
-            alt="Apple iPhone 14 Pro"
+            alt={item.product.name}
             className="cart-product__image"
           />
         </Link>
@@ -58,15 +58,15 @@ export const CartProduct: React.FC<Props> = ({ item, className }) => {
         <div className="cart-product__quantity-controls">
           <IconButton
             className={cn('cart-product__quantity-btn', {
-              'cart-product__quantity-btn--disabled': hasMoreThanOne,
+              'cart-product__quantity-btn--disabled': isMinQuantity,
             })}
             aria-label="Decrease quantity"
-            disabled={hasMoreThanOne}
+            disabled={isMinQuantity}
             onClick={() => changeQuantity(item.id, -1)}
           >
             <MathDecreaseIcon
               className={cn('cart-product__btn-icon', {
-                'cart-product__btn-icon--active': !hasMoreThanOne,
+                'cart-product__btn-icon--active': !isMinQuantity,
               })}
             />
           </IconButton>

@@ -1,17 +1,18 @@
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
-import { useProducts } from '../HomePage/Hook/useProducts';
-import { useFavorites } from '../../shared/context/FavoriteContext';
 import { processProducts } from '@/utils';
 
-import { CatalogHeader } from '@/shared/components/CatalogHeader';
-import { BreadcrumbsNav } from '../../shared/components/BreadcrumbsNav';
-import { ProductsList } from '@/shared/components/ProductsList/ProductsList';
+import { useProducts } from '../HomePage/hooks/useProducts';
+import { useFavorites } from '@/shared/context/FavoriteContext';
 
-import './FavoritesPage.scss';
+import { CatalogHeader } from '@/shared/components/CatalogHeader';
+import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
+import { ProductsList } from '@/shared/components/ProductsList/ProductsList';
 import { FetchError } from '@/shared/components/FetchError';
 import { EmptyFavIcon } from '@/shared/assets/icons';
 import { EmptyState } from '@/shared/components/EmptyState';
+
+import './FavoritesPage.scss';
 
 export const FavoritesPage = () => {
   const [searchParams] = useSearchParams();
@@ -24,44 +25,31 @@ export const FavoritesPage = () => {
     return processProducts(favorites, { query });
   }, [favorites, query]);
 
-  if (hasError) {
-    return (
-      <section className="favorites-page container">
-        <CatalogHeader
-          catalogName="Favorites"
-          countProduct={totalCount}
-          isLoading={false}
-          hasError={true}
-        />
-        <FetchError onRetry={loadData} className="favorites-page__error" />
-      </section>
-    );
-  }
-
   return (
-    <section className="favorites-page container">
-      <BreadcrumbsNav isLoading={isLoading} />
+    <main className="favorites-page container">
+      {!hasError && <BreadcrumbsNav isLoading={isLoading} />}
+
       <CatalogHeader
         catalogName="Favorites"
         countProduct={totalCount}
         isLoading={isLoading}
         hasError={hasError}
+        className="favorites-page__header"
       />
 
-      {processedProducts.length === 0 && !isLoading ? (
-        <EmptyState
-          className="favorites-page__empty"
-          title="Your favorites list is empty"
-        >
-          <EmptyFavIcon className="empty-icon-heart" />
+      {hasError ? (
+        <FetchError onRetry={loadData} className="favorites-page__error" />
+      ) : processedProducts.length === 0 && !isLoading ? (
+        <EmptyState title="Your favorites list is empty">
+          <EmptyFavIcon />
         </EmptyState>
       ) : (
         <ProductsList
           products={processedProducts}
           isLoading={isLoading}
-          skeletonCount={totalCount}
+          skeletonCount={favorites.length}
         />
       )}
-    </section>
+    </main>
   );
 };

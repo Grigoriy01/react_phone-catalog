@@ -8,7 +8,7 @@ import { ActionButton } from '@/shared/components/Buttons/components/ActionButto
 import { ProductPrice } from '@/shared/components/ProductPrice';
 import { Modal } from './components/Modal';
 import { useState } from 'react';
-import { useProducts } from '../HomePage/Hook/useProducts';
+import { useProducts } from '../HomePage/hooks/useProducts';
 import { EmptyCart } from '@/shared/assets/cart-img';
 
 import './CartPage.scss';
@@ -32,34 +32,22 @@ export const CartPage = () => {
     setIsModalOpen(false);
   };
 
-  if (hasError) {
-    return (
-      <section className="cart-page container">
-        <div className="cart-page__back">
-          <BackHeader catalogTitle="Cart" hasError={hasError} />
-        </div>
-        <FetchError onRetry={loadData} />
-      </section>
-    );
-  }
-
   return (
-    <section className="cart-page container">
+    <main className="cart-page container">
       <div className="cart-page__back">
         <BackHeader catalogTitle="Cart" hasError={hasError} />
       </div>
-
-      {/* cart include the items */}
-      {cartItems.length > 0 ? (
+      {hasError ? (
+        <FetchError onRetry={loadData} />
+      ) : isLoading || cartItems.length > 0 ? (
         <div className="cart-page__content">
-          {/* Секция со списком товаров (Span 8 на десктопе) */}
           <CartList
             cartItems={cartItems}
             className="cart-page__list"
             totalCount={totalCount}
+            isLoading={isLoading}
           />
 
-          {/* Секция итоговой суммы и оформления (Span 4 на десктопе) */}
           <section className="cart-page__checkout">
             {isLoading ? (
               CHECKOUT_SKELETON
@@ -69,11 +57,12 @@ export const CartPage = () => {
                   className="checkout-block__total"
                   price={totalPrice}
                 />
-                <div className="checkout-block__count">{`Total for ${totalCount} items`}</div>
+                <div className="checkout-block__count">
+                  Total for {totalCount} items
+                </div>
                 <div className="checkout-block__divider" />
                 <ActionButton
                   className="checkout-block__btn"
-                  aria-label="Checkout button"
                   onClick={() => setIsModalOpen(true)}
                 >
                   Checkout
@@ -84,7 +73,7 @@ export const CartPage = () => {
         </div>
       ) : (
         <EmptyState className="cart-page__empty" title="Your cart is empty">
-          <EmptyCart className="cart-page__empty-img" />
+          <EmptyCart />
         </EmptyState>
       )}
 
@@ -97,6 +86,6 @@ export const CartPage = () => {
         onConfirm={handleCheckoutConfirm}
         onCancel={() => setIsModalOpen(false)}
       />
-    </section>
+    </main>
   );
 };

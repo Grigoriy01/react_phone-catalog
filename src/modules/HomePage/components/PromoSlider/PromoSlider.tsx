@@ -9,7 +9,7 @@ import bannerId3 from '@/shared/assets/home-page-img/banner/banner-phones.png';
 
 import 'swiper/swiper.css';
 import './PromoSlider.scss';
-import { useProducts } from '../../Hook/useProducts';
+import { useProducts } from '../../hooks/useProducts';
 import { FishungImg } from '@/shared/assets/error-img';
 
 const BANNERS = [

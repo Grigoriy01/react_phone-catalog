@@ -32,10 +32,6 @@
       grid-column: span 4;
     }
   }
-
-  &__empty-img {
-  
-  }
 }
 
 .checkout-block {
@@ -95,7 +91,7 @@
     }
   }
 
-  // skeliton
+  // skeleton
   &__total-skeleton {
     @include skeleton-bg;
 

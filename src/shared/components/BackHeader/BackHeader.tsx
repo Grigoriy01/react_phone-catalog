@@ -8,7 +8,7 @@ import './BackHeader.scss';
 type Props = {
   catalogTitle?: string;
   className?: string;
-  hasError: boolean;
+  hasError?: boolean;
 };
 
 export const BackHeader: React.FC<Props> = ({
@@ -24,7 +24,7 @@ export const BackHeader: React.FC<Props> = ({
 
   return (
     <div className={`back-header ${className}`.trim()}>
-      {hasError && (
+      {!hasError && (
         <button className="back-header__btn" type="button" onClick={handelBack}>
           <ArrowIcon className="back-header__btn-arrow" />
           <span className="back-header__btn-item">Back</span>

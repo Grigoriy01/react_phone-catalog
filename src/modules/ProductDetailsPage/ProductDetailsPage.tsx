@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useProductDetails } from './Hook';
+import { useProductDetails } from './hooks';
+import { useProducts } from '../HomePage/hooks/useProducts';
 
 import { getSuggestedProducts } from '@/utils';
 import { getColorHex } from '@/utils';
 import { Product } from '@/shared/types';
-import cn from 'classnames';
 
 import { BackHeader, BackHeaderSkeleton } from '@/shared/components/BackHeader';
 import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
@@ -16,8 +16,13 @@ import { ProductsSlider } from '@/shared/components/ProductsSlider';
 
 import { ProductSpecsItem } from '@/shared/components/ProductSpecsItem';
 import { FetchError } from '@/shared/components/FetchError';
+
+import cn from 'classnames';
 import './ProductDetailsPage.scss';
-import { useProducts } from '../HomePage/Hook/useProducts';
+
+const normalizeForUrl = (str: string): string => {
+    return str.toLowerCase().trim().replace(/\s+/g, '-');
+  };
 
 export const ProductDetailsPage = () => {
   //#region Logic
@@ -41,9 +46,7 @@ export const ProductDetailsPage = () => {
     }
   }, [product]);
 
-  const normalizeForUrl = (str: string): string => {
-    return str.toLowerCase().trim().replace(/\s+/g, '-');
-  };
+
 
   const handleColorChange = (newColor: string) => {
     if (!product) return;
@@ -89,10 +92,16 @@ export const ProductDetailsPage = () => {
     ? category.charAt(0).toUpperCase() + category.slice(1)
     : 'Product Details';
 
+  const isAccessories = category === 'accessories';
+  const capacityLabel = isAccessories ? 'Select size' : 'Select capacity';
+  const memoryLabel = isAccessories ? 'Size' : 'Built in memory';
+
   return (
     <>
       <section className="product-details container ">
-        <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
+        {!hasError && (
+          <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
+        )}
         {hasError && (
           <>
             <BackHeader
@@ -104,7 +113,7 @@ export const ProductDetailsPage = () => {
           </>
         )}
 
-        {isLoading && (
+        {!hasError && isLoading && (
           <>
             <BackHeaderSkeleton className="product-details__header" />
             <ProductDetailsSkeleton />
@@ -116,204 +125,216 @@ export const ProductDetailsPage = () => {
           className="product-details__header"
           hasError={hasError}
         />
-
-        <div className="product-details__main">
-          <section className="product-details__gallery">
-            <div className="product-details__thumbnails">
-              {product?.images.map((img, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  className={cn('product-details__thumb', {
-                    'product-details__thumb--active': selectedImg === img,
-                  })}
-                  onClick={() => setSelectedImg(img)}
-                >
-                  <img src={img} alt={`${product.name}  view ${index + 1}`} />
-                </button>
-              ))}
-            </div>
-
-            <div className="product-details__main-image">
-              <img
-                src={`${import.meta.env.BASE_URL}${selectedImg}`}
-                alt={product?.name}
-              />
-            </div>
-          </section>
-
-          {/* Colors */}
-          <section className="product-details__actions">
-            <div className="product-details__colors">
-              <div className="product-details__wrapper-label">
-                <span className="product-details__label">Available colors</span>
-                <span className="product-details__id-product">ID: 802390</span>
+        {!hasError && !isLoading && product && (
+          <div className="product-details__main">
+            <section className="product-details__gallery">
+              <div className="product-details__thumbnails">
+                {product?.images.map((img, index) => (
+                  <button
+                    key={img}
+                    type="button"
+                    className={cn('product-details__thumb', {
+                      'product-details__thumb--active': selectedImg === img,
+                    })}
+                    onClick={() => setSelectedImg(img)}
+                  >
+                    <img src={img} alt={`${product.name} view ${index + 1}`} />
+                  </button>
+                ))}
               </div>
-              <div className="product-details__color-list">
-                {product?.colorsAvailable.map(color => {
-                  const isSelected = product.color === color;
 
-                  return (
-                    <button
-                      key={color}
-                      type="button"
-                      className={cn('product-details__color-btn', {
-                        'product-details__color-btn--active': isSelected,
-                      })}
-                      style={{ background: getColorHex(color) }}
-                      onClick={() => handleColorChange(color)}
-                      aria-label={color}
-                      title={color}
-                    ></button>
-                  );
-                })}
+              <div className="product-details__main-image">
+                <img
+                  src={`${import.meta.env.BASE_URL}${selectedImg}`}
+                  alt={product?.name}
+                />
               </div>
-            </div>
-            <div className="product-details__inner">
-              {/* Capacity */}
-              <div className="product-details__capacity">
-                <span className="product-details__label">Select capacity</span>
-                <div className="product-details__capacity-list">
-                  {product?.capacityAvailable.map(capacity => {
-                    const isSelected = product.capacity === capacity;
+            </section>
+
+            {/* Colors */}
+            <section className="product-details__actions">
+              <div className="product-details__colors">
+                <div className="product-details__wrapper-label">
+                  <span className="product-details__label">
+                    Available colors
+                  </span>
+                  <span className="product-details__id-product">
+                    ID: {currentProduct?.id}
+                  </span>
+                </div>
+                <div className="product-details__color-list">
+                  {product?.colorsAvailable.map(color => {
+                    const isSelected = product.color === color;
 
                     return (
                       <button
-                        key={capacity}
+                        key={color}
                         type="button"
-                        className={cn('product-details__capacity-btn', {
-                          'product-details__capacity-btn--active': isSelected,
+                        className={cn('product-details__color-btn', {
+                          'product-details__color-btn--active': isSelected,
                         })}
-                        onClick={() => handleCapacityChange(capacity)}
-                        aria-label={capacity}
-                      >
-                        {capacity}
-                      </button>
+                        style={{ background: getColorHex(color) }}
+                        onClick={() => handleColorChange(color)}
+                        aria-label={color}
+                        title={color}
+                      ></button>
                     );
                   })}
                 </div>
               </div>
+              <div className="product-details__inner">
+                {/* Capacity */}
+                <div className="product-details__capacity">
+                  <span className="product-details__label">
+                    {capacityLabel}
+                  </span>
+                  <div className="product-details__capacity-list">
+                    {product?.capacityAvailable.map(capacity => {
+                      const isSelected = product.capacity === capacity;
 
-              {/* Price */}
-              <ProductPrice
-                className="product-details__price-block"
-                price={product?.priceDiscount ?? 0}
-                fullPrice={product?.priceRegular ?? 0}
-              />
+                      return (
+                        <button
+                          key={capacity}
+                          type="button"
+                          className={cn('product-details__capacity-btn', {
+                            'product-details__capacity-btn--active': isSelected,
+                          })}
+                          onClick={() => handleCapacityChange(capacity)}
+                          aria-label={capacity}
+                        >
+                          {capacity}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
 
-              {/* Buttons */}
-              {currentProduct && (
-                <ProductActions
-                  product={currentProduct as Product}
-                  className="product-details__buttons"
+                {/* Price */}
+                <ProductPrice
+                  className="product-details__price-block"
+                  price={product?.priceDiscount ?? 0}
+                  fullPrice={product?.priceRegular ?? 0}
                 />
-              )}
 
-              {/* Spec */}
-              <dl className="product-details__specs-summary">
-                <ProductSpecsItem
-                  label="Screen"
-                  value={product?.screen}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Resolution"
-                  value={product?.resolution}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Processor"
-                  value={product?.processor}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="RAM"
-                  value={product?.ram}
-                  className="product-details__specs-item"
-                />
-              </dl>
+                {/* Buttons */}
+                {currentProduct && (
+                  <ProductActions
+                    product={currentProduct as Product}
+                    className="product-details__buttons"
+                  />
+                )}
+
+                {/* Spec */}
+                <dl className="product-details__specs-summary">
+                  <ProductSpecsItem
+                    label="Screen"
+                    value={product?.screen}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="Resolution"
+                    value={product?.resolution}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="Processor"
+                    value={product?.processor}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="RAM"
+                    value={product?.ram}
+                    className="product-details__specs-item"
+                  />
+                </dl>
+              </div>
+            </section>
+
+            {/* Down Block: About - Spec */}
+            <div className="product-details__info">
+              <section className="product-details__about">
+                <h2 className="product-details__section-title">About</h2>
+
+                {product?.description.map(({ title, text }, idx) => (
+                  <article className="product-details__description" key={idx}>
+                    <h3 className="product-details__description-title">
+                      {title}
+                    </h3>
+                    {text.map((paragraph, pIdx) => (
+                      <p
+                        className="product-details__description-text"
+                        key={pIdx}
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </article>
+                ))}
+              </section>
+
+              {/* Full Spec */}
+              <section className="product-details__tech-specs">
+                <h2 className="product-details__section-title">Tech specs</h2>
+
+                <dl className="product-details__specs-list">
+                  <ProductSpecsItem
+                    label="Screen"
+                    value={product?.screen}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="Resolution"
+                    value={product?.resolution}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="Processor"
+                    value={product?.processor}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="RAM"
+                    value={product?.ram}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label={memoryLabel}
+                    value={product?.capacity}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="Camera"
+                    value={product?.camera}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="Zoom"
+                    value={product?.zoom}
+                    className="product-details__specs-item"
+                  />
+                  <ProductSpecsItem
+                    label="Cell"
+                    value={product?.cell.join(', ')}
+                    className="product-details__specs-item"
+                  />
+                </dl>
+              </section>
             </div>
-          </section>
-
-          {/* Down Block: About - Spec */}
-          <div className="product-details__info">
-            <section className="product-details__about">
-              <h2 className="product-details__section-title">About</h2>
-
-              {product?.description.map(({ title, text }, idx) => (
-                <article className="product-details__description" key={idx}>
-                  <h3 className="product-details__description-title">
-                    {title}
-                  </h3>
-                  {text.map((paragraph, pIdx) => (
-                    <p className="product-details__description-text" key={pIdx}>
-                      {paragraph}
-                    </p>
-                  ))}
-                </article>
-              ))}
-            </section>
-
-            {/* Full Spec */}
-            <section className="product-details__tech-specs">
-              <h2 className="product-details__section-title">Tech specs</h2>
-
-              <dl className="product-details__specs-list">
-                <ProductSpecsItem
-                  label="Screen"
-                  value={product?.screen}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Resolution"
-                  value={product?.resolution}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Processor"
-                  value={product?.processor}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="RAM"
-                  value={product?.ram}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Built in memory"
-                  value={product?.capacity}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Camera"
-                  value={product?.camera}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Zoom"
-                  value={product?.zoom}
-                  className="product-details__specs-item"
-                />
-                <ProductSpecsItem
-                  label="Cell"
-                  value={product?.cell.join(', ')}
-                  className="product-details__specs-item"
-                />
-              </dl>
-            </section>
           </div>
-        </div>
+        )}
       </section>
 
-      <section className="product-details__recommended">
-        <ProductsSlider
-          title="You may also like"
-          products={product ? getSuggestedProducts(products, product.id) : []}
-          hasError={hasError}
-          onRetry={loadData}
-          isLoading={isLoading}
-        />
-      </section>
+      {!hasError && (
+        <section className="product-details__recommended">
+          <ProductsSlider
+            title="You may also like"
+            products={product ? getSuggestedProducts(products, product.id) : []}
+            hasError={hasError}
+            onRetry={loadData}
+            isLoading={isLoading}
+          />
+        </section>
+      )}
     </>
   );
 };

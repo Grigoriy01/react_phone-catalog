@@ -39,4 +39,10 @@
       margin-top: 80px;
     }
   }
+
+  &__text-info {
+    @extend %body-text;
+
+    text-align: center;
+  }
 }

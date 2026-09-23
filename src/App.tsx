@@ -10,6 +10,9 @@ import { FavoritesPage } from './modules/FavoritesPage';
 import { CartPage } from './modules/CartPage';
 import { ProductDetailsPage } from './modules/ProductDetailsPage';
 
+import { ContactsPage } from './modules/ContactsPage';
+import { RightsPage } from './modules/RightsPage';
+
 import './App.scss';
 
 export const App = () => {
@@ -22,7 +25,7 @@ export const App = () => {
       <Header />
 
       <main className="main">
-        <h1 className="visually-hidden">Product Catalog</h1>
+        
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/:category" element={<CatalogPage />} />
@@ -32,6 +35,8 @@ export const App = () => {
           />
           <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+          <Route path="/rights" element={<RightsPage />} />
 
           <Route path="/home" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFoundPage />} />

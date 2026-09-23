@@ -173,12 +173,19 @@
   }
 
   &__capacity-btn {
-    padding: 8px 16px;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+
+    width: 64px;
+    height: 32px;
+    padding: 10px 8px 8px;
     border: 1px solid $color-elements;
     border-radius: 4px;
 
     @extend %button-text;
 
+    line-height: 0;
     color: $color-primary;
     background: transparent;
 
@@ -299,6 +306,6 @@
   // #endregion
 
   &__recommended {
-  @include padding-block-content($top: 0)
+    @include padding-block-content($top: 0);
   }
 }

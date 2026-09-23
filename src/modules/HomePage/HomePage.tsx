@@ -1,5 +1,4 @@
-
-import { useProducts } from './Hook/useProducts';
+import { useProducts } from './hooks/useProducts';
 import { getProductsWithHotPrices, sortByYear } from '@/utils';
 
 import { Hero } from './components/Hero';
@@ -7,12 +6,17 @@ import { ProductsSlider } from '@/shared/components/ProductsSlider';
 import { ShopByCategory } from './components/ShopByCategory';
 
 import './HomePage.scss';
+import { useMemo } from 'react';
 
 export const HomePage = () => {
   const { products, isLoading, loadData, hasError } = useProducts();
 
-  const visibleNewModels = sortByYear(products);
-  const visibleHotPrice = getProductsWithHotPrices(products);
+  const visibleNewModels = useMemo(() => sortByYear(products), [products]);
+
+  const visibleHotPrices = useMemo(
+    () => getProductsWithHotPrices(products),
+    [products],
+  );
 
   const categoriesCount = {
     phones: products.filter(p => p.category === 'phones').length,
@@ -21,13 +25,13 @@ export const HomePage = () => {
   };
 
   return (
-    <div className="home-page">
+    <main className="home-page">
+      <h1 className="visually-hidden">Product Catalog</h1>
       <Hero />
 
       <ProductsSlider
         title="Brand New Models"
         isLoading={isLoading}
-        className="home-page__section"
         products={visibleNewModels}
         onRetry={loadData}
         hasError={hasError}
@@ -39,10 +43,10 @@ export const HomePage = () => {
         title="Hot prices"
         isLoading={isLoading}
         className="home-page__section"
-        products={visibleHotPrice}
+        products={visibleHotPrices}
         onRetry={loadData}
         hasError={hasError}
       />
-    </div>
+    </main>
   );
 };

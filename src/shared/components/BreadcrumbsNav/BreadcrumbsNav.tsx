@@ -7,7 +7,7 @@ import './BreadcrumbsNav.scss';
 type Props = {
   productName?: string;
   className?: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 };
 
 export const BreadcrumbsNav: React.FC<Props> = ({
