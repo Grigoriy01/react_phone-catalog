@@ -33,5 +33,6 @@
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
 }
