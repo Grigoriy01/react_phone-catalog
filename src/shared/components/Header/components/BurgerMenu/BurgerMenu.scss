@@ -8,6 +8,7 @@
 
   width: 100%;
   height: calc(100vh - 48px);
+  height: calc(100dvh - 48px);
 
   border-top: 1px solid $color-elements;
   background-color: $color-surface-1;
