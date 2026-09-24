@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ArrowIcon, HomeIcon } from '@/shared/assets/icons';
 
+import cn from 'classnames';
 import './BreadcrumbsNav.scss';
 
 type Props = {
@@ -30,6 +31,7 @@ export const BreadcrumbsNav: React.FC<Props> = ({
       <nav
         className={`breadcrumbs ${className}`.trim()}
         aria-label="breadcrumbs loading"
+        aria-hidden="true"
       >
         <div className="breadcrumbs__skeleton" />
       </nav>
@@ -37,16 +39,16 @@ export const BreadcrumbsNav: React.FC<Props> = ({
   }
 
   return (
-    <nav className={`breadcrumbs ${className}`.trim()} aria-label="breadcrumbs">
+    <nav className={cn('breadcrumbs', className)} aria-label="breadcrumbs">
       <ol className="breadcrumbs__list">
+        {/* home page */}
         <li className="breadcrumbs__item">
-          <Link to="/" className="breadcrumbs__link">
+          <Link to="/" className="breadcrumbs__link" aria-label="Home">
             <HomeIcon className="breadcrumbs__icon breadcrumbs__icon--home" />
           </Link>
+          <ArrowIcon className="breadcrumbs__arrow" aria-hidden="true" />
         </li>
-
-        <ArrowIcon className="breadcrumbs__arrow" />
-
+          {/* category name */}
         <li className="breadcrumbs__item">
           {productName ? (
             <>
@@ -56,16 +58,18 @@ export const BreadcrumbsNav: React.FC<Props> = ({
               >
                 {categoryName}
               </Link>
-              <ArrowIcon className="breadcrumbs__arrow breadcrumbs__arrow--two" />
+              <ArrowIcon className="breadcrumbs__arrow" aria-hidden="true" />
             </>
           ) : (
             <span className="breadcrumbs__current">{categoryName}</span>
           )}
         </li>
 
-        <li className="breadcrumbs__item">
-          <span className="breadcrumbs__current">{productName}</span>
-        </li>
+        {productName && (
+          <li className="breadcrumbs__item">
+            <span className="breadcrumbs__current">{productName}</span>
+          </li>
+        )}
       </ol>
     </nav>
   );

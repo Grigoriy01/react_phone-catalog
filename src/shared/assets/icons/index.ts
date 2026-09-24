@@ -1,24 +1,11 @@
-import DeleteIcon from './del-icon.svg?react';
-import SearchIcon from './search-icon.svg?react';
-import MathIncreaseIcon from './math-icon/plus-icon.svg?react';
-import MathDecreaseIcon from './math-icon/minus-icon.svg?react';
-import HeartDefaultIcon from './hearts/heart-default.svg?react';
-import HeartSelectedtIcon from './hearts/heart-selected.svg?react';
-import CartIcon from './icon-cart.svg?react';
-import FavoriteIcon from './icon-favorite.svg?react';
-import ArrowIcon from './arrow-right.svg?react';
-import HomeIcon from './home-icon/home.svg?react';
-import EmptyFavIcon from './empty-fav-light.svg?react';
-
-
-export { DeleteIcon };
-export { SearchIcon };
-export { MathIncreaseIcon };
-export { MathDecreaseIcon };
-export { HeartDefaultIcon };
-export { HeartSelectedtIcon };
-export { CartIcon };
-export { ArrowIcon };
-export { FavoriteIcon };
-export { HomeIcon };
-export { EmptyFavIcon };
+export { default as DeleteIcon } from './del-icon.svg?react';
+export { default as SearchIcon } from './search-icon.svg?react';
+export { default as MathIncreaseIcon } from './math-icon/plus-icon.svg?react';
+export { default as MathDecreaseIcon } from './math-icon/minus-icon.svg?react';
+export { default as HeartDefaultIcon } from './hearts/heart-default.svg?react';
+export { default as HeartSelectedIcon } from './hearts/heart-selected.svg?react'; 
+export { default as CartIcon } from './icon-cart.svg?react';
+export { default as FavoriteIcon } from './icon-favorite.svg?react';
+export { default as ArrowIcon } from './arrow-right.svg?react';
+export { default as HomeIcon } from './home-icon/home.svg?react';
+export { default as EmptyFavIcon } from './empty-fav-light.svg?react';

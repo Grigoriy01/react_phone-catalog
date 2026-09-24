@@ -34,7 +34,7 @@ const CONTACT_LINKS = [
 
 export const ContactsPage: React.FC = () => {
   return (
-    <main className="contacts-page container">
+    <div className="contacts-page container">
       <BreadcrumbsNav className="contacts-page__breadcrumbs" />
       <BackHeader catalogTitle="Contacts" className="contacts-page__header" />
 
@@ -86,6 +86,6 @@ export const ContactsPage: React.FC = () => {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 };

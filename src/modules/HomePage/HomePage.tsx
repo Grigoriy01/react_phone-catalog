@@ -25,9 +25,9 @@ export const HomePage = () => {
   };
 
   return (
-    <main className="home-page">
+    <div className="home-page">
       <h1 className="visually-hidden">Product Catalog</h1>
-      <Hero />
+      <Hero hasError={hasError} />
 
       <ProductsSlider
         title="Brand New Models"
@@ -47,6 +47,6 @@ export const HomePage = () => {
         onRetry={loadData}
         hasError={hasError}
       />
-    </main>
+    </div>
   );
 };

@@ -111,9 +111,11 @@
       border-color $transition-duration ease,
       transform $transition-duration ease;
 
-    &:hover {
-      border-color: $color-primary;
-      transform: translateY(-2px);
+    @media (hover: hover) {
+      &:hover {
+        border-color: $color-primary;
+        transform: translateY(-2px);
+      }
     }
   }
 

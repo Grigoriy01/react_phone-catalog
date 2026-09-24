@@ -1,5 +1,5 @@
 import { ArrowIcon } from '@/shared/assets/icons';
-import { IconButton } from '../../../Buttons/components/IconButton';
+import { IconButton } from '@/shared/components/Buttons/components/IconButton';
 
 import './ButtonTop.scss';
 

@@ -1,8 +1,10 @@
 import React from 'react';
 
-import './FetchError.scss';
 import { ConnectionLostImg } from '@/shared/assets/error-img';
 import { ActionButton } from '../Buttons/components/ActionButton';
+
+import cn from 'classnames';
+import './FetchError.scss';
 
 type Props = {
   message?: string;
@@ -15,10 +17,10 @@ export const FetchError: React.FC<Props> = ({
   className = '',
 }) => {
   return (
-    <div className={`error-message ${className}`.trim()} role="alert">
+    <div className={cn('error-message', className)} role="alert">
       <ConnectionLostImg className="error-message__image" />
 
-      <h2 className="error-message__text">{message}</h2>
+      <p className="error-message__text">{message}</p>
 
       {onRetry && (
         <ActionButton

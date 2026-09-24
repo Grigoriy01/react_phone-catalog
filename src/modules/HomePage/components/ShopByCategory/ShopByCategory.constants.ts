@@ -2,9 +2,9 @@ import { CategoryConfig } from './ShopByCategory.type';
 import {
   phonesCategory,
   tabletsCategory,
-  accsessoriesCategory,
+  accessoriesCategory,
 } from '@/shared/assets/home-page-img';
-import { TimeManagImg, WorkTimeImg, CalenderImg } from '@/shared/assets/error-img';
+import { TimeManagementImg, WorkTimeImg, CalendarImg } from '@/shared/assets/error-img';
 
 export const CATEGORIES_CONFIG: CategoryConfig[] = [
   {
@@ -25,7 +25,7 @@ export const CATEGORIES_CONFIG: CategoryConfig[] = [
     id: 'accessories',
     title: 'Accessories',
     path: '/accessories',
-    img: accsessoriesCategory,
+    img: accessoriesCategory,
     alt: 'Accessories category',
   },
 ];
@@ -35,7 +35,7 @@ export const ERROR_CATEGORIES_CONFIG: CategoryConfig[] = [
     id: 'phones',
     title: 'Mobile phones',
     path: '/phones',
-    Icon: TimeManagImg,
+    Icon: TimeManagementImg,
   },
   {
     id: 'tablets',
@@ -47,6 +47,6 @@ export const ERROR_CATEGORIES_CONFIG: CategoryConfig[] = [
     id: 'accessories',
     title: 'Accessories',
     path: '/accessories',
-    Icon: CalenderImg,
+    Icon: CalendarImg,
   },
 ];

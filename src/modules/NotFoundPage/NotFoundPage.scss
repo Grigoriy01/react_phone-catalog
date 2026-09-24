@@ -4,6 +4,9 @@
   @extend %flex-center;
   @extend %content-width;
 
+  width: 100%;
+  max-width: 500px;
+
   flex-direction: column;
   padding-block: 40px;
 

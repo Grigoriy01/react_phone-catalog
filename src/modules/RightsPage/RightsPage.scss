@@ -21,8 +21,10 @@
     background-color: $color-surface-1;
     transition: border-color $transition-duration ease;
 
-    &:hover {
-      border-color: $color-icons;
+    @media (hover: hover) {
+      &:hover {
+        border-color: $color-icons;
+      }
     }
   }
 

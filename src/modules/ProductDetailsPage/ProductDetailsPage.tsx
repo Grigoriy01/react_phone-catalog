@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import { useProductDetails } from './hooks';
 import { useProducts } from '../HomePage/hooks/useProducts';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 import { getSuggestedProducts } from '@/utils';
 import { getColorHex } from '@/utils';
@@ -13,16 +15,18 @@ import { ProductActions } from '@/shared/components/ProductActions';
 import { ProductPrice } from '@/shared/components/ProductPrice';
 import { ProductDetailsSkeleton } from './ProductDetailsSkeleton';
 import { ProductsSlider } from '@/shared/components/ProductsSlider';
-
-import { ProductSpecsItem } from '@/shared/components/ProductSpecsItem';
 import { FetchError } from '@/shared/components/FetchError';
+import { ProductSpecsItem } from '@/shared/components/ProductSpecsItem';
+import { ImageWithFallback } from '@/shared/components/ImageWithFallback';
+
+import { FallbackImg, QuestionImg } from '@/shared/assets/error-img';
 
 import cn from 'classnames';
 import './ProductDetailsPage.scss';
 
 const normalizeForUrl = (str: string): string => {
-    return str.toLowerCase().trim().replace(/\s+/g, '-');
-  };
+  return str.toLowerCase().trim().replace(/\s+/g, '-');
+};
 
 export const ProductDetailsPage = () => {
   //#region Logic
@@ -31,6 +35,7 @@ export const ProductDetailsPage = () => {
     category: string;
   }>();
 
+  const isOnline = useOnlineStatus();
   const { products } = useProducts();
   const { isLoading, hasError, product, loadData } = useProductDetails(
     productId,
@@ -41,12 +46,10 @@ export const ProductDetailsPage = () => {
   const [selectedImg, setSelectedImg] = useState('');
 
   useEffect(() => {
-    if (product) {
+    if (product?.images?.length) {
       setSelectedImg(product.images[0]);
     }
   }, [product]);
-
-
 
   const handleColorChange = (newColor: string) => {
     if (!product) return;
@@ -98,55 +101,62 @@ export const ProductDetailsPage = () => {
 
   return (
     <>
-      <section className="product-details container ">
+      <div className="product-details container ">
         {!hasError && (
           <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
         )}
-        {hasError && (
-          <>
-            <BackHeader
-              catalogTitle={product?.name ?? categoryName}
-              className="product-details__header"
-              hasError={hasError}
-            />
-            <FetchError onRetry={loadData} />
-          </>
-        )}
 
-        {!hasError && isLoading && (
+        {isLoading ? (
           <>
             <BackHeaderSkeleton className="product-details__header" />
             <ProductDetailsSkeleton />
           </>
+        ) : (
+          <BackHeader
+            catalogTitle={product?.name ?? categoryName}
+            className="product-details__header"
+            hasError={hasError}
+          />
         )}
 
-        <BackHeader
-          catalogTitle={product?.name}
-          className="product-details__header"
-          hasError={hasError}
-        />
-        {!hasError && !isLoading && product && (
+        {hasError || !isOnline ? (
+          <FetchError onRetry={loadData} />
+        ) : (
           <div className="product-details__main">
             <section className="product-details__gallery">
               <div className="product-details__thumbnails">
-                {product?.images.map((img, index) => (
+                {product?.images?.map((img, index) => (
                   <button
-                    key={img}
+                    key={`${img}-${index}`}
                     type="button"
                     className={cn('product-details__thumb', {
                       'product-details__thumb--active': selectedImg === img,
                     })}
                     onClick={() => setSelectedImg(img)}
                   >
-                    <img src={img} alt={`${product.name} view ${index + 1}`} />
+                    <ImageWithFallback
+                      src={`${import.meta.env.BASE_URL}${img}`}
+                      alt={`${product.name} view ${index + 1}`}
+                      fallbackIcon={
+                        <QuestionImg className="product-details__placeholder-icon" />
+                      }
+                    />
                   </button>
                 ))}
               </div>
 
               <div className="product-details__main-image">
-                <img
-                  src={`${import.meta.env.BASE_URL}${selectedImg}`}
+                <ImageWithFallback
+                  className="product-details__main-image-content"
+                  src={
+                    selectedImg
+                      ? `${import.meta.env.BASE_URL}${selectedImg}`
+                      : ''
+                  }
                   alt={product?.name}
+                  fallbackIcon={
+                    <FallbackImg className="product-details__placeholder-icon" />
+                  }
                 />
               </div>
             </section>
@@ -322,14 +332,14 @@ export const ProductDetailsPage = () => {
             </div>
           </div>
         )}
-      </section>
+      </div>
 
       {!hasError && (
         <section className="product-details__recommended">
           <ProductsSlider
             title="You may also like"
             products={product ? getSuggestedProducts(products, product.id) : []}
-            hasError={hasError}
+            hasError={hasError || !isOnline}
             onRetry={loadData}
             isLoading={isLoading}
           />

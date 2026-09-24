@@ -1,10 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SelectOption } from '@/shared/types';
+import { ArrowIcon } from '@/shared/assets/icons';
 
 import cn from 'classnames';
-
 import './DropdownSelect.scss';
-import { ArrowIcon } from '@/shared/assets/icons';
 
 type Props = {
   label: string;
@@ -36,8 +35,15 @@ export const DropdownSelect: React.FC<Props> = ({
         setIsOpen(false);
       }
     };
+    // Escape toggle
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
 
     document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
 
     return () => {
       document.removeEventListener('pointerdown', handlePointerDown);
@@ -50,7 +56,7 @@ export const DropdownSelect: React.FC<Props> = ({
   };
 
   return (
-    <div className={`dropdown-select ${className}`.trim()} ref={rootRef}>
+    <div className={cn('dropdown-select', className)} ref={rootRef}>
       <span className="dropdown-select__label">{label}</span>
 
       <button

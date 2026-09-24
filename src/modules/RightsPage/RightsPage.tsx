@@ -9,7 +9,7 @@ export const RightsPage: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <main className="rights-page container">
+    <div className="rights-page container">
       <BreadcrumbsNav className="rights-page__breadcrumbs" />
       <BackHeader catalogTitle="Rights & Terms" className="rights-page__header" />
 
@@ -46,6 +46,6 @@ export const RightsPage: React.FC = () => {
           </p>
         </article>
       </section>
-    </main>
+    </div>
   );
 };

@@ -9,9 +9,10 @@ import { ProductPrice } from '@/shared/components/ProductPrice';
 import { Modal } from './components/Modal';
 import { useState } from 'react';
 import { useProducts } from '../HomePage/hooks/useProducts';
-import { EmptyCart } from '@/shared/assets/cart-img';
+
 
 import './CartPage.scss';
+import { EmptyCartImg } from '@/shared/assets/cart-img';
 
 const CHECKOUT_SKELETON = (
   <div className="checkout-block checkout-block--skeleton">
@@ -33,7 +34,7 @@ export const CartPage = () => {
   };
 
   return (
-    <main className="cart-page container">
+    <div className="cart-page container">
       <div className="cart-page__back">
         <BackHeader catalogTitle="Cart" hasError={hasError} />
       </div>
@@ -73,7 +74,7 @@ export const CartPage = () => {
         </div>
       ) : (
         <EmptyState className="cart-page__empty" title="Your cart is empty">
-          <EmptyCart />
+          <EmptyCartImg />
         </EmptyState>
       )}
 
@@ -86,6 +87,6 @@ export const CartPage = () => {
         onConfirm={handleCheckoutConfirm}
         onCancel={() => setIsModalOpen(false)}
       />
-    </main>
+    </div>
   );
 };

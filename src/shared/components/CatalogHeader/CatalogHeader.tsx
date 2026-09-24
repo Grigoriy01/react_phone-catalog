@@ -6,7 +6,7 @@ import './CatalogHeader.scss';
 type Props = {
   countProduct: number;
   catalogName: string;
-  className?:string;
+  className?: string;
   isLoading?: boolean;
   hasError?: boolean;
 };
@@ -17,15 +17,17 @@ export const CatalogHeader: React.FC<Props> = ({
   hasError,
   className,
 }) => {
-  console.log('Title:', catalogName)
+  const itemsText = countProduct === 1 ? 'item' : 'items';
   return (
-    <div className={cn("catalog-header", className)}>
+    <div className={cn('catalog-header', className)}>
       <h1 className="catalog-header__title">{catalogName}</h1>
 
       {hasError ? null : isLoading || countProduct === undefined ? (
         <div className="catalog-header__count-skeleton"></div>
       ) : (
-        <div className="catalog-header__count">{countProduct} items</div>
+        <div className="catalog-header__count">
+          {countProduct} {itemsText}
+        </div>
       )}
     </div>
   );

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShopByCategoryProps } from '@/modules/HomePage/components/ShopByCategory/ShopByCategory.type';
+
+import { ShopByCategoryProps } from './ShopByCategory.type';
 import {
   CATEGORIES_CONFIG,
   ERROR_CATEGORIES_CONFIG,
 } from './ShopByCategory.constants';
 
+import cn from 'classnames';
 import './ShopByCategory.scss';
 
 interface Props extends ShopByCategoryProps {
@@ -28,11 +30,13 @@ export const ShopByCategory: React.FC<Props> = ({
 
           return (
             <Link
-              className={`shop-by-category__link ${
-                hasError ? 'shop-by-category__link--disabled' : ''
-              }`}
+              className={cn('shop-by-category__link', {
+                'shop-by-category__link--disabled': hasError,
+              })}
               to={path}
               key={id}
+              tabIndex={hasError ? -1 : undefined}
+              aria-disabled={hasError}
             >
               <div
                 className={`shop-by-category__img-wrapper shop-by-category__img-wrapper--${id}`}
@@ -52,7 +56,9 @@ export const ShopByCategory: React.FC<Props> = ({
               </div>
               <h3 className="shop-by-category__subtitle">{title}</h3>
               {!hasError && (
-                <div className="shop-by-category__count-modeles">{`${count} models`}</div>
+                <div className="shop-by-category__count-models">
+                  {count} models
+                </div>
               )}
             </Link>
           );

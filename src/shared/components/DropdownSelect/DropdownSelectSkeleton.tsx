@@ -1,8 +1,15 @@
+import React from 'react';
+
+import cn from 'classnames';
 import './DropdownSelectSkeleton.scss';
 
-export const DropdownSelectSkeleton = () => {
+type Props = {
+  className?: string;
+};
+
+export const DropdownSelectSkeleton: React.FC<Props> = ({ className }) => {
   return (
-    <div className="dropdown-select-skeleton">
+    <div className={cn('dropdown-select-skeleton', className)}>
       <div className="dropdown-select-skeleton__label" />
       <div className="dropdown-select-skeleton__trigger" />
     </div>

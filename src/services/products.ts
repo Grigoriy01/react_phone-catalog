@@ -1,33 +1,27 @@
-import { Product } from '../shared/types';
-
-const PRODUCTS_URL = `${import.meta.env.BASE_URL}api/products.json`;
+import { Product, ProductDetails } from '@/shared/types';
 
 function wait(delay: number) {
   return new Promise(resolve => setTimeout(resolve, delay));
 }
 
-export async function getProducts(): Promise<Product[]> {
-  const response = await fetch(PRODUCTS_URL);
-
-  // keep this delay for testing purpose
-  await wait(500);
+async function request<T>(url: string): Promise<T> {
+  const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error('Failed to fetch products');
+    throw new Error(`Failed to fetch data from ${url}`);
   }
 
-  return (await response.json()) as Product[];
+  await wait(500);
+
+  return (await response.json()) as T;
 }
 
-export async function getProductDetails(category: string): Promise<Product[]> {
-  const response = await fetch(`${import.meta.env.BASE_URL}api/${category}.json`);
+export function getProducts(): Promise<Product[]> {
+  return request<Product[]>(`${import.meta.env.BASE_URL}api/products.json`);
+}
 
-  // keep this delay for testing purpose
-  await wait(500);
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch product details');
-  }
-
-  return (await response.json()) as Product[];
+export function getProductDetails(category: string): Promise<ProductDetails[]> {
+  return request<ProductDetails[]>(
+    `${import.meta.env.BASE_URL}api/${category}.json`,
+  );
 }

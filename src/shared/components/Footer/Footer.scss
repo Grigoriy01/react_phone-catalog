@@ -9,7 +9,7 @@
     flex-direction: column;
     gap: 32px;
     height: 100%;
-    padding: 32px 16px;
+    padding-block: 32px;
 
     @include on-tablet {
       flex-direction: row;

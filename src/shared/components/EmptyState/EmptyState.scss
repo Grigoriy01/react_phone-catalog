@@ -24,14 +24,12 @@
 
     svg {
       display: block;
-      max-width: 100%;
-      max-width: 200px;
+      max-width: 400px;
       height: auto;
     }
   }
 
   &__btn {
-    max-width: 40%;
     min-width: 150px;
   }
 }

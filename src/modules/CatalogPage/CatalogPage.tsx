@@ -112,7 +112,7 @@ export const CatalogPage: React.FC = () => {
   }
 
   return (
-    <section className="catalog-page container">
+    <div className="catalog-page container">
       {hasError ? (
         <>
           <CatalogHeader
@@ -181,6 +181,6 @@ export const CatalogPage: React.FC = () => {
           </div>
         </>
       )}
-    </section>
+    </div>
   );
 };

@@ -10,6 +10,15 @@
     border: none;
     background: transparent;
     cursor: pointer;
+
+    @media (hover: hover) {
+      &:hover {
+        .back-header__btn-item,
+        .back-header__btn-arrow {
+          color: $color-primary;
+        }
+      }
+    }
   }
 
   &__btn-item {
@@ -23,8 +32,8 @@
 
   &__btn-arrow {
     @extend %arrow-icon;
-    
-    transform: rotate(180deg)
+
+    transform: rotate(180deg);
   }
 
   &__title {

@@ -18,14 +18,14 @@ export const BackHeader: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handelBack = () => {
+  const handleBack = () => {
     navigate(-1);
   };
 
   return (
     <div className={`back-header ${className}`.trim()}>
       {!hasError && (
-        <button className="back-header__btn" type="button" onClick={handelBack}>
+        <button className="back-header__btn" type="button" onClick={handleBack}>
           <ArrowIcon className="back-header__btn-arrow" />
           <span className="back-header__btn-item">Back</span>
         </button>

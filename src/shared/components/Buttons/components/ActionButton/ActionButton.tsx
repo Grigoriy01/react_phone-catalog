@@ -9,6 +9,7 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   isActive?: boolean;
   to?: string;
   variant?: 'primary' | 'secondary';
+  className?: string;
 }
 
 export const ActionButton: React.FC<Props> = ({
@@ -30,14 +31,23 @@ export const ActionButton: React.FC<Props> = ({
 
   if (to) {
     return (
-      <Link to={to} className={combinedClassName}>
+      <Link
+        to={to}
+        className={combinedClassName}
+        {...(props as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+      >
         {children}
       </Link>
     );
   }
 
   return (
-    <button type="button" className={combinedClassName} {...props}>
+    <button
+      type="button"
+      className={combinedClassName}
+      disabled={isActive || props.disabled}
+      {...props}
+    >
       {children}
     </button>
   );

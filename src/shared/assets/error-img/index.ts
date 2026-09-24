@@ -1,14 +1,8 @@
-import PageNotFoundImg from './404Page not Found with people connecting .svg?react';
-import ConnectionLostImg from './error-Bad-Request-bro.svg?react';
-import FishungImg from './ice-fishing-bro.svg?react';
-import CalenderImg from './calendar-rafiki.svg?react';
-import TimeManagImg from './time-management-rafiki.svg?react';
-import WorkTimeImg from './work-time-rafiki.svg?react';
-
-export { PageNotFoundImg };
-export { ConnectionLostImg };
-export { FishungImg };
-export { CalenderImg };
-export { TimeManagImg };
-export { WorkTimeImg };
-
+export { default as PageNotFoundImg } from './404-page-not-found.svg?react';
+export { default as ConnectionLostImg } from './error-Bad-Request-bro.svg?react';
+export { default as FishingImg } from './ice-fishing-bro.svg?react';
+export { default as CalendarImg } from './calendar-rafiki.svg?react';
+export { default as TimeManagementImg } from './time-management-rafiki.svg?react';
+export { default as WorkTimeImg } from './work-time-rafiki.svg?react';
+export { default as FallbackImg } from './fallback-img.svg?react';
+export { default as QuestionImg } from './not-img.svg?react';

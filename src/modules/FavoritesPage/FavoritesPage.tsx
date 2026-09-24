@@ -26,7 +26,7 @@ export const FavoritesPage = () => {
   }, [favorites, query]);
 
   return (
-    <main className="favorites-page container">
+    <div className="favorites-page container">
       {!hasError && <BreadcrumbsNav isLoading={isLoading} />}
 
       <CatalogHeader
@@ -39,17 +39,17 @@ export const FavoritesPage = () => {
 
       {hasError ? (
         <FetchError onRetry={loadData} className="favorites-page__error" />
-      ) : processedProducts.length === 0 && !isLoading ? (
-        <EmptyState title="Your favorites list is empty">
-          <EmptyFavIcon />
-        </EmptyState>
-      ) : (
+      ) : processedProducts.length > 0 || isLoading ? (
         <ProductsList
           products={processedProducts}
           isLoading={isLoading}
-          skeletonCount={favorites.length}
+          skeletonCount={favorites.length || 3}
         />
+      ) : (
+        <EmptyState title="Your favorites list is empty">
+          <EmptyFavIcon />
+        </EmptyState>
       )}
-    </main>
+    </div>
   );
 };

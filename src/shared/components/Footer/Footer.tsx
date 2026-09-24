@@ -6,9 +6,7 @@ import './Footer.scss';
 export const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer__container">
-        {/* Footer content */}
-
+      <div className="footer__container container">
         <Logo className="footer__logo" />
         <NavFooter />
         <ButtonTop />
