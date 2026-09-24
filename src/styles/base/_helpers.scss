@@ -15,3 +15,8 @@
   border: 0;
 }
 
+// only for body!!!
+.is-locked {
+  overflow: hidden;
+  touch-action: none;
+}
