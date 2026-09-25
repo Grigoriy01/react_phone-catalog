@@ -4,13 +4,13 @@ import { getSearchWith, QUERY_PARAM } from '@/utils';
 
 import { DeleteIcon, SearchIcon } from '@/shared/assets/icons';
 
-import './SearchImput.scss';
+import './SearchInput.scss';
 
 type Props = {
   className: string;
 };
 
-export const SearchImput: React.FC<Props> = ({ className }) => {
+export const SearchInput: React.FC<Props> = ({ className }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const queryParam = searchParams.get(QUERY_PARAM) || '';
 

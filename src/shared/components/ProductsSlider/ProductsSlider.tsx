@@ -2,13 +2,13 @@ import React, { useRef, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { AsyncData } from './AsyncData';
+import { Product } from '@/shared/types';
 
 import { IconButton } from '../Buttons/components/IconButton';
 import { ProductCard } from '../ProductCard';
-import { Product } from '../../types';
+
 import { ProductCardSkeleton } from '../ProductCard/ProductCardSkeleton';
 import { ArrowIcon } from '@/shared/assets/icons';
-
 
 import cn from 'classnames';
 import './ProductsSlider.scss';
@@ -84,16 +84,19 @@ export const ProductsSlider: React.FC<Props> = ({
               1200: { slidesPerView: 4 },
             }}
             spaceBetween={16}
-            className="styles-mySwiper"
+            className="products-slider__swiper"
           >
             {isLoading
               ? Array.from({ length: 4 }).map((_, index) => (
-                  <SwiperSlide className="mySwiper-slide" key={index}>
+                  <SwiperSlide className="products-slider__slide" key={index}>
                     <ProductCardSkeleton />
                   </SwiperSlide>
                 ))
               : (products ?? []).map(product => (
-                  <SwiperSlide className="mySwiper-slide" key={product.id}>
+                  <SwiperSlide
+                    className="products-slider__slide"
+                    key={product.id}
+                  >
                     <ProductCard product={product} />
                   </SwiperSlide>
                 ))}

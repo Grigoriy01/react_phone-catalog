@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCartItem } from '@/shared/context/CartContext';
+import { useCart } from '@/shared/context/CartContext';
 import { Link } from 'react-router-dom';
 import { CartItem } from '@/shared/types';
 import {
@@ -18,7 +18,7 @@ type Props = {
   className?: string;
 };
 export const CartProduct: React.FC<Props> = ({ item, className }) => {
-  const { removeFromCart, changeQuantity } = useCartItem();
+  const { removeFromCart, changeQuantity } = useCart();
   const isMinQuantity = item.quantity <= 1;
 
   return (

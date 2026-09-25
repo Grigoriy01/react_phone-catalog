@@ -1,36 +1,46 @@
 import React from 'react';
-import { Product } from '../../types';
+import { Product } from '@/shared/types';
 
 import { ProductCard, ProductCardSkeleton } from '../ProductCard';
 
+import cn from 'classnames';
 import './ProductsList.scss';
 
 type Props = {
   products: Product[];
   isLoading?: boolean;
   skeletonCount?: number;
+  className?: string;
 };
 
 export const ProductsList: React.FC<Props> = ({
   skeletonCount = 8,
   products,
   isLoading,
+  className,
 }) => {
   if (isLoading) {
     return (
-      <div className="products-list">
+      <ul
+        className={cn('products-list', className)}
+        aria-label="Loading products"
+      >
         {Array.from({ length: skeletonCount }).map((_, index) => (
-          <ProductCardSkeleton key={index} />
+          <li key={`skeleton-${index}`} className="products-list__item">
+            <ProductCardSkeleton />
+          </li>
         ))}
-      </div>
+      </ul>
     );
   }
 
   return (
-    <div className="products-list">
+    <ul className={cn('products-list', className)}>
       {products.map(product => (
-        <ProductCard key={product.id} product={product} />
+        <li key={product.id} className="products-list__item">
+          <ProductCard key={product.id} product={product} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };

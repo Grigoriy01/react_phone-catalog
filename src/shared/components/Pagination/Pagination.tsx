@@ -1,12 +1,11 @@
 import React from 'react';
-import { IconButton } from '../Buttons/components/IconButton';
+import { getMobilePaginationPages, DOTS } from './getMobilePaginationPages';
 
-import { getMobilePaginationPages } from './getMobilePaginationPages';
-import { DOTS } from './getMobilePaginationPages';
-import cn from 'classnames';
-
-import './Pagination.scss';
+import { IconButton } from '@/shared/components/Buttons/components/IconButton';
 import { ArrowIcon } from '@/shared/assets/icons';
+
+import cn from 'classnames';
+import './Pagination.scss';
 
 type Props = {
   total: number;

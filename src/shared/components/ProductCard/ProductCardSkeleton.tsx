@@ -1,8 +1,15 @@
+import React from 'react';
+
+import cn from 'classnames';
 import './ProductCardSkeleton.scss';
 
-export const ProductCardSkeleton = () => {
+type Props = {
+  className?: string;
+};
+
+export const ProductCardSkeleton: React.FC<Props> = ({ className }) => {
   return (
-    <article className="product-card-skeleton">
+    <article className={cn('product-card-skeleton', className)}>
       <div className="product-card-skeleton__image-container">
         <div className="product-card-skeleton__image" />
       </div>
@@ -14,7 +21,6 @@ export const ProductCardSkeleton = () => {
         <div className="product-card-skeleton__price" />
       </div>
 
-      {/* Используем универсальный селектор product-specs */}
       <div className="product-card-skeleton__specs product-specs">
         <div className="product-specs__row">
           <div className="product-card-skeleton__spec-name" />

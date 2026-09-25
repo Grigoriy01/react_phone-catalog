@@ -3,6 +3,10 @@
 .product-card {
   @include product-card-base;
 
+  &__image-container {
+    @include hover-scale;
+  }
+
   &__image {
     max-width: 100%;
     max-height: 100%;

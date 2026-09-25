@@ -11,10 +11,13 @@
     width: 128px;
   }
   &__img {
+    transform-origin: center center;
+    image-rendering: -webkit-optimize-contrast;
+    
     @include on-desktop {
       width: 80px;
     }
   }
-  
+
   @include hover-scale;
 }

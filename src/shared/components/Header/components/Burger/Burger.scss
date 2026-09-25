@@ -28,7 +28,7 @@
       height: 1.5px;
       background-color: currentColor;
       border-radius: 1rem;
-      transition: background-color 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease;
     }
     &::after {
       transform: translateY(4px);

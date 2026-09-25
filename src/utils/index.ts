@@ -5,3 +5,4 @@ export * from './getSearchWith';
 export * from './filterProductsByQuery';
 export * from './processProducts';
 export * from './catalogParams';
+export * from './localStorage';

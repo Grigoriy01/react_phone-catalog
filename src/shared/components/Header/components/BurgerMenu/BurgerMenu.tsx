@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Nav } from '../../../Nav';
+import { Nav } from '@/shared/components/Nav';
 import { HeaderActions } from '../HeaderActions';
-import cn from 'classnames';
 
+import cn from 'classnames';
 import './BurgerMenu.scss';
 
 type Props = {
@@ -23,7 +23,10 @@ export const BurgerMenu: React.FC<Props> = ({ isBurgerMenuOpen }) => {
   }, [isBurgerMenuOpen]);
 
   return (
-    <div className={cn('burger-menu', { 'is-open': isBurgerMenuOpen })}>
+    <div
+      className={cn('burger-menu', { 'is-open': isBurgerMenuOpen })}
+      aria-hidden={!isBurgerMenuOpen}
+    >
       <div className="burger-menu__content">
         <Nav />
         <HeaderActions />

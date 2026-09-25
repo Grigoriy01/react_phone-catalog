@@ -1,12 +1,14 @@
 import React from 'react';
-import { Product } from '../../types';
+
 import { Link } from 'react-router-dom';
+import { Product } from '@/shared/types';
 
 import { ProductActions } from '../ProductActions';
 import { ProductSpecsItem } from '../ProductSpecsItem';
 import { ProductPrice } from '../ProductPrice';
 
 import './ProductCard.scss';
+import { ImageWithFallback } from '../ImageWithFallback';
 
 type Props = {
   product: Product;
@@ -19,7 +21,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
         to={`/${product.category}/${product.itemId}`}
         className="product-card__image-container"
       >
-        <img
+        <ImageWithFallback
           src={`${import.meta.env.BASE_URL}${product.image}`}
           alt={product.name}
           className="product-card__image"
@@ -42,9 +44,9 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
 
       {/* 4. Specs-block */}
       <dl className="product-card__specs product-specs">
-        <ProductSpecsItem label='Screen' value={product?.screen} />
-        <ProductSpecsItem label='Capacity' value={product?.capacity} />
-        <ProductSpecsItem label='RAM' value={product?.ram} />
+        <ProductSpecsItem label="Screen" value={product.screen} />
+        <ProductSpecsItem label="Capacity" value={product.capacity} />
+        <ProductSpecsItem label="RAM" value={product.ram} />
       </dl>
 
       {/* Buttons */}

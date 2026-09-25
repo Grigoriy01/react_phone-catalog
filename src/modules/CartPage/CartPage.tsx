@@ -1,6 +1,6 @@
 import { BackHeader } from '@/shared/components/BackHeader';
 import { CartList } from './components/CartList';
-import { useCartItem } from '@/shared/context/CartContext';
+import { useCart } from '@/shared/context/CartContext';
 
 import { FetchError } from '@/shared/components/FetchError';
 import { EmptyState } from '@/shared/components/EmptyState';
@@ -24,7 +24,7 @@ const CHECKOUT_SKELETON = (
 );
 
 export const CartPage = () => {
-  const { cartItems, totalCount, totalPrice, clearCart } = useCartItem();
+  const { cartItems, totalCount, totalPrice, clearCart } = useCart();
   const { isLoading, hasError, loadData } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

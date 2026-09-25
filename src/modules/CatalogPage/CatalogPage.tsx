@@ -27,7 +27,6 @@ import {
 } from '@/shared/components/DropdownSelect';
 import {
   Pagination,
-  PaginationSkeleton,
   PER_PAGE_ALL,
   DEFAULT_PAGE,
   PER_PAGE_OPTIONS,
@@ -166,9 +165,7 @@ export const CatalogPage: React.FC = () => {
           <ProductsList products={processedProducts} isLoading={isLoading} />
 
           <div className="catalog-page__pagination">
-            {isLoading ? (
-              <PaginationSkeleton />
-            ) : (
+            {
               perPageStr !== PER_PAGE_ALL && (
                 <Pagination
                   total={totalCount}
@@ -177,7 +174,7 @@ export const CatalogPage: React.FC = () => {
                   onPageChange={handlePageChange}
                 />
               )
-            )}
+            }
           </div>
         </>
       )}

@@ -8,7 +8,7 @@ type Props = {
 };
 export const AsyncData: React.FC<Props> = ({ hasError, onRetry, children }) => {
   if (hasError) {
-    return <FetchError onRetry={onRetry ?? (() => {})} />;
+    return <FetchError onRetry={onRetry} />;
   }
   return <>{children}</>;
 };

@@ -1,20 +1,28 @@
 import React from 'react';
+
+import cn from 'classnames';
 import './Burger.scss';
 
 type Props = {
-  onIsBurgerMenuOpen: (target: boolean) => void;
-  isBurgerMenuOpen: boolean;
-}
-export const Burger: React.FC<Props> = ({isBurgerMenuOpen, onIsBurgerMenuOpen}) => {
+  onOpenChange: (target: boolean) => void;
+  isOpen: boolean;
+  className?: string;
+};
+
+export const Burger: React.FC<Props> = ({
+  isOpen,
+  onOpenChange,
+  className,
+}) => {
   return (
     <button
-      className='burger'
-      type='button'
-      aria-label='Toggle menu'
-      aria-expanded={isBurgerMenuOpen}
-      onClick={() => onIsBurgerMenuOpen(!isBurgerMenuOpen)}
+      className={cn('burger', className)}
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded={isOpen}
+      onClick={() => onOpenChange(!isOpen)}
     >
-      <span className='burger__line'></span>
+      <span className="burger__line"></span>
     </button>
   );
 };

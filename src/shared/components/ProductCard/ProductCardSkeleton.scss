@@ -1,17 +1,5 @@
 @use '../../../styles/utils/' as *;
 
-@keyframes skeleton-glow {
-  0% {
-    opacity: 0.5;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.5;
-  }
-}
-
 .product-card-skeleton {
   @include product-card-base;
 

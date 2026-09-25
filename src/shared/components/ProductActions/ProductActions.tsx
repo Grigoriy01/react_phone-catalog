@@ -1,13 +1,14 @@
 import React from 'react';
-import { Product } from '../../types';
+import { useCart } from '@/shared/context/CartContext';
+import { useFavorites } from '@/shared/context/FavoriteContext';
+import { Product } from '@/shared/types';
+
 import { IconButton } from '../Buttons/components/IconButton';
 import { ActionButton } from '../Buttons/components/ActionButton';
 import FavoriteIconDefault from '@/shared/assets/icons/hearts/heart-default.svg?react';
 import FavoriteIconSelected from '@/shared/assets/icons/hearts/heart-selected.svg?react';
-import { useFavorites } from '../../context/FavoriteContext';
 
 import './ProductActions.scss';
-import { useCartItem } from '@/shared/context/CartContext';
 
 type Props = {
   product: Product;
@@ -19,7 +20,7 @@ export const ProductActions: React.FC<Props> = ({
   className = '',
 }) => {
   const { isFavorite, toggleFavorite } = useFavorites();
-  const { isInCart, addToCart } = useCartItem();
+  const { isInCart, addToCart } = useCart();
   const inCart = isInCart(product.id);
   const isProductFavorite = isFavorite(product.id);
 
@@ -29,6 +30,11 @@ export const ProductActions: React.FC<Props> = ({
     if (inCart) return;
 
     addToCart(product);
+  };
+
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    toggleFavorite(product);
   };
 
   return (
@@ -44,8 +50,10 @@ export const ProductActions: React.FC<Props> = ({
 
       <IconButton
         className="product-actions__btn-favorite"
-        aria-label="Add to favorites"
-        onClick={() => toggleFavorite(product)}
+        aria-label={
+          isProductFavorite ? 'Remove from favorites' : 'Add to favorites'
+        }
+        onClick={handleToggleFavorite}
       >
         {isProductFavorite ? (
           <FavoriteIconSelected className="product-actions__favorite-icon" />

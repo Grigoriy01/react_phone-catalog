@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Logo } from '../Logo/Logo';
 import { HeaderActions } from './components/HeaderActions';
-import { SearchImput } from './components/SearchImput';
 import { Burger } from './components/Burger';
 import { BurgerMenu } from './components/BurgerMenu';
 import { Nav } from '../Nav';
+import { SearchInput } from './components/SearchInput';
 
+import { Logo } from '../Logo/Logo';
 import './Header.scss';
 
 /**
@@ -70,20 +70,20 @@ export const Header = () => {
 
   return (
     <header className="header">
-      {/* Header content */}
       <div className="header__container">
-        <Logo />
-        <div className="header__desktop-nav">
-          <Nav />
-        </div>
-        {isSearchVisible && <SearchImput className="header__search" />}
+        <Logo className="header__logo" />
+
+        <Nav className="header__desktop-nav" />
+
+        {isSearchVisible && <SearchInput className="header__search" />}
         <div className="header__desktop-actions">
           <HeaderActions />
         </div>
 
         <Burger
-          onIsBurgerMenuOpen={setIsBurgerMenuOpen}
-          isBurgerMenuOpen={isBurgerMenuOpen}
+          className="header__burger"
+          onOpenChange={setIsBurgerMenuOpen}
+          isOpen={isBurgerMenuOpen}
         />
 
         <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} />

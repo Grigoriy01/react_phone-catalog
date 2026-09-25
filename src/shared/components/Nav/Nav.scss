@@ -1,5 +1,4 @@
-@use '../../../styles/utils/mixins' as *;
-@use '../../../styles/utils/placeholder' as *;
+@use '../../../styles/utils/' as *;
 
 .nav-site {
   &__list {
@@ -18,6 +17,9 @@
   }
   &__item {
     height: 27px;
+    transition:
+      border-color 0.3s ease,
+      transform 0.3s ease;
 
     @include on-tablet {
       height: 100%;
@@ -25,7 +27,7 @@
   }
 
   &__link {
-     @extend %uppercase-text;
+    @extend %uppercase-text;
     @include active-underline;
 
     display: flex;
@@ -33,10 +35,6 @@
     align-items: center;
     transform: translateY(2px);
 
-    // &:hover {
-    //   color: $color-primary;
-    // }
-
-
+    @include hover(color, $color-primary);
   }
 }

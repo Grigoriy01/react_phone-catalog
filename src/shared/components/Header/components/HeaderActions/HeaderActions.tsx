@@ -1,26 +1,31 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useFavorites } from '@/shared/context/FavoriteContext';
+import { useCart } from '@/shared/context/CartContext';
 import { CartIcon, HeartDefaultIcon } from '@/shared/assets/icons';
 
 import cn from 'classnames';
 import './HeaderActions.scss';
-import { useCartItem } from '@/shared/context/CartContext';
+import React from 'react';
 
-export const HeaderActions = () => {
+type Props = {
+  className?: string;
+};
+
+export const HeaderActions: React.FC<Props> = ({ className }) => {
   const { pathname } = useLocation();
   const { favorites } = useFavorites();
-  const { totalCount } = useCartItem();
+  const { totalCount } = useCart();
 
   const countProducts = favorites.length;
 
   return (
-    <div className="header-actions">
+    <div className={cn('header-actions', className)}>
       <Link
         className={cn('header-actions__link header-actions__link--left', {
           'is-active': pathname === '/favorites',
         })}
         to="/favorites"
-        aria-label="Favorite batton"
+        aria-label="Favorites"
       >
         <div className="header-actions__wrapper-icon">
           <HeartDefaultIcon className="header-actions__icon" />
@@ -37,7 +42,7 @@ export const HeaderActions = () => {
           'is-active': pathname === '/cart',
         })}
         to="/cart"
-        aria-label="Cart batton"
+        aria-label="Cart"
       >
         <div className="header-actions__wrapper-icon">
           <CartIcon className="header-actions__icon" />

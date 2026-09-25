@@ -11,7 +11,15 @@
     column-gap: 16px;
   }
 
+  @media (min-width: 880px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   @include on-desktop {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  &__item {
+    min-width: 0;
   }
 }

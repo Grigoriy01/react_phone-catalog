@@ -16,17 +16,17 @@
   z-index: z('modal');
 
   transform: translateX(100%);
+  visibility: hidden;
   transition: transform 0.3s ease;
 
   &.is-open {
     transform: translateX(0);
+    visibility: visible;
   }
 
   @include on-tablet {
     display: none;
   }
-
-
 
   &__content {
     display: flex;

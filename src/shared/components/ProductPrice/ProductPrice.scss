@@ -1,6 +1,8 @@
 @use '../../../styles/utils/' as *;
 
 .product-price {
+  display: flex;
+  align-items: center;
 
   &__price {
     font-family: $font-family-base;
@@ -10,8 +12,6 @@
 
     &--old {
       font-weight: 500;
-      font-size: 22px;
-      line-height: 1;
       margin-left: 8px;
       color: $color-secondary-grau;
       text-decoration: line-through;

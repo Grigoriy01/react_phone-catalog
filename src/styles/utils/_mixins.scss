@@ -16,19 +16,29 @@
 
 @mixin hover($_property, $_toValue) {
   transition: #{$_property} 0.3s;
-  &:hover {
-    #{$_property}: $_toValue;
+
+  @media (hover: hover) {
+    &:hover {
+      #{$_property}: $_toValue;
+    }
   }
 }
 
 @mixin hover-scale {
-  transition: $transition-duration;
-  &:hover {
-    transform: scale(1.08);
+  transition: transform $transition-duration $transition-effect;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 
   &:active {
-    transform: scale(0.95);
+    transform: scale(0.98);
   }
 }
 
@@ -40,17 +50,14 @@
 
 @mixin hover-shadow {
   @media (hover: hover) {
-
     &:hover {
       box-shadow:
-      0 3px 13px rgba(0, 0, 0, 0.1),
-      0 2px 4px rgba(0, 0, 0, 0.1);
+        0 3px 13px rgba(0, 0, 0, 0.1),
+        0 2px 4px rgba(0, 0, 0, 0.1);
       @content;
     }
   }
 }
-
-// box-shadow: 0px 3px 13px 0px #17203166;
 
 @mixin active-underline($color: $color-primary, $height: 2px) {
   position: relative;
@@ -91,7 +98,7 @@
 
   @if $has-border {
     border: 1px solid $color-icons;
-    
+
     @media (hover: hover) {
       &:hover {
         border: 1px solid $color-primary;
@@ -217,7 +224,6 @@
     flex-shrink: 0;
   }
 
-  // Задаем внутренний отступ контейнеру
   &__specs {
     padding-block: 8px;
     display: flex;
@@ -225,26 +231,6 @@
     gap: 8px;
 
     @include divider;
-
-    // Подключаем стили для внутренних элементов ProductSpecs
-    // .product-specs__row {
-    //   display: flex;
-    //   align-items: center;
-    //   justify-content: space-between;
-    //   height: 16px;
-    // }
-
-    // .product-specs__name {
-    //   @extend %small-text;
-    // }
-
-    // .product-specs__value {
-    //   @extend %small-text;
-
-    //   font-weight: 700;
-    //   color: $color-primary;
-    //   font-size: 12px;
-    // }
   }
 
   &__price-block {

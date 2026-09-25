@@ -1,17 +1,26 @@
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import classNames from 'classnames';
 
+import cn from 'classnames';
 import './Nav.scss';
 
 interface Options {
   isActive: boolean;
 }
 
-export const Nav = () => {
+type Props = {
+  className?: string;
+};
+
+export const Nav: React.FC<Props> = ({ className }) => {
   const isActiveClass = ({ isActive }: Options) =>
-    classNames('nav-site__link', { 'is-active': isActive });
+    cn('nav-site__link', { 'is-active': isActive });
   return (
-    <nav className="nav-site" role="navigation" aria-label="main navigation">
+    <nav
+      className={cn('nav-site', className)}
+      role="navigation"
+      aria-label="main navigation"
+    >
       <ul className="nav-site__list">
         <li className="nav-site__item">
           <NavLink to="/" className={isActiveClass}>

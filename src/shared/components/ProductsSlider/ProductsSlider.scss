@@ -15,13 +15,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
     margin-bottom: 24px;
   }
 
   &__title {
     @extend %h2-title;
-
-    margin-right: 72px;
   }
   &__navigation-skeleton {
     @include skeleton-bg;
@@ -57,19 +56,17 @@
       padding: 0 32px;
     }
   }
-  .styles-mySwiper {
+  &__swiper {
+    width: 100%;
+  }
 
+  &__slide {
+    height: auto;
+    width: 212px;
+    flex-shrink: 0;
 
-
-    .mySwiper-slide {
-      height: auto;
-      width: 212px;
-      flex-shrink: 0;
-
-      @include on-tablet {
-        width: 237px;
-      }
-
+    @include on-tablet {
+      width: 237px;
     }
   }
 }

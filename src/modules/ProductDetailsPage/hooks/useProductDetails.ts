@@ -17,7 +17,7 @@ export function useProductDetails(productId?: string, category?: string) {
       const products = await getProductDetails(category);
 
       const found = products.find(
-        p => p.id === productId || p.itemId === productId,
+        p => p.id === productId || p.id === productId,
       );
       if (found) {
         setProduct(found as unknown as ProductDetails);
