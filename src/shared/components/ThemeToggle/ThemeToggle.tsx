@@ -22,7 +22,8 @@ export const ThemeToggle: React.FC<Props> = ({
   const isDark = theme === 'dark';
 
   return (
-    (!isLoading && !hasError) && (
+    !isLoading &&
+    !hasError && (
       <IconButton
         type="button"
         className={cn('theme-toggle', className, {
