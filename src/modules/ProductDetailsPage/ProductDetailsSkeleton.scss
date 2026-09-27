@@ -18,11 +18,12 @@
   // #region Галерея
   &__gallery {
     display: flex;
-    align-items: center;
     flex-direction: column-reverse;
     gap: 16px;
-    margin-bottom: 40px;
+    align-items: center;
+
     min-width: 0;
+    margin-bottom: 40px;
 
     @include on-tablet {
       grid-column: span 7;
@@ -38,9 +39,10 @@
 
   &__thumbnails {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
+    justify-content: center;
+
     width: 100%;
 
     @include on-tablet {
@@ -52,27 +54,29 @@
   &__thumb {
     @include skeleton-bg;
 
+    flex-shrink: 0;
+
+    box-sizing: border-box;
     width: 50px;
     height: 50px;
     border-radius: 4px;
-    flex-shrink: 0;
-    box-sizing: border-box;
   }
 
   &__main-image {
     @include skeleton-bg;
 
     width: 100%;
+    min-width: 0;
     height: 300px;
     max-height: 300px;
     border-radius: 8px;
-    min-width: 0;
 
     @include on-tablet {
       height: 400px;
       max-height: none;
     }
   }
+
   // #endregion
 
   // #region Панель действий
@@ -80,8 +84,9 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin-bottom: 56px;
+
     min-width: 0;
+    margin-bottom: 56px;
 
     @include on-tablet {
       grid-column: span 5;
@@ -158,8 +163,8 @@
 
   &__specs-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     height: 16px;
   }
 
@@ -199,10 +204,10 @@
     }
 
     &--btn-fav {
+      flex-shrink: 0;
       width: 48px;
       height: 40px;
       border-radius: 8px;
-      flex-shrink: 0;
     }
 
     &--spec-name {
@@ -231,12 +236,13 @@
       }
     }
   }
+
   // #endregion
 
   // #region Нижний блок (About + Tech specs)
   &__info {
-    grid-column: 1 / -1;
     display: grid;
+    grid-column: 1 / -1;
     grid-template-columns: minmax(0, 1fr);
     gap: 56px;
 
@@ -282,5 +288,6 @@
     gap: 8px;
     margin-block: 0;
   }
+
   // #endregion
 }

@@ -21,10 +21,11 @@ export const COLOR_MAP: Record<string, string> = {
   pacificblue: '#2d4b5a',
   'deep-purple': '#483c4d',
   spaceblack: '#2e2c2e',
-  'space-black': '#2e2c2e'
+  'space-black': '#2e2c2e',
 };
 
 export const getColorHex = (colorName: string): string => {
   const normalizedColor = colorName.toLowerCase().trim();
+
   return COLOR_MAP[normalizedColor] || colorName;
-}
+};

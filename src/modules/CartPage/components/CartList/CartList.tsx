@@ -2,6 +2,7 @@ import React from 'react';
 
 import { CartItem } from '@/shared/types';
 import { CartProduct } from '../CartProduct/CartProduct';
+// eslint-disable-next-line max-len
 import { CartProductSkeleton } from '../CartProductSkeleton/CartProductSkeleton';
 
 import cn from 'classnames';
@@ -19,11 +20,10 @@ export const CartList: React.FC<Props> = ({
   totalCount,
   isLoading,
 }) => {
+  const skeletonCount =
+    totalCount !== undefined && totalCount > 0 ? totalCount : 3;
 
-    const skeletonCount =
-      totalCount !== undefined && totalCount > 0 ? totalCount : 3;
-
-   return (
+  return (
     <ul className={cn('cart-list', className)}>
       {isLoading
         ? Array.from({ length: skeletonCount }).map((_, index) => (

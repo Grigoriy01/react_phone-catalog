@@ -2,24 +2,24 @@
 
 .products-list {
   display: grid;
-  gap: 40px;
   grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
   justify-content: start;
 
-  @include on-tablet {
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 16px;
+  &__item {
+    min-width: 0;
   }
 
   @media (min-width: 880px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  @include on-desktop {
-    grid-template-columns: repeat(4, 1fr);
+  @include on-tablet {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 16px;
   }
 
-  &__item {
-    min-width: 0;
+  @include on-desktop {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

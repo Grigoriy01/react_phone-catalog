@@ -5,21 +5,22 @@
 
   &__list {
     display: flex;
-    align-items: center;
     gap: 8px;
+    align-items: center;
+
     width: 100%;
     min-height: 16px;
   }
 
   &__item {
     display: flex;
+    flex-shrink: 0;
     gap: 8px;
     align-items: center;
-    flex-shrink: 0;
 
     &:last-child {
-      min-width: 0;
       flex-shrink: 1;
+      min-width: 0;
     }
   }
 
@@ -32,18 +33,19 @@
   &__link {
     @extend %small-text;
 
-    font-size: 12px;
-    color: $color-secondary-grau;
     display: flex;
     flex-shrink: 0;
-    white-space: nowrap;
     align-items: center;
+
+    font-size: 12px;
+    color: $color-secondary-grau;
+    white-space: nowrap;
 
     transition: color $transition-duration ease;
 
     &--page-name {
-      color: $color-primary;
       transform: translateY(1px);
+      color: $color-primary;
     }
   }
 
@@ -54,25 +56,28 @@
   &__current {
     @extend %small-text;
 
+    transform: translateY(1px);
+
+    overflow: hidden;
     display: block;
     flex-shrink: 1;
-    font-size: 12px;
-    transform: translateY(1px);
-    color: $color-secondary-grau;
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     min-width: 0;
+
+    font-size: 12px;
+    color: $color-secondary-grau;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__skeleton {
     @include skeleton-bg;
 
     display: block;
+
     width: 120px;
     height: 16px;
-    border-radius: 4px;
     margin-bottom: 0;
+    border-radius: 4px;
   }
 }

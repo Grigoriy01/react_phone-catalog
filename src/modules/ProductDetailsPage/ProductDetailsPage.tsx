@@ -5,6 +5,7 @@ import { useProductDetails } from './hooks';
 import { useProducts } from '../HomePage/hooks/useProducts';
 import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
+import { AsyncData } from '@/shared/components/AsyncData';
 import { getSuggestedProducts } from '@/utils';
 import { getColorHex } from '@/utils';
 import { Product } from '@/shared/types';
@@ -15,7 +16,6 @@ import { ProductActions } from '@/shared/components/ProductActions';
 import { ProductPrice } from '@/shared/components/ProductPrice';
 import { ProductDetailsSkeleton } from './ProductDetailsSkeleton';
 import { ProductsSlider } from '@/shared/components/ProductsSlider';
-import { FetchError } from '@/shared/components/FetchError';
 import { ProductSpecsItem } from '@/shared/components/ProductSpecsItem';
 import { ImageWithFallback } from '@/shared/components/ImageWithFallback';
 
@@ -34,7 +34,6 @@ export const ProductDetailsPage = () => {
     productId: string;
     category: string;
   }>();
-
   const isOnline = useOnlineStatus();
   const { products } = useProducts();
   const { isLoading, hasError, product, loadData } = useProductDetails(
@@ -52,7 +51,9 @@ export const ProductDetailsPage = () => {
   }, [product]);
 
   const handleColorChange = (newColor: string) => {
-    if (!product) return;
+    if (!product) {
+      return;
+    }
 
     const targetColor = normalizeForUrl(newColor);
     const targetCapacity = normalizeForUrl(product.capacity);
@@ -70,7 +71,9 @@ export const ProductDetailsPage = () => {
   };
 
   const handleCapacityChange = (newCapacity: string) => {
-    if (!product) return;
+    if (!product) {
+      return;
+    }
 
     const targetCapacity = normalizeForUrl(newCapacity);
     const targetColor = normalizeForUrl(product.color);
@@ -87,7 +90,7 @@ export const ProductDetailsPage = () => {
     }
   };
 
-  const currentProduct = products.find(product => product.itemId === productId);
+  const currentProduct = products.find(p => p.itemId === productId);
 
   //#endregion Logic
 
@@ -102,9 +105,7 @@ export const ProductDetailsPage = () => {
   return (
     <>
       <div className="product-details container ">
-        {!hasError && (
-          <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
-        )}
+        <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
 
         {isLoading ? (
           <>
@@ -116,12 +117,11 @@ export const ProductDetailsPage = () => {
             catalogTitle={product?.name ?? categoryName}
             className="product-details__header"
             hasError={hasError}
+            isOnline={isOnline}
           />
         )}
 
-        {hasError || !isOnline ? (
-          <FetchError onRetry={loadData} />
-        ) : (
+        <AsyncData hasError={hasError} onRetry={loadData}>
           <div className="product-details__main">
             <section className="product-details__gallery">
               <div className="product-details__thumbnails">
@@ -138,7 +138,11 @@ export const ProductDetailsPage = () => {
                       src={`${import.meta.env.BASE_URL}${img}`}
                       alt={`${product.name} view ${index + 1}`}
                       fallbackIcon={
-                        <QuestionImg className="product-details__placeholder-icon" />
+                        <QuestionImg
+                          className="
+                            product-details__placeholder-icon
+                          "
+                        />
                       }
                     />
                   </button>
@@ -155,7 +159,11 @@ export const ProductDetailsPage = () => {
                   }
                   alt={product?.name}
                   fallbackIcon={
-                    <FallbackImg className="product-details__placeholder-icon" />
+                    <FallbackImg
+                      className="
+                        product-details__placeholder-icon
+                      "
+                    />
                   }
                 />
               </div>
@@ -331,20 +339,23 @@ export const ProductDetailsPage = () => {
               </section>
             </div>
           </div>
-        )}
+        </AsyncData>
       </div>
 
-      {!hasError && (
-        <section className="product-details__recommended">
-          <ProductsSlider
-            title="You may also like"
-            products={product ? getSuggestedProducts(products, product.id) : []}
-            hasError={hasError || !isOnline}
-            onRetry={loadData}
-            isLoading={isLoading}
-          />
-        </section>
-      )}
+      {!hasError ||
+        (isOnline && (
+          <section className="product-details__recommended">
+            <ProductsSlider
+              title="You may also like"
+              products={
+                product ? getSuggestedProducts(products, product.id) : []
+              }
+              hasError={hasError}
+              onRetry={loadData}
+              isLoading={isLoading}
+            />
+          </section>
+        ))}
     </>
   );
 };

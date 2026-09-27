@@ -5,7 +5,9 @@ import { Product } from '@/shared/types';
 
 import { IconButton } from '../Buttons/components/IconButton';
 import { ActionButton } from '../Buttons/components/ActionButton';
+// eslint-disable-next-line max-len
 import FavoriteIconDefault from '@/shared/assets/icons/hearts/heart-default.svg?react';
+// eslint-disable-next-line max-len
 import FavoriteIconSelected from '@/shared/assets/icons/hearts/heart-selected.svg?react';
 
 import './ProductActions.scss';
@@ -27,7 +29,9 @@ export const ProductActions: React.FC<Props> = ({
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (inCart) return;
+    if (inCart) {
+      return;
+    }
 
     addToCart(product);
   };

@@ -1,34 +1,47 @@
 import React from 'react';
 
-import { ConnectionLostImg } from '@/shared/assets/error-img';
+import { ConnectionLostImg, NoWiFiImg } from '@/shared/assets/error-img';
 import { ActionButton } from '../Buttons/components/ActionButton';
 
 import cn from 'classnames';
 import './FetchError.scss';
 
 type Props = {
-  message?: string;
+  type?: 'offline' | 'server';
   onRetry?: () => void;
   className?: string;
 };
 export const FetchError: React.FC<Props> = ({
-  message = 'Something went wrong. Failed to load data.',
   onRetry,
+  type = 'server',
   className = '',
 }) => {
-  return (
-    <div className={cn('error-message', className)} role="alert">
-      <ConnectionLostImg className="error-message__image" />
+  const isOffline = type === 'offline';
 
-      <p className="error-message__text">{message}</p>
+  return (
+    <div className={cn('fetch-error', className)} role="alert">
+      <h3 className="fetch-error__title">
+        {isOffline ? 'No internet connection' : 'Something went wrong'}
+      </h3>
+      {isOffline ? (
+        <NoWiFiImg className="fetch-error__image" />
+      ) : (
+        <ConnectionLostImg className="fetch-error__image" />
+      )}
+
+      <p className="fetch-error__text">
+        {isOffline
+          ? 'Please check your network connection and try again.'
+          : 'Failed to load data from the server.'}
+      </p>
 
       {onRetry && (
         <ActionButton
-          className="error-message__button"
+          className="fetch-error__button"
           onClick={onRetry}
           variant="secondary"
         >
-          Reload page
+          {isOffline ? 'Try again' : 'Reload page'}
         </ActionButton>
       )}
     </div>

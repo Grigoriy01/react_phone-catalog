@@ -1,37 +1,45 @@
 @use '../../../styles/utils/' as *;
 
-.error-message {
+.fetch-error{
   display: flex;
   flex-direction: column;
   align-items: center;
 
+  box-sizing: border-box;
   width: 100%;
   max-width: 287px;
-
   margin: 0 auto;
   padding: 32px;
-  box-sizing: border-box;
+
+  &__title {
+    @extend %h3-title;
+
+    font-size: 16px;
+    text-align: center;
+  }
 
   &__image {
-    height: 196px;
     width: auto;
     max-width: 100%;
-    object-fit: contain;
+    height: 196px;
     margin-bottom: 16px;
+
+    object-fit: contain;
   }
 
   &__text {
     @extend %small-text;
 
-    color: $color-secondary-grau;
-    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+
     margin: 0 0 24px;
 
-    display: -webkit-box;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    color: $color-secondary-grau;
+    text-align: center;
   }
 
   &__button {

@@ -2,21 +2,20 @@
 
 .burger-menu {
   position: fixed;
+  z-index: z('modal');
   top: 48px;
-  left: 0;
   right: 0;
+  left: 0;
+  transform: translateX(100%);
 
   width: 100%;
   height: calc(100vh - 48px);
   height: calc(100dvh - 48px);
-
   border-top: 1px solid $color-elements;
+
+  visibility: hidden;
   background-color: $color-surface-1;
 
-  z-index: z('modal');
-
-  transform: translateX(100%);
-  visibility: hidden;
   transition: transform 0.3s ease;
 
   &.is-open {
@@ -32,6 +31,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     height: 100%;
     padding-bottom: max(16px, env(safe-area-inset-bottom));
   }

@@ -11,7 +11,6 @@
 
     width: 50%;
     height: 100%;
-
     border-top: 1px solid $color-elements;
     border-right: 1px solid $color-elements;
 
@@ -33,10 +32,12 @@
 
   &__wrapper-icon {
     position: relative;
+
     display: flex;
-    color: $color-primary;
     align-items: center;
     justify-content: center;
+
+    color: $color-primary;
   }
 
   &__badge-counter {
@@ -47,20 +48,20 @@
     right: -6px;
 
     display: block;
-    text-align: center;
-
-    font-weight: 700;
-    font-size: 9px;
 
     width: 14px;
     min-width: 14px;
     height: 14px;
+    border: 1px solid $color-white;
+    border-radius: 50%;
+
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 14px;
+    color: $color-white;
+    text-align: center;
 
     background-color: $color-secondary-blue;
-    border-radius: 50%;
-    border: 1px solid $color-white;
-    color: $color-white;
-    line-height: 14px;
   }
 
   @include on-desktop {

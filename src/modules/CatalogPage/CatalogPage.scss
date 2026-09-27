@@ -15,11 +15,11 @@
 
   &__controls {
     display: flex;
-    align-items: center;
     gap: 16px;
+    align-items: center;
 
-    margin-block: 32px 24px;
     min-width: 0;
+    margin-block: 32px 24px;
 
     @include on-tablet {
       margin-block: 40px 24px;
@@ -32,8 +32,8 @@
   &__pagination {
     display: flex;
     justify-content: center;
-    margin-top: 40px;
     min-width: 0;
+    margin-top: 40px;
 
     @include on-desktop {
       margin-top: 80px;

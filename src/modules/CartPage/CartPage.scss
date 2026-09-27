@@ -13,8 +13,8 @@
 
   &__content {
     display: grid;
-    gap: 32px;
     grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
 
     @include on-desktop {
       grid-template-columns: repeat(12, 1fr);
@@ -35,27 +35,31 @@
 }
 
 .checkout-block {
+  user-select: none;
+
   display: flex;
   flex-direction: column;
+  align-items: center;
+
   padding: 24px;
   border: 1px solid $color-elements;
   border-radius: 8px;
+
   background-color: $color-surface-1;
-  user-select: none;
 
   &__total {
     @extend %h1-title;
 
-    text-align: center;
     margin-bottom: 8px;
+    text-align: center;
   }
 
   &__count {
     @extend %body-text;
 
-    text-align: center;
-    color: $color-secondary-grau;
     margin-bottom: 16px;
+    color: $color-secondary-grau;
+    text-align: center;
 
     @include on-desktop {
       margin-bottom: 24px;

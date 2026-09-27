@@ -15,6 +15,7 @@ type Props = {
 export const Nav: React.FC<Props> = ({ className }) => {
   const isActiveClass = ({ isActive }: Options) =>
     cn('nav-site__link', { 'is-active': isActive });
+
   return (
     <nav
       className={cn('nav-site', className)}

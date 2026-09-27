@@ -1,1 +1,1 @@
-export * from './NavFooter'
+export * from './NavFooter';

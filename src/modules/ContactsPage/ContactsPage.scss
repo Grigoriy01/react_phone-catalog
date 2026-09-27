@@ -13,12 +13,15 @@
   &__developer-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: 24px;
+    align-items: center;
+
     padding: 32px;
     border: 1px solid $color-elements;
     border-radius: 16px;
+
+    text-align: center;
+
     background-color: $color-surface-1;
 
     @include on-tablet {
@@ -29,13 +32,14 @@
 
   &__avatar-wrapper {
     position: relative;
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
+    transform: translateY(-6px);
+
     flex-shrink: 0;
     align-self: center;
 
-    transform: translateY(-6px);
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
 
     box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.15);
 
@@ -45,21 +49,25 @@
   }
 
   &__avatar-placeholder {
+    overflow: hidden;
+
     width: 100%;
     height: 100%;
     border-radius: 50%;
+
     background-color: $color-elements;
-    overflow: hidden;
   }
 
   &__avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 30%;
+    transform: none;
+
     display: block;
 
-    transform: none;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: 50% 30%;
   }
 
   &__name {
@@ -71,15 +79,15 @@
   &__role {
     @extend %body-text;
 
-    color: $color-secondary-grau;
     margin-bottom: 12px;
+    color: $color-secondary-grau;
   }
 
   &__description {
     @extend %body-text;
 
-    color: $color-primary;
     max-width: 600px;
+    color: $color-primary;
     text-align: left;
   }
 
@@ -103,18 +111,21 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+
     padding: 16px 24px;
     border: 1px solid $color-elements;
     border-radius: 8px;
+
     text-decoration: none;
+
     transition:
       border-color $transition-duration ease,
       transform $transition-duration ease;
 
     @media (hover: hover) {
       &:hover {
-        border-color: $color-primary;
         transform: translateY(-2px);
+        border-color: $color-primary;
       }
     }
   }

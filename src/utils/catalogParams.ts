@@ -11,7 +11,6 @@ export const PER_PAGE_PARAM = 'perPage';
 export const PAGE_PARAM = 'page';
 export const QUERY_PARAM = 'query';
 
-
 export const VALID_CATEGORIES = ['phones', 'tablets', 'accessories'] as const;
 // category titles
 export const CATEGORY_TITLES: Record<string, string> = {
@@ -27,7 +26,9 @@ export const SORT_OPTIONS: SelectOption[] = [
 ];
 
 // process products by query, sort and pagination
-export function getSortByFromSearchParams(searchParams: URLSearchParams): SortBy {
+export function getSortByFromSearchParams(
+  searchParams: URLSearchParams,
+): SortBy {
   const sort = searchParams.get(SORT_PARAM);
 
   return isSortBy(sort) ? sort : SORT_BY.AGE;

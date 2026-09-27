@@ -1,11 +1,12 @@
 @use '../../../styles/utils/' as *;
 
 .logo {
-  width: 96px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 96px;
+  height: 100%;
 
   @include on-desktop {
     width: 128px;

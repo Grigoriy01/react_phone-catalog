@@ -14,8 +14,18 @@ export const ProductCardSkeleton: React.FC<Props> = ({ className }) => {
         <div className="product-card-skeleton__image" />
       </div>
 
-      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--full" />
-      <div className="product-card-skeleton__title-line product-card-skeleton__title-line--short" />
+      <div
+        className="
+          product-card-skeleton__title-line
+          product-card-skeleton__title-line--full
+          "
+      />
+      <div
+        className="
+          product-card-skeleton__title-line
+          product-card-skeleton__title-line--short
+          "
+      />
 
       <div className="product-card-skeleton__price-block">
         <div className="product-card-skeleton__price" />

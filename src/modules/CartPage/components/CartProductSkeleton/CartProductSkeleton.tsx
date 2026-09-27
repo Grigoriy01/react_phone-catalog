@@ -12,10 +12,19 @@ export const CartProductSkeleton: React.FC<Props> = ({ className = '' }) => {
         <div className="cart-product-skeleton__remove-btn" />
 
         <div className="cart-product-skeleton__image" />
-
         <div className="cart-product-skeleton__title-wrapper">
-          <div className="cart-product-skeleton__title cart-product-skeleton__title--text-1" />
-          <div className="cart-product-skeleton__title cart-product-skeleton__title--text-2" />
+          <div
+            className="
+              cart-product-skeleton__title
+              cart-product-skeleton__title--text-1
+            "
+          />
+          <div
+            className="
+              cart-product-skeleton__title
+              cart-product-skeleton__title--text-2
+            "
+          />
         </div>
       </div>
 

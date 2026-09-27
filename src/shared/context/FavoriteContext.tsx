@@ -26,6 +26,7 @@ function favoritesReducer(
       const exists = state.favorites.some(
         product => product.id === action.payload.id,
       );
+
       return {
         ...state,
         favorites: exists
@@ -33,6 +34,7 @@ function favoritesReducer(
           : [...state.favorites, action.payload],
       };
     }
+
     default:
       return state;
   }

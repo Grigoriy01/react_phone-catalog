@@ -64,11 +64,7 @@ export const CartProduct: React.FC<Props> = ({ item, className }) => {
             disabled={isMinQuantity}
             onClick={() => changeQuantity(item.id, -1)}
           >
-            <MathDecreaseIcon
-              className={cn('cart-product__btn-icon', {
-                'cart-product__btn-icon--active': !isMinQuantity,
-              })}
-            />
+            <MathDecreaseIcon className="cart-product__btn-icon" />
           </IconButton>
 
           <span className="cart-product__quantity-value">{item.quantity}</span>
@@ -78,7 +74,7 @@ export const CartProduct: React.FC<Props> = ({ item, className }) => {
             aria-label="Increase quantity"
             onClick={() => changeQuantity(item.id, 1)}
           >
-            <MathIncreaseIcon className="cart-product__btn-icon cart-product__btn-icon--active" />
+            <MathIncreaseIcon className="cart-product__btn-icon" />
           </IconButton>
         </div>
         {/* 5. Price pro item */}

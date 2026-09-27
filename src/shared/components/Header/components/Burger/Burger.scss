@@ -3,10 +3,9 @@
 .burger {
   @include base-button ($has-border: false);
 
-  border-left: 1px solid $color-elements;
-
   cursor: pointer;
   border-bottom: none;
+  border-left: 1px solid $color-elements;
 
   &:active {
     transform: scale(0.95);
@@ -14,20 +13,26 @@
 
   &__line {
     position: relative;
+
     width: 14px;
     height: 1.5px;
-    background-color: $color-primary;
     border-radius: 1rem;
+
+    background-color: $color-primary;
 
     &::after,
     &::before {
       content: '';
+
       position: absolute;
       left: 0;
+
       width: 14px;
       height: 1.5px;
-      background-color: currentColor;
       border-radius: 1rem;
+
+      background-color: currentColor;
+
       transition: transform 0.3s ease, background-color 0.3s ease;
     }
     &::after {

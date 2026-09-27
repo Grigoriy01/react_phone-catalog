@@ -23,7 +23,9 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
 
   // Debounce
   useEffect(() => {
-    if (inputValue === queryParam) return;
+    if (inputValue === queryParam) {
+      return;
+    }
 
     const timerId = setTimeout(() => {
       const newSearch = getSearchWith(
@@ -42,7 +44,10 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   };
 
   return (
-    <label className={`search-input ${className}`.trim()} aria-label="Search feild">
+    <label
+      className={`search-input ${className}`.trim()}
+      aria-label="Search feild"
+    >
       <SearchIcon className="search-input__search-icon" />
       <input
         className="search-input__control"

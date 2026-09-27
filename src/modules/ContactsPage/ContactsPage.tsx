@@ -73,15 +73,15 @@ export const ContactsPage: React.FC = () => {
           <div className="contacts-page__links-grid">
             {CONTACT_LINKS.map(({ label, value, href, isExternal }) => (
               <a
-              key={label}
-              href={href}
-              target={isExternal ? '_blank' : undefined}
-              rel="noopener noreferrer"
-              className="contacts-page__link-card"
-            >
-              <span className="contacts-page__link-label">{label}</span>
-              <span className="contacts-page__link-val">{value}</span>
-            </a>
+                key={label}
+                href={href}
+                target={isExternal ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                className="contacts-page__link-card"
+              >
+                <span className="contacts-page__link-label">{label}</span>
+                <span className="contacts-page__link-val">{value}</span>
+              </a>
             ))}
           </div>
         </div>

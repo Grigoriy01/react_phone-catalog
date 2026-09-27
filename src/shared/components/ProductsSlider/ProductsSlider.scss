@@ -13,9 +13,10 @@
     }
 
     display: flex;
+    gap: 16px;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+
     margin-bottom: 24px;
   }
 
@@ -25,10 +26,10 @@
   &__navigation-skeleton {
     @include skeleton-bg;
 
+    flex-shrink: 0;
     width: 72px;
     height: 32px;
     border-radius: 8px;
-    flex-shrink: 0;
   }
 
   &__navigation {
@@ -45,7 +46,6 @@
     @extend %content-width;
 
     min-height: 506px;
-
     padding-right: 0;
 
     @include on-tablet {
@@ -61,9 +61,9 @@
   }
 
   &__slide {
-    height: auto;
-    width: 212px;
     flex-shrink: 0;
+    width: 212px;
+    height: auto;
 
     @include on-tablet {
       width: 237px;

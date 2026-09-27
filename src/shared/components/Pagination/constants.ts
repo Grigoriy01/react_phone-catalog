@@ -8,5 +8,3 @@ export const PER_PAGE_OPTIONS: SelectOption[] = [
   { value: '16', label: '16' },
   { value: PER_PAGE_ALL, label: 'All' },
 ];
-
-

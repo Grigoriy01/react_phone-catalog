@@ -6,3 +6,5 @@ export * from './filterProductsByQuery';
 export * from './processProducts';
 export * from './catalogParams';
 export * from './localStorage';
+export * from './localStorage';
+export * from './normalizeItemsText';

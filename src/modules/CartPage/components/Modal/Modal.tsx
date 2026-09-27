@@ -1,8 +1,9 @@
-import React from "react";
-import { ActionButton } from "@/shared/components/Buttons/components/ActionButton";
+import React from 'react';
+// eslint-disable-next-line max-len
+import { ActionButton } from '@/shared/components/Buttons/components/ActionButton';
 
-import cn from "classnames";
-import './Modal.scss'
+import cn from 'classnames';
+import './Modal.scss';
 
 type Props = {
   isOpen: boolean;
@@ -25,8 +26,9 @@ export const Modal: React.FC<Props> = ({
   onCancel,
   className,
 }) => {
-  if (!isOpen) return null;
-
+  if (!isOpen) {
+    return null;
+  }
 
   return (
     <div className={cn('modal-overlay', className)} onClick={onCancel}>
@@ -34,7 +36,7 @@ export const Modal: React.FC<Props> = ({
         className="modal"
         role="dialog"
         aria-modal="true"
-        onClick={(e) => e.stopPropagation()}
+        onClick={e => e.stopPropagation()}
       >
         <h3 className="modal__title">{title}</h3>
         <p className="modal__message">{message}</p>
@@ -57,6 +59,5 @@ export const Modal: React.FC<Props> = ({
         </div>
       </div>
     </div>
-
   );
 };

@@ -2,14 +2,16 @@
 
 .back-header {
   &__btn {
+    cursor: pointer;
+
     display: inline-flex;
-    align-items: center;
     gap: 4px;
+    align-items: center;
 
     padding-bottom: 16px;
     border: none;
+
     background: transparent;
-    cursor: pointer;
 
     @media (hover: hover) {
       &:hover {
@@ -24,10 +26,10 @@
   &__btn-item {
     @extend %button-text;
 
+    transform: translateY(1px);
     font-size: 12px;
     line-height: 100%;
     color: $color-secondary-grau;
-    transform: translateY(1px);
   }
 
   &__btn-arrow {

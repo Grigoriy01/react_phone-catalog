@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ProductDetails } from '@/shared/types';
 import { getProductDetails } from '@/services/products';
 
@@ -7,18 +7,18 @@ export function useProductDetails(productId?: string, category?: string) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const fetchData = async () => {
-    if (!productId || !category) return;
+  const loadData = useCallback(async () => {
+    if (!productId || !category) {
+      return;
+    }
 
     setIsLoading(true);
     setHasError(false);
 
     try {
       const products = await getProductDetails(category);
+      const found = products.find(p => p.id === productId);
 
-      const found = products.find(
-        p => p.id === productId || p.id === productId,
-      );
       if (found) {
         setProduct(found as unknown as ProductDetails);
       } else {
@@ -29,16 +29,16 @@ export function useProductDetails(productId?: string, category?: string) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [productId, category]);
 
   useEffect(() => {
-    fetchData();
-  }, [productId, category]);
+    loadData();
+  }, [loadData]);
 
   return {
     product,
     isLoading,
     hasError,
-    loadData: fetchData,
+    loadData,
   };
 }

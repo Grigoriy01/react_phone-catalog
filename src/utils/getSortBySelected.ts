@@ -5,7 +5,9 @@ export function getSortBySelected(
   products: Product[],
   sortBy: SortBy,
 ): Product[] | [] {
-  if (!products || products.length === 0) return [];
+  if (!products || products.length === 0) {
+    return [];
+  }
 
   const copyProducts = [...products];
 

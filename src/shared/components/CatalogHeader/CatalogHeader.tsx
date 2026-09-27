@@ -1,7 +1,9 @@
 import React from 'react';
+import { itemsText } from '@/utils';
 
 import cn from 'classnames';
 import './CatalogHeader.scss';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 type Props = {
   countProduct: number;
@@ -17,16 +19,18 @@ export const CatalogHeader: React.FC<Props> = ({
   hasError,
   className,
 }) => {
-  const itemsText = countProduct === 1 ? 'item' : 'items';
+  const isOnline = useOnlineStatus();
+
   return (
     <div className={cn('catalog-header', className)}>
       <h1 className="catalog-header__title">{catalogName}</h1>
 
-      {hasError ? null : isLoading || countProduct === undefined ? (
+      {hasError || !isOnline ? null : isLoading ||
+        countProduct === undefined ? (
         <div className="catalog-header__count-skeleton"></div>
       ) : (
         <div className="catalog-header__count">
-          {countProduct} {itemsText}
+          {countProduct} {itemsText(countProduct)}
         </div>
       )}
     </div>

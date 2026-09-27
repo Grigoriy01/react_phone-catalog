@@ -6,7 +6,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { IconButton } from '@/shared/components/Buttons/components/IconButton';
 import { ArrowIcon } from '@/shared/assets/icons';
 import { FishingImg } from '@/shared/assets/error-img';
-
+// eslint-disable-next-line max-len
 import bannerId1 from '@/shared/assets/home-page-img/banner/banner-accessories.png';
 import bannerId2 from '@/shared/assets/home-page-img/banner/banner-tablets.png';
 import bannerId3 from '@/shared/assets/home-page-img/banner/banner-phones.png';

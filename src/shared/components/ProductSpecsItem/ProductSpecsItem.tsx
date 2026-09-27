@@ -14,7 +14,10 @@ export const ProductSpecsItem: React.FC<Props> = ({
   value,
   className = '',
 }) => {
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
+
   return (
     <div className={cn('product-specs__row', className)}>
       <dt className="product-specs__name">{label}</dt>

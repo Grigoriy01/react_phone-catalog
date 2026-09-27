@@ -57,9 +57,12 @@ textarea {
 }
 
 button {
+  cursor: pointer;
+
   padding: 0;
   border: none;
+
   font-family: inherit;
+
   background: transparent;
-  cursor: pointer;
 }

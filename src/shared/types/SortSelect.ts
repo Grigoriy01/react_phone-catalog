@@ -12,5 +12,7 @@ export type SelectOption = {
 };
 
 export function isSortBy(value: string | null): value is SortBy {
-  return value === SORT_BY.AGE || value === SORT_BY.TITLE || value === SORT_BY.PRICE;
+  return (
+    value === SORT_BY.AGE || value === SORT_BY.TITLE || value === SORT_BY.PRICE
+  );
 }

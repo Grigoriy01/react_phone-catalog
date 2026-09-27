@@ -28,11 +28,12 @@
   // #region gallery
   &__gallery {
     display: flex;
-    align-items: center;
     flex-direction: column-reverse;
     gap: 16px;
-    margin-bottom: 40px;
+    align-items: center;
+
     min-width: 0;
+    margin-bottom: 40px;
 
     @include on-tablet {
       grid-column: span 7;
@@ -48,9 +49,10 @@
 
   &__thumbnails {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
+    justify-content: center;
+
     width: 100%;
 
     @include on-tablet {
@@ -60,13 +62,16 @@
   }
 
   &__thumb {
+    cursor: pointer;
+
     width: 50px;
     height: 50px;
     padding: 4px;
     border: 1px solid $color-elements;
     border-radius: 4px;
+
     background: transparent;
-    cursor: pointer;
+
     transition: border-color $transition-duration ease;
 
     &--active {
@@ -81,14 +86,15 @@
   }
 
   &__main-image {
-    flex-grow: 1;
     display: flex;
-    justify-content: center;
+    flex-grow: 1;
     align-items: center;
-    max-height: 300px;
-    min-height: 300px;
-    min-width: 0;
+    justify-content: center;
+
     width: 100%;
+    min-width: 0;
+    min-height: 300px;
+    max-height: 300px;
 
     @include on-tablet {
       height: 400px;
@@ -99,8 +105,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
       width: 100%;
       height: 100%;
+
       object-fit: contain;
     }
 
@@ -117,8 +125,9 @@
     display: flex;
     flex-direction: column;
     gap: 24px;
-    margin-bottom: 56px;
+
     min-width: 0;
+    margin-bottom: 56px;
 
     @include on-tablet {
       grid-column: span 5;
@@ -132,8 +141,8 @@
 
   &__wrapper-label {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
   }
 
   &__label {
@@ -156,11 +165,12 @@
   }
 
   &__color-btn {
+    cursor: pointer;
+
     width: 32px;
     height: 32px;
-    border-radius: 50%;
     border: 1px solid $color-elements;
-    cursor: pointer;
+    border-radius: 50%;
 
     &--active {
       border: 2px solid $color-primary;
@@ -182,6 +192,9 @@
   }
 
   &__capacity-btn {
+
+    @extend %button-text;
+
     display: inline-block;
     align-items: center;
     justify-content: center;
@@ -192,15 +205,14 @@
     border: 1px solid $color-elements;
     border-radius: 4px;
 
-    @extend %button-text;
-
     line-height: 0;
     color: $color-primary;
+
     background: transparent;
 
     &--active {
-      background-color: $color-primary;
       color: $color-white;
+      background-color: $color-primary;
     }
   }
 
@@ -237,9 +249,9 @@
     dd {
       @extend %small-text;
 
+      margin: 0;
       font-weight: 700;
       color: $color-primary;
-      margin: 0;
     }
   }
 
@@ -247,8 +259,8 @@
 
   // #region (About + Tech specs)
   &__info {
-    grid-column: 1 / -1;
     display: grid;
+    grid-column: 1 / -1;
     grid-template-columns: minmax(0, 1fr);
     gap: 56px;
 
@@ -284,6 +296,7 @@
 
   &__section-title {
     @include divider(bottom);
+
     @extend %h2-title;
 
     padding-bottom: 16px;

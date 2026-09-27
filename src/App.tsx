@@ -19,13 +19,13 @@ export const App = () => {
   if ('scrollRestoration' in window.history) {
     window.history.scrollRestoration = 'manual';
   }
+
   return (
     <div className="app">
       <ScrollToTop />
       <Header />
 
       <main className="main">
-        
         <Routes>
           <Route index element={<HomePage />} />
           <Route path="/:category" element={<CatalogPage />} />

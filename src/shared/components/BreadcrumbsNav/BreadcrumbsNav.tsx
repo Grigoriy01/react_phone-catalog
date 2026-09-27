@@ -48,7 +48,7 @@ export const BreadcrumbsNav: React.FC<Props> = ({
           </Link>
           <ArrowIcon className="breadcrumbs__arrow" aria-hidden="true" />
         </li>
-          {/* category name */}
+        {/* category name */}
         <li className="breadcrumbs__item">
           {productName ? (
             <>

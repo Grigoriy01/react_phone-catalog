@@ -4,55 +4,58 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  box-sizing: border-box;
+  width: 100%;
   padding: 16px;
   border: 1px solid $color-elements;
   border-radius: 8px;
-  background-color: $color-surface-1;
 
-  width: 100%;
-  box-sizing: border-box;
+  background-color: $color-surface-1;
 
   @include on-tablet {
     flex-direction: row;
+    gap: 24px;
     align-items: center;
     justify-content: space-between;
+
     padding: 24px;
-    gap: 24px;
   }
 
   &__info-wrapper {
     display: flex;
+    gap: 16px;
     align-items: center;
     width: 100%;
-    gap: 16px;
 
     @include on-tablet {
-      width: auto;
       flex-grow: 1;
       gap: 24px;
+      width: auto;
     }
   }
 
   &__remove-btn {
     @include skeleton-bg;
 
+    flex-shrink: 0;
     width: 16px;
     height: 16px;
-    flex-shrink: 0;
   }
 
   &__image {
     @include skeleton-bg;
 
+    flex-shrink: 0;
     width: 80px;
     height: 80px;
-    flex-shrink: 0;
   }
 
   &__title-wrapper {
     display: flex;
     flex-direction: column;
     gap: 6px;
+
     width: 100%;
     max-width: 280px;
 
@@ -65,7 +68,6 @@
     @include skeleton-bg;
 
     height: 14px;
-
     margin-block: 3px;
 
     &--text-1 {
@@ -88,16 +90,16 @@
     width: 100%;
 
     @include on-tablet {
-      width: auto;
-      gap: 32px;
       flex-shrink: 0;
+      gap: 32px;
+      width: auto;
     }
   }
 
   &__quantity-controls {
     display: flex;
-    align-items: center;
     gap: 12px;
+    align-items: center;
   }
 
   &__btn {

@@ -15,7 +15,6 @@
 
     width: 60px;
     height: 14px;
-
     border-radius: 4px;
   }
 
@@ -35,8 +34,8 @@
       width: 80%;
 
       @include on-tablet {
-        height: 41px;
         width: 360px;
+        height: 41px;
       }
     }
 

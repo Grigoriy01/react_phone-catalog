@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { AsyncData } from './AsyncData';
+import { AsyncData } from '../AsyncData';
+
 import { Product } from '@/shared/types';
 
 import { IconButton } from '../Buttons/components/IconButton';
@@ -71,7 +72,7 @@ export const ProductsSlider: React.FC<Props> = ({
       </div>
 
       <div className="products-slider__swiper-wrapper">
-        <AsyncData hasError={hasError} onRetry={onRetry}>
+        <AsyncData onRetry={onRetry} hasError={hasError}>
           <Swiper
             onSwiper={swiper => (swiperRef.current = swiper)}
             onSlideChange={handleSlideChange}

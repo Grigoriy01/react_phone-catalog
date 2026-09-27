@@ -8,11 +8,11 @@ import { useFavorites } from '@/shared/context/FavoriteContext';
 import { CatalogHeader } from '@/shared/components/CatalogHeader';
 import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
 import { ProductsList } from '@/shared/components/ProductsList/ProductsList';
-import { FetchError } from '@/shared/components/FetchError';
 import { EmptyFavIcon } from '@/shared/assets/icons';
 import { EmptyState } from '@/shared/components/EmptyState';
 
 import './FavoritesPage.scss';
+import { AsyncData } from '@/shared/components/AsyncData';
 
 export const FavoritesPage = () => {
   const [searchParams] = useSearchParams();
@@ -27,7 +27,7 @@ export const FavoritesPage = () => {
 
   return (
     <div className="favorites-page container">
-      {!hasError && <BreadcrumbsNav isLoading={isLoading} />}
+      <BreadcrumbsNav isLoading={isLoading} />
 
       <CatalogHeader
         catalogName="Favorites"
@@ -37,19 +37,19 @@ export const FavoritesPage = () => {
         className="favorites-page__header"
       />
 
-      {hasError ? (
-        <FetchError onRetry={loadData} className="favorites-page__error" />
-      ) : processedProducts.length > 0 || isLoading ? (
-        <ProductsList
-          products={processedProducts}
-          isLoading={isLoading}
-          skeletonCount={favorites.length || 3}
-        />
-      ) : (
-        <EmptyState title="Your favorites list is empty">
-          <EmptyFavIcon />
-        </EmptyState>
-      )}
+      <AsyncData hasError={hasError} onRetry={loadData}>
+        {processedProducts.length > 0 || isLoading ? (
+          <ProductsList
+            products={processedProducts}
+            isLoading={isLoading}
+            skeletonCount={favorites.length || 3}
+          />
+        ) : (
+          <EmptyState title="Your favorites list is empty">
+            <EmptyFavIcon />
+          </EmptyState>
+        )}
+      </AsyncData>
     </div>
   );
 };

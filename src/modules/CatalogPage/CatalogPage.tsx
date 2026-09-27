@@ -15,8 +15,8 @@ import {
   CATEGORY_TITLES,
   SORT_OPTIONS,
 } from '@/utils';
+import { AsyncData } from '@/shared/components/AsyncData';
 
-import { FetchError } from '@/shared/components/FetchError';
 import { BreadcrumbsNav } from '@/shared/components/BreadcrumbsNav';
 import { CatalogHeader } from '@/shared/components/CatalogHeader';
 import { ProductsList } from '@/shared/components/ProductsList/ProductsList';
@@ -40,7 +40,9 @@ export const CatalogPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { products, isLoading, hasError, loadData } = useProducts();
 
-  const isCategoryValid = category && VALID_CATEGORIES.includes(category as typeof VALID_CATEGORIES[number]);
+  const isCategoryValid =
+    category &&
+    VALID_CATEGORIES.includes(category as (typeof VALID_CATEGORIES)[number]);
 
   //#region Url params
   const query = searchParams.get('query') || '';
@@ -112,72 +114,58 @@ export const CatalogPage: React.FC = () => {
 
   return (
     <div className="catalog-page container">
-      {hasError ? (
-        <>
-          <CatalogHeader
-            catalogName={categoryTitle}
-            countProduct={totalCount}
-            isLoading={isLoading}
-            hasError={hasError}
-          />
-          <FetchError onRetry={loadData} />
-        </>
-      ) : (
-        <>
-          <BreadcrumbsNav isLoading={isLoading} />
-          <CatalogHeader
-            catalogName={categoryTitle}
-            countProduct={totalCount}
-            isLoading={isLoading}
-            hasError={hasError}
-          />
+      <BreadcrumbsNav isLoading={isLoading} />
+      <CatalogHeader
+        catalogName={categoryTitle}
+        countProduct={totalCount}
+        isLoading={isLoading}
+        hasError={hasError}
+      />
 
-          <div className="catalog-page__controls">
-            {isLoading ? (
-              <>
-                <DropdownSelectSkeleton />
-                <DropdownSelectSkeleton />
-              </>
-            ) : (
-              <>
-                <DropdownSelect
-                  label="Sort by"
-                  value={sortBy}
-                  options={SORT_OPTIONS}
-                  onChange={handleSortChange}
-                />
-                <DropdownSelect
-                  label="Items on page"
-                  value={perPageStr}
-                  options={PER_PAGE_OPTIONS}
-                  onChange={handlePerPageChange}
-                  className="catalog-page__select-page"
-                />
-              </>
-            )}
-          </div>
-
-          {processedProducts.length === 0 && !isLoading && (
-            <span className="catalog-page__text-info">
-              There are no products available
-            </span>
+      <AsyncData hasError={hasError} onRetry={loadData}>
+        <div className="catalog-page__controls">
+          {isLoading ? (
+            <>
+              <DropdownSelectSkeleton />
+              <DropdownSelectSkeleton />
+            </>
+          ) : (
+            <>
+              <DropdownSelect
+                label="Sort by"
+                value={sortBy}
+                options={SORT_OPTIONS}
+                onChange={handleSortChange}
+              />
+              <DropdownSelect
+                label="Items on page"
+                value={perPageStr}
+                options={PER_PAGE_OPTIONS}
+                onChange={handlePerPageChange}
+                className="catalog-page__select-page"
+              />
+            </>
           )}
-          <ProductsList products={processedProducts} isLoading={isLoading} />
+        </div>
 
-          <div className="catalog-page__pagination">
-            {
-              perPageStr !== PER_PAGE_ALL && (
-                <Pagination
-                  total={totalCount}
-                  perPage={perPageNum}
-                  currentPage={currentPage}
-                  onPageChange={handlePageChange}
-                />
-              )
-            }
-          </div>
-        </>
-      )}
+        {processedProducts.length === 0 && !isLoading && (
+          <span className="catalog-page__text-info">
+            There are no products available
+          </span>
+        )}
+        <ProductsList products={processedProducts} isLoading={isLoading} />
+
+        <div className="catalog-page__pagination">
+          {perPageStr !== PER_PAGE_ALL && (
+            <Pagination
+              total={totalCount}
+              perPage={perPageNum}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </div>
+      </AsyncData>
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import { Product, SortBy } from "@/shared/types";
-import { filterProductsByQuery } from "./filterProductsByQuery";
-import { getSortBySelected } from "./getSortBySelected";
+import { Product, SortBy } from '@/shared/types';
+import { filterProductsByQuery } from './filterProductsByQuery';
+import { getSortBySelected } from './getSortBySelected';
 
 interface ProcessOptions {
   query?: string;
@@ -10,7 +10,7 @@ interface ProcessOptions {
 }
 
 interface ProcessResult {
-  totalCount: number;           // count of products after filtering and sorting
+  totalCount: number; // count of products after filtering and sorting
   processedProducts: Product[]; // the final list of products after filtering, sorting, and pagination
 }
 

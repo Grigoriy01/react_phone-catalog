@@ -6,7 +6,7 @@ type Props = {
   hasError?: boolean;
 };
 
-export const Hero: React.FC<Props> = ({hasError}) => {
+export const Hero: React.FC<Props> = ({ hasError }) => {
   return (
     <section className="hero">
       <div className="hero__container">

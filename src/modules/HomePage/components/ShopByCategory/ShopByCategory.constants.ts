@@ -4,7 +4,11 @@ import {
   tabletsCategory,
   accessoriesCategory,
 } from '@/shared/assets/home-page-img';
-import { TimeManagementImg, WorkTimeImg, CalendarImg } from '@/shared/assets/error-img';
+import {
+  TimeManagementImg,
+  WorkTimeImg,
+  CalendarImg,
+} from '@/shared/assets/error-img';
 
 export const CATEGORIES_CONFIG: CategoryConfig[] = [
   {

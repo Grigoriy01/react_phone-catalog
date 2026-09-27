@@ -4,15 +4,16 @@
   &__list {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 24px;
+    align-items: center;
+
     height: 100%;
     padding-top: 24px;
 
     @include on-tablet {
       flex-direction: row;
-      padding: 0;
       gap: clamp(19px, 3vw, 64px);
+      padding: 0;
     }
   }
   &__item {
@@ -28,12 +29,13 @@
 
   &__link {
     @extend %uppercase-text;
+
     @include active-underline;
 
-    display: flex;
-    height: 100%;
-    align-items: center;
     transform: translateY(2px);
+    display: flex;
+    align-items: center;
+    height: 100%;
 
     @include hover(color, $color-primary);
   }

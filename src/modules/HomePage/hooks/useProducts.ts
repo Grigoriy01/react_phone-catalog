@@ -2,7 +2,6 @@ import { getProducts } from '@/services/products';
 import { Product } from '@/shared/types';
 import { useEffect, useState } from 'react';
 
-
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -15,6 +14,7 @@ export function useProducts() {
 
     try {
       const data = await getProducts();
+
       setProducts(data);
     } catch {
       setHasError(true);

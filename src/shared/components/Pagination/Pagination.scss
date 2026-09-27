@@ -2,19 +2,22 @@
 
 .pagination {
   display: flex;
+  gap: 16px;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+
   min-width: 0;
 
   &__list {
     display: flex;
-    align-items: center;
     gap: 8px;
+    align-items: center;
+
+    min-width: 0;
     margin: 0;
     padding: 0;
+
     list-style: none;
-    min-width: 0;
   }
 
   &__item {
@@ -24,10 +27,10 @@
   &__button {
     @extend %button-text;
 
+    cursor: pointer;
     font-weight: 600;
     color: $color-primary;
     background-color: $color-white;
-    cursor: pointer;
 
     @include on-desktop {
       line-height: 0;
@@ -35,28 +38,31 @@
 
 
     &--active {
-      background-color: $color-primary;
-      color: $color-white;
       border-color: $color-primary;
+      color: $color-white;
+      background-color: $color-primary;
     }
 
     &--disabled {
+      pointer-events: none;
+      cursor: not-allowed;
       border-color: $color-elements;
       color: $color-icons;
-      cursor: not-allowed;
-      pointer-events: none;
     }
 
     &__dots {
       @extend %button-text;
 
+      user-select: none;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       width: 32px;
       height: 32px;
+
       color: $color-secondary-grau;
-      user-select: none;
     }
   }
 

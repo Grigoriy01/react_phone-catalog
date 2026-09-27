@@ -11,7 +11,7 @@ export const NavFooter = () => {
             href="https://github.com/Grigoriy01/react_phone-catalog"
             className="nav-footer__link"
             target="_blank"
-            rel='noopener noreferrer'
+            rel="noopener noreferrer"
           >
             Github
           </a>

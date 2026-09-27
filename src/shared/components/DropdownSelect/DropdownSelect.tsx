@@ -35,6 +35,7 @@ export const DropdownSelect: React.FC<Props> = ({
         setIsOpen(false);
       }
     };
+
     // Escape toggle
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {

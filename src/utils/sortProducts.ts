@@ -34,5 +34,6 @@ export function getSuggestedProducts(
   const filteredProducts = products.filter(
     product => product.itemId !== currentProductID,
   );
+
   return [...filteredProducts].sort(() => Math.random() - 0.5).slice(0, 10);
 }

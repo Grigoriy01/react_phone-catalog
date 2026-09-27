@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 import { ShopByCategoryProps } from './ShopByCategory.type';
 import {
   CATEGORIES_CONFIG,
@@ -9,6 +10,7 @@ import {
 
 import cn from 'classnames';
 import './ShopByCategory.scss';
+import { itemsText } from '@/utils';
 
 interface Props extends ShopByCategoryProps {
   hasError?: boolean;
@@ -18,7 +20,9 @@ export const ShopByCategory: React.FC<Props> = ({
   categoriesCount,
   hasError = false,
 }) => {
+  const isOnline = useOnlineStatus();
   const currentConfig = hasError ? ERROR_CATEGORIES_CONFIG : CATEGORIES_CONFIG;
+
   return (
     <section className="shop-by-category container">
       <h2 className="shop-by-category__title">Shop by category</h2>
@@ -55,9 +59,9 @@ export const ShopByCategory: React.FC<Props> = ({
                 )}
               </div>
               <h3 className="shop-by-category__subtitle">{title}</h3>
-              {!hasError && (
+              {(!hasError || isOnline) && (
                 <div className="shop-by-category__count-models">
-                  {count} models
+                  {count} {itemsText(count)}
                 </div>
               )}
             </Link>
