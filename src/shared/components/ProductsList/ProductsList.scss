@@ -9,14 +9,14 @@
   &__item {
     min-width: 0;
   }
-
-  @media (min-width: 880px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
+  
   @include on-tablet {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 16px;
+  }
+
+  @media (min-width: 880px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   @include on-desktop {
