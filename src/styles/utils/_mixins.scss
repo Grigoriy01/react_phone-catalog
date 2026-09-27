@@ -77,7 +77,6 @@
     transition: opacity 0.3s ease;
   }
 
-  // Применится к элементу, когда на нем появится класс is-active
   &.is-active {
     &::after {
       opacity: 1;
@@ -108,11 +107,11 @@
         border: 1px solid $color-primary;
       }
     }
-  }
-
- @else {
+  /* stylelint-disable-next-line at-rule-empty-line-before */
+  } @else {
     border: none;
   }
+
   @content;
 }
 
@@ -138,9 +137,8 @@
     @include on-desktop {
       padding-bottom: 80px;
     }
-  }
-
- @else {
+  /* stylelint-disable-next-line at-rule-empty-line-before */
+  } @else {
     padding-bottom: 0;
   }
 }
