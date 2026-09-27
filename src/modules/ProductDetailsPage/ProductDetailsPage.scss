@@ -2,6 +2,7 @@
 
 .product-details {
   @include padding-block-content;
+  @include theme-companent;
 
   &__header {
     margin-bottom: 32px;

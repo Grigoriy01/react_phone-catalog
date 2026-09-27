@@ -42,6 +42,10 @@
     }
   }
 
+  &__icon {
+    color: $color-primary;
+  }
+
   &__swiper-wrapper {
     @extend %content-width;
 

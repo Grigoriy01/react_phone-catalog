@@ -35,4 +35,16 @@
     height: 100%;
     padding-bottom: max(16px, env(safe-area-inset-bottom));
   }
+
+  &__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: end;
+  }
+
+  &__theme-btn {
+    display: flex;
+    margin-right: 16px;
+  }
 }

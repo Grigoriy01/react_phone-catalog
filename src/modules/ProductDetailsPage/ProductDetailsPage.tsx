@@ -23,6 +23,7 @@ import { FallbackImg, QuestionImg } from '@/shared/assets/error-img';
 
 import cn from 'classnames';
 import './ProductDetailsPage.scss';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 const normalizeForUrl = (str: string): string => {
   return str.toLowerCase().trim().replace(/\s+/g, '-');
@@ -105,8 +106,14 @@ export const ProductDetailsPage = () => {
   return (
     <>
       <div className="product-details container ">
-        <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
-
+        <div className="product-details__top-bar">
+          <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
+          <ThemeToggle
+            className="product-details__theme-btn"
+            isLoading={isLoading}
+            hasError={hasError}
+          />
+        </div>
         {isLoading ? (
           <>
             <BackHeaderSkeleton className="product-details__header" />

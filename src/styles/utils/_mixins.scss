@@ -157,7 +157,7 @@
   background: linear-gradient(
     90deg,
     $color-elements 25%,
-    color.adjust($color-elements, $lightness: 6%) 50%,
+    $color-skeleton-highlight 50%, 
     $color-elements 75%
   );
   background-size: 200% 100%;
@@ -254,5 +254,21 @@
     align-items: center;
     height: 40px;
     margin-top: auto;
+  }
+}
+
+@mixin theme-companent {
+  &__top-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  &__theme-btn.theme-toggle {
+    display: none; //  (< 640px)
+
+    @include on-tablet {
+      display: flex; // (>= 640px)
+    }
   }
 }

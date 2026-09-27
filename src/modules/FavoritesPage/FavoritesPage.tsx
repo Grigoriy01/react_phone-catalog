@@ -13,6 +13,7 @@ import { EmptyState } from '@/shared/components/EmptyState';
 
 import './FavoritesPage.scss';
 import { AsyncData } from '@/shared/components/AsyncData';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 export const FavoritesPage = () => {
   const [searchParams] = useSearchParams();
@@ -27,7 +28,14 @@ export const FavoritesPage = () => {
 
   return (
     <div className="favorites-page container">
-      <BreadcrumbsNav isLoading={isLoading} />
+      <div className="favorites-page__top-bar">
+        <BreadcrumbsNav isLoading={isLoading} />
+        <ThemeToggle
+          className="favorites-page__theme-btn"
+          isLoading={isLoading}
+          hasError={hasError}
+        />
+      </div>
 
       <CatalogHeader
         catalogName="Favorites"

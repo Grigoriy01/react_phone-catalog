@@ -2,6 +2,7 @@
 
 .favorites-page {
   @include padding-block-content;
+  @include theme-companent;
 
   &__header {
     padding-bottom: 32px;

@@ -6,6 +6,7 @@
   cursor: pointer;
   border-bottom: none;
   border-left: 1px solid $color-elements;
+  color: $color-primary;
 
   &:active {
     transform: scale(0.95);

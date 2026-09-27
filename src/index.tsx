@@ -6,15 +6,18 @@ import { CartProvider } from './shared/context/CartContext';
 import { App } from './App';
 
 import './styles/index.scss';
+import { ThemeProvider } from './shared/context/ThemeContext';
 
 const container = document.getElementById('root') as HTMLDivElement;
 
 createRoot(container).render(
   <Router>
-    <FavoritesProvider>
-      <CartProvider>
-        <App />
-      </CartProvider>
-    </FavoritesProvider>
+    <ThemeProvider>
+      <FavoritesProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </FavoritesProvider>
+    </ThemeProvider>
   </Router>,
 );

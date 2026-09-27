@@ -46,7 +46,7 @@ export const BreadcrumbsNav: React.FC<Props> = ({
           <Link to="/" className="breadcrumbs__link" aria-label="Home">
             <HomeIcon className="breadcrumbs__icon breadcrumbs__icon--home" />
           </Link>
-          <ArrowIcon className="breadcrumbs__arrow" aria-hidden="true" />
+          <ArrowIcon className="breadcrumbs__icon" aria-hidden="true" />
         </li>
         {/* category name */}
         <li className="breadcrumbs__item">
@@ -58,7 +58,7 @@ export const BreadcrumbsNav: React.FC<Props> = ({
               >
                 {categoryName}
               </Link>
-              <ArrowIcon className="breadcrumbs__arrow" aria-hidden="true" />
+              <ArrowIcon className="breadcrumbs__icon" aria-hidden="true" />
             </>
           ) : (
             <span className="breadcrumbs__current">{categoryName}</span>

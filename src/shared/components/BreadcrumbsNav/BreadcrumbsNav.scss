@@ -25,6 +25,7 @@
   }
 
   &__icon {
+    color: $color-primary;
     &--home {
       transform: translateY(-1px);
     }

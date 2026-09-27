@@ -16,6 +16,8 @@ import { EmptyCartImg } from '@/shared/assets/cart-img';
 import { itemsText } from '@/utils';
 
 import './CartPage.scss';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 const CHECKOUT_SKELETON = (
   <div className="checkout-block checkout-block--skeleton">
@@ -30,6 +32,7 @@ export const CartPage = () => {
   const { cartItems, totalCount, totalPrice, clearCart } = useCart();
   const { isLoading, hasError, loadData } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isOnline = useOnlineStatus();
 
   const handleCheckoutConfirm = () => {
     clearCart();
@@ -38,8 +41,17 @@ export const CartPage = () => {
 
   return (
     <div className="cart-page container">
-      <div className="cart-page__back">
-        <BackHeader catalogTitle="Cart" hasError={hasError} />
+      <div className="cart-page__top-bar">
+        <BackHeader
+          catalogTitle="Cart"
+          hasError={hasError}
+          isOnline={isOnline}
+        />
+        <ThemeToggle
+          className="product-details__theme-btn"
+          isLoading={isLoading}
+          hasError={hasError}
+        />
       </div>
       <AsyncData hasError={hasError} onRetry={loadData}>
         {isLoading || cartItems.length > 0 ? (

@@ -17,7 +17,7 @@ export const ActionButton: React.FC<Props> = ({
   className,
   isActive = false,
   to,
-  variant = 'primary',
+  variant = 'primary', // for Link or <a>
   ...props
 }) => {
   const combinedClassName = cn(

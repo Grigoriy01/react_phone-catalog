@@ -7,6 +7,7 @@
   &__container {
     display: flex;
     flex-direction: column;
+
     gap: 32px;
 
     height: 100%;
@@ -14,6 +15,7 @@
 
     @include on-tablet {
       flex-direction: row;
+      align-items: center;
       justify-content: space-between;
       padding-inline: 32px;
     }

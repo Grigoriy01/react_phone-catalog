@@ -33,6 +33,7 @@ import {
 } from '@/shared/components/Pagination';
 
 import './CatalogPage.scss';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 export const CatalogPage: React.FC = () => {
   const { category } = useParams<{ category: string }>();
@@ -114,7 +115,14 @@ export const CatalogPage: React.FC = () => {
 
   return (
     <div className="catalog-page container">
-      <BreadcrumbsNav isLoading={isLoading} />
+      <div className="catalog-page__top-bar">
+        <BreadcrumbsNav isLoading={isLoading} />
+        <ThemeToggle
+          className="catalog-page__theme-btn"
+          isLoading={isLoading}
+          hasError={hasError}
+        />
+      </div>
       <CatalogHeader
         catalogName={categoryTitle}
         countProduct={totalCount}

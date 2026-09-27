@@ -10,3 +10,4 @@ export { default as FavoriteIcon } from './icon-favorite.svg?react';
 export { default as ArrowIcon } from './arrow-right.svg?react';
 export { default as HomeIcon } from './home-icon/home.svg?react';
 export { default as EmptyFavIcon } from './empty-fav-light.svg?react';
+export { default as ThemeIcon } from './sun-moon.svg?react';

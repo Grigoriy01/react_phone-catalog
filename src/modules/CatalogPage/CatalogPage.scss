@@ -2,6 +2,7 @@
 
 .catalog-page {
   @include padding-block-content;
+  @include theme-companent;
 
   padding-bottom: 64px;
 

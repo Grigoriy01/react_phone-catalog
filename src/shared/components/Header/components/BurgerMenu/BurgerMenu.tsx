@@ -4,6 +4,7 @@ import { HeaderActions } from '../HeaderActions';
 
 import cn from 'classnames';
 import './BurgerMenu.scss';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 type Props = {
   isBurgerMenuOpen: boolean;
@@ -29,7 +30,10 @@ export const BurgerMenu: React.FC<Props> = ({ isBurgerMenuOpen }) => {
     >
       <div className="burger-menu__content">
         <Nav />
-        <HeaderActions />
+        <div className="burger-menu__footer">
+          <ThemeToggle className="burger-menu__theme-btn" />
+          <HeaderActions />
+        </div>
       </div>
     </div>
   );

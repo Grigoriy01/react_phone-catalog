@@ -10,6 +10,7 @@ import FavoriteIconDefault from '@/shared/assets/icons/hearts/heart-default.svg?
 // eslint-disable-next-line max-len
 import FavoriteIconSelected from '@/shared/assets/icons/hearts/heart-selected.svg?react';
 
+import cn from 'classnames';
 import './ProductActions.scss';
 
 type Props = {
@@ -53,7 +54,9 @@ export const ProductActions: React.FC<Props> = ({
       </ActionButton>
 
       <IconButton
-        className="product-actions__btn-favorite"
+        className={cn('product-actions__btn-favorite', {
+          'product-actions__btn-favorite--active': isProductFavorite,
+        })}
         aria-label={
           isProductFavorite ? 'Remove from favorites' : 'Add to favorites'
         }

@@ -27,7 +27,7 @@ export const HomePage = () => {
   return (
     <div className="home-page">
       <h1 className="visually-hidden">Product Catalog</h1>
-      <Hero hasError={hasError} />
+      <Hero hasError={hasError} isLoading={isLoading} />
 
       <ProductsSlider
         title="Brand New Models"

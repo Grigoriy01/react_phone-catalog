@@ -26,17 +26,12 @@ export const BackHeader: React.FC<Props> = ({
 
   return (
     <div className={`back-header ${className}`.trim()}>
-      {!hasError ||
-        (isOnline && (
-          <button
-            className="back-header__btn"
-            type="button"
-            onClick={handleBack}
-          >
-            <ArrowIcon className="back-header__btn-arrow" />
-            <span className="back-header__btn-item">Back</span>
-          </button>
-        ))}
+      {!hasError && isOnline && (
+        <button className="back-header__btn" type="button" onClick={handleBack}>
+          <ArrowIcon className="back-header__btn-arrow" />
+          <span className="back-header__btn-item">Back</span>
+        </button>
+      )}
 
       <h1 className="back-header__title">{catalogTitle}</h1>
     </div>

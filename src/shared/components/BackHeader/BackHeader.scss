@@ -35,6 +35,7 @@
   &__btn-arrow {
     @extend %arrow-icon;
 
+    color: $color-primary;
     transform: rotate(180deg);
   }
 
