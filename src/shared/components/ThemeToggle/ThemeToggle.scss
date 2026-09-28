@@ -1,7 +1,7 @@
 @use '@/styles/utils' as *;
 
 .theme-toggle {
-  @include base-button(32px, 32px, 50%);
+  @include base-button(50px, 32px, 28%);
 
   &__icon {
     width: 20px;
