@@ -11,6 +11,7 @@ export type FavoritesContextType = {
   favorites: Product[];
   isFavorite: (productId: string) => boolean;
   toggleFavorite: (product: Product) => void;
+  totalFavorites: number;
 };
 
 export const initialFavoritesState: FavoritesState = {
@@ -55,6 +56,8 @@ export const FavoritesProvider = ({
     localStorage.setItem('favorites', JSON.stringify(state.favorites));
   }, [state.favorites]);
 
+  const totalFavorites = state.favorites.length;
+
   const toggleFavorite = (product: Product) => {
     dispatch({ type: 'TOGGLE_FAVORITE', payload: product });
   };
@@ -69,6 +72,7 @@ export const FavoritesProvider = ({
         favorites: state.favorites,
         isFavorite,
         toggleFavorite,
+        totalFavorites,
       }}
     >
       {children}

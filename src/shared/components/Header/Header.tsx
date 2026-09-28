@@ -9,6 +9,8 @@ import { SearchInput } from './components/SearchInput';
 
 import { Logo } from '../Logo/Logo';
 import './Header.scss';
+import { useFavorites } from '@/shared/context/FavoriteContext';
+import { useCart } from '@/shared/context/CartContext';
 
 /**
  * Defines the routes where the search field is allowed to be visible.
@@ -29,6 +31,9 @@ const SEARCH_ALLOWED_ROUTES = [
  */
 export const Header = () => {
   const { pathname } = useLocation();
+  const { totalFavorites } = useFavorites();
+  const { totalCartItems } = useCart();
+  const hasItems = totalFavorites > 0 || totalCartItems > 0;
 
   /**
    * State to control the visibility of the burger menu.
@@ -84,6 +89,7 @@ export const Header = () => {
           className="header__burger"
           onOpenChange={setIsBurgerMenuOpen}
           isOpen={isBurgerMenuOpen}
+          hasItems={hasItems}
         />
 
         <BurgerMenu isBurgerMenuOpen={isBurgerMenuOpen} />

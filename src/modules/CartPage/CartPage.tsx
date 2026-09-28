@@ -29,7 +29,7 @@ const CHECKOUT_SKELETON = (
 );
 
 export const CartPage = () => {
-  const { cartItems, totalCount, totalPrice, clearCart } = useCart();
+  const { cartItems, totalCartItems, totalPrice, clearCart } = useCart();
   const { isLoading, hasError, loadData } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isOnline = useOnlineStatus();
@@ -59,7 +59,7 @@ export const CartPage = () => {
             <CartList
               cartItems={cartItems}
               className="cart-page__list"
-              totalCount={totalCount}
+              totalCount={totalCartItems}
               isLoading={isLoading}
             />
 
@@ -73,7 +73,7 @@ export const CartPage = () => {
                     price={totalPrice}
                   />
                   <div className="checkout-block__count">
-                    Total for {totalCount} {itemsText(totalCount)}
+                    Total for {totalCartItems} {itemsText(totalCartItems)}
                   </div>
                   <div className="checkout-block__divider" />
                   <ActionButton

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Nav } from '@/shared/components/Nav';
 import { HeaderActions } from '../HeaderActions';
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 import cn from 'classnames';
 import './BurgerMenu.scss';
-import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 type Props = {
   isBurgerMenuOpen: boolean;

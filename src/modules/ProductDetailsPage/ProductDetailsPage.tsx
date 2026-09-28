@@ -51,6 +51,17 @@ export const ProductDetailsPage = () => {
     }
   }, [product]);
 
+  // control of browser-title
+  useEffect(() => {
+    if (product?.name) {
+      document.title = `${product.name} - Nice Gadgets`
+    }
+
+    return () => {
+      document.title = 'Nice Gadgets'
+    }
+  }, [product])
+
   const handleColorChange = (newColor: string) => {
     if (!product) {
       return;

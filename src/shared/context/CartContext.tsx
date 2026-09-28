@@ -26,7 +26,7 @@ export type CartContextType = {
   changeQuantity: (productId: string, delta: number) => void; // delta: +1 или -1
   clearCart: () => void;
   isInCart: (productId: string) => boolean;
-  totalCount: number;
+  totalCartItems: number;
   totalPrice: number;
 };
 
@@ -122,7 +122,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     [state.cartItems],
   );
 
-  const totalCount = useMemo(
+  const totalCartItems = useMemo(
     () => state.cartItems.reduce((sum, item) => sum + item.quantity, 0),
     [state.cartItems],
   );
@@ -145,7 +145,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       changeQuantity,
       clearCart,
       isInCart,
-      totalCount,
+      totalCartItems,
       totalPrice,
     }),
     [
@@ -155,7 +155,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       changeQuantity,
       clearCart,
       isInCart,
-      totalCount,
+      totalCartItems,
       totalPrice,
     ],
   );

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useFavorites } from '@/shared/context/FavoriteContext';
 import { useCart } from '@/shared/context/CartContext';
@@ -5,7 +6,6 @@ import { CartIcon, HeartDefaultIcon } from '@/shared/assets/icons';
 
 import cn from 'classnames';
 import './HeaderActions.scss';
-import React from 'react';
 
 type Props = {
   className?: string;
@@ -13,10 +13,8 @@ type Props = {
 
 export const HeaderActions: React.FC<Props> = ({ className }) => {
   const { pathname } = useLocation();
-  const { favorites } = useFavorites();
-  const { totalCount } = useCart();
-
-  const countProducts = favorites.length;
+  const { totalFavorites } = useFavorites();
+  const { totalCartItems } = useCart();
 
   return (
     <div className={cn('header-actions', className)}>
@@ -30,9 +28,9 @@ export const HeaderActions: React.FC<Props> = ({ className }) => {
         <div className="header-actions__wrapper-icon">
           <HeartDefaultIcon className="header-actions__icon" />
 
-          {countProducts > 0 && (
+          {totalFavorites > 0 && (
             <span className="header-actions__badge-counter">
-              {countProducts}
+              {totalFavorites}
             </span>
           )}
         </div>
@@ -47,8 +45,8 @@ export const HeaderActions: React.FC<Props> = ({ className }) => {
         <div className="header-actions__wrapper-icon">
           <CartIcon className="header-actions__icon" />
 
-          {totalCount > 0 && (
-            <span className="header-actions__badge-counter">{totalCount}</span>
+          {totalCartItems > 0 && (
+            <span className="header-actions__badge-counter">{totalCartItems}</span>
           )}
         </div>
       </Link>
