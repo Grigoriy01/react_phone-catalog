@@ -36,7 +36,7 @@ export const ProductsSlider: React.FC<Props> = ({
 
   const swiperRef = useRef<SwiperClass | null>(null);
 
-  const handleSlideChange = (swiper: SwiperClass) => {
+  const updateNavState = (swiper: SwiperClass) => {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
   };
@@ -74,8 +74,12 @@ export const ProductsSlider: React.FC<Props> = ({
       <div className="products-slider__swiper-wrapper">
         <AsyncData onRetry={onRetry} hasError={hasError}>
           <Swiper
-            onSwiper={swiper => (swiperRef.current = swiper)}
-            onSlideChange={handleSlideChange}
+            onSwiper={swiper => {
+              swiperRef.current = swiper;
+              updateNavState(swiper);
+            }}
+            onSlideChange={updateNavState}
+            onAfterInit={updateNavState}
             roundLengths={true}
             onReachEnd={() => setIsEnd(true)}
             onReachBeginning={() => setIsBeginning(true)}

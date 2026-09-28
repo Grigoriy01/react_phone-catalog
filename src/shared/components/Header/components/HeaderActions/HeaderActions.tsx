@@ -46,7 +46,9 @@ export const HeaderActions: React.FC<Props> = ({ className }) => {
           <CartIcon className="header-actions__icon" />
 
           {totalCartItems > 0 && (
-            <span className="header-actions__badge-counter">{totalCartItems}</span>
+            <span className="header-actions__badge-counter">
+              {totalCartItems}
+            </span>
           )}
         </div>
       </Link>

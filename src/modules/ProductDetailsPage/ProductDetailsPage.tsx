@@ -54,13 +54,13 @@ export const ProductDetailsPage = () => {
   // control of browser-title
   useEffect(() => {
     if (product?.name) {
-      document.title = `${product.name} - Nice Gadgets`
+      document.title = `${product.name} - Nice Gadgets`;
     }
 
     return () => {
-      document.title = 'Nice Gadgets'
-    }
-  }, [product])
+      document.title = 'Nice Gadgets';
+    };
+  }, [product]);
 
   const handleColorChange = (newColor: string) => {
     if (!product) {
