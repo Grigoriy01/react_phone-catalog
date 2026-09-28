@@ -36,7 +36,11 @@
     display: flex;
   }
   &__btn {
-    
+    color: $color-primary;
+
+    &:disabled {
+      color: $color-icons;
+    }
     &--prev {
       transform: rotate(180deg);
       margin-right: 16px;
@@ -45,6 +49,9 @@
 
   &__icon {
     color: currentColor;
+    transition:
+      fill $transition-duration ease,
+      color $transition-duration ease;
   }
 
   &__swiper-wrapper {

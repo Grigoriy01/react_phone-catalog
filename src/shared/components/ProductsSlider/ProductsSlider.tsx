@@ -13,6 +13,8 @@ import { ArrowIcon } from '@/shared/assets/icons';
 
 import cn from 'classnames';
 import './ProductsSlider.scss';
+import { useProducts } from '@/modules/HomePage/hooks/useProducts';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 type Props = {
   isLoading: boolean;
@@ -27,10 +29,11 @@ export const ProductsSlider: React.FC<Props> = ({
   className,
   title,
   products,
-  isLoading,
-  hasError,
   onRetry,
 }) => {
+  const { hasError, isLoading } = useProducts();
+  const isOnline = useOnlineStatus();
+
   const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(
     null,
   );
@@ -54,6 +57,7 @@ export const ProductsSlider: React.FC<Props> = ({
       <div className="products-slider__header">
         <h2 className="products-slider__title">{title}</h2>
         {!hasError &&
+          isOnline &&
           (isLoading ? (
             <div className="products-slider__navigation-skeleton" />
           ) : (
