@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { AsyncData } from '../AsyncData';
@@ -31,15 +31,23 @@ export const ProductsSlider: React.FC<Props> = ({
   hasError,
   onRetry,
 }) => {
+  const [swiperInstance, setSwiperInstance] = useState<SwiperClass | null>(
+    null,
+  );
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-
-  const swiperRef = useRef<SwiperClass | null>(null);
 
   const updateNavState = (swiper: SwiperClass) => {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
   };
+
+  useEffect(() => {
+    if (swiperInstance && !isLoading && products?.length) {
+      swiperInstance.update();
+      updateNavState(swiperInstance);
+    }
+  }, [swiperInstance, isLoading, products]);
 
   return (
     <section className={cn('products-slider', className)}>
@@ -53,8 +61,8 @@ export const ProductsSlider: React.FC<Props> = ({
               <IconButton
                 className="products-slider__btn products-slider__btn--prev"
                 aria-label="Previous slide"
-                onClick={() => swiperRef.current?.slidePrev()}
-                disabled={isBeginning}
+                onClick={() => swiperInstance?.slidePrev()}
+                disabled={isBeginning || !swiperInstance}
               >
                 <ArrowIcon className="products-slider__icon" />
               </IconButton>
@@ -62,8 +70,8 @@ export const ProductsSlider: React.FC<Props> = ({
               <IconButton
                 className="products-slider__btn products-slider__btn--next"
                 aria-label="Next slide"
-                onClick={() => swiperRef.current?.slideNext()}
-                disabled={isEnd}
+                onClick={() => swiperInstance?.slideNext()}
+                disabled={isEnd || !swiperInstance}
               >
                 <ArrowIcon className="products-slider__icon" />
               </IconButton>
@@ -75,7 +83,7 @@ export const ProductsSlider: React.FC<Props> = ({
         <AsyncData onRetry={onRetry} hasError={hasError}>
           <Swiper
             onSwiper={swiper => {
-              swiperRef.current = swiper;
+              setSwiperInstance(swiper);
               updateNavState(swiper);
             }}
             onSlideChange={updateNavState}
