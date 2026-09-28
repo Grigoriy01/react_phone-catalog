@@ -79,7 +79,8 @@ export const ProductsSlider: React.FC<Props> = ({
               updateNavState(swiper);
             }}
             onSlideChange={updateNavState}
-            onAfterInit={updateNavState}
+            observer={true}
+            observeParents={true}
             roundLengths={true}
             onReachEnd={() => setIsEnd(true)}
             onReachBeginning={() => setIsBeginning(true)}
