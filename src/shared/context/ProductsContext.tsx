@@ -1,4 +1,11 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { Product } from '../types';
 import { getProducts } from '@/services/products';
 
@@ -21,25 +28,24 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const fetchData = async () => {
-    if (!navigator.onLine) {
-      return;
-    }
+  const fetchData = useCallback(async () => {
+  if (!navigator.onLine) {
+    return;
+  }
 
-    setIsLoading(true);
+  setIsLoading(true);
+  setHasError(false);
+
+  try {
+    const data = await getProducts();
+    setProducts(data);
     setHasError(false);
-
-    try {
-      const data = await getProducts();
-
-      setProducts(data);
-      setHasError(false);
-    } catch {
-      setHasError(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  } catch {
+    setHasError(true);
+  } finally {
+    setIsLoading(false);
+  }
+}, []);
 
   useEffect(() => {
     fetchData();
@@ -56,7 +62,9 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   return (
-    <ProductsContext.Provider value={value}>{children}</ProductsContext.Provider>
+    <ProductsContext.Provider value={value}>
+      {children}
+    </ProductsContext.Provider>
   );
 };
 
@@ -68,4 +76,4 @@ export const useProducts = (): ProductsContextType => {
   }
 
   return context;
-}
+};

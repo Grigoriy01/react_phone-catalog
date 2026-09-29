@@ -36,7 +36,9 @@ export const PromoSlider: React.FC<Props> = ({ hasError }) => {
 
   return (
     <div
-      className={cn('promo-slider', { 'promo-slider--error': hasError || !isOnline })}
+      className={cn('promo-slider', {
+        'promo-slider--error': hasError || !isOnline,
+      })}
       {...alertProps}
     >
       {hasError || !isOnline ? (
