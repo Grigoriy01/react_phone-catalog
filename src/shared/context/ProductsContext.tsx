@@ -50,7 +50,7 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   const value = useMemo(
     () => ({
