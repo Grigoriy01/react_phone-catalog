@@ -1,7 +1,7 @@
 import React from 'react';
+import { useProducts } from '@/shared/context/ProductsContext';
 import { itemsText } from '@/utils';
 import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
-import { useProducts } from '@/modules/HomePage/hooks/useProducts';
 
 import cn from 'classnames';
 import './CatalogHeader.scss';

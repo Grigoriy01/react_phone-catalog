@@ -21,7 +21,8 @@ export const ShopByCategory: React.FC<Props> = ({
   hasError = false,
 }) => {
   const isOnline = useOnlineStatus();
-  const currentConfig = hasError ? ERROR_CATEGORIES_CONFIG : CATEGORIES_CONFIG;
+  const isFailed = hasError || !isOnline;
+  const currentConfig = isFailed ? ERROR_CATEGORIES_CONFIG : CATEGORIES_CONFIG;
 
   return (
     <section className="shop-by-category container">
@@ -45,7 +46,7 @@ export const ShopByCategory: React.FC<Props> = ({
               <div
                 className={`shop-by-category__img-wrapper shop-by-category__img-wrapper--${id}`}
               >
-                {hasError && category.Icon ? (
+                {isFailed && category.Icon ? (
                   <category.Icon
                     className="shop-by-category__placeholder-icon"
                     aria-hidden="true"

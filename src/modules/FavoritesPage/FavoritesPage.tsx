@@ -1,8 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import { useMemo } from 'react';
+import { useProducts } from '@/shared/context/ProductsContext';
 import { processProducts } from '@/utils';
+import { AsyncData } from '@/shared/components/AsyncData';
 
-import { useProducts } from '../HomePage/hooks/useProducts';
 import { useFavorites } from '@/shared/context/FavoriteContext';
 
 import { CatalogHeader } from '@/shared/components/CatalogHeader';
@@ -11,9 +12,8 @@ import { ProductsList } from '@/shared/components/ProductsList/ProductsList';
 import { EmptyFavIcon } from '@/shared/assets/icons';
 import { EmptyState } from '@/shared/components/EmptyState';
 
-import './FavoritesPage.scss';
-import { AsyncData } from '@/shared/components/AsyncData';
 import { ThemeToggle } from '@/shared/components/ThemeToggle';
+import './FavoritesPage.scss';
 
 export const FavoritesPage = () => {
   const [searchParams] = useSearchParams();

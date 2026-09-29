@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { useProducts } from '@/shared/context/ProductsContext';
 
-import { useProducts } from '../HomePage/hooks/useProducts';
 import { SORT_BY } from '@/shared/types';
 import {
   PER_PAGE_PARAM,

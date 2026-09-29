@@ -14,6 +14,7 @@ import bannerId3 from '@/shared/assets/home-page-img/banner/banner-phones.png';
 import cn from 'classnames';
 import 'swiper/swiper.css';
 import './PromoSlider.scss';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 const BANNERS = [
   {
@@ -31,13 +32,14 @@ type Props = {
 
 export const PromoSlider: React.FC<Props> = ({ hasError }) => {
   const alertProps = hasError ? { role: 'alert' as const } : {};
+  const isOnline = useOnlineStatus();
 
   return (
     <div
-      className={cn('promo-slider', { 'promo-slider--error': hasError })}
+      className={cn('promo-slider', { 'promo-slider--error': hasError || !isOnline })}
       {...alertProps}
     >
-      {hasError ? (
+      {hasError || !isOnline ? (
         <>
           <FishingImg
             className="promo-slider__placeholder-icon"

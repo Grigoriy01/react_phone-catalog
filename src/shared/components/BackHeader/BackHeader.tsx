@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
-import { useProducts } from '@/modules/HomePage/hooks/useProducts';
+import { useProducts } from '@/shared/context/ProductsContext';
+import { useProductDetails } from '@/modules/ProductDetailsPage/hooks';
 
 import { ArrowIcon } from '@/shared/assets/icons';
 
 import './BackHeader.scss';
-import { useProductDetails } from '@/modules/ProductDetailsPage/hooks';
 
 type Props = {
   catalogTitle?: string;

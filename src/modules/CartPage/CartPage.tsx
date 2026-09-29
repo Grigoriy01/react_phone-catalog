@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useProducts } from '@/shared/context/ProductsContext';
 import { useCart } from '@/shared/context/CartContext';
-import { useProducts } from '../HomePage/hooks/useProducts';
+
 import { AsyncData } from '@/shared/components/AsyncData';
 
 import { BackHeader } from '@/shared/components/BackHeader';
@@ -15,7 +16,6 @@ import { Modal } from './components/Modal';
 import { EmptyCartImg } from '@/shared/assets/cart-img';
 import { itemsText } from '@/utils';
 
-import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 import { ThemeToggle } from '@/shared/components/ThemeToggle';
 import './CartPage.scss';
 
@@ -32,7 +32,6 @@ export const CartPage = () => {
   const { cartItems, totalCartItems, totalPrice, clearCart } = useCart();
   const { isLoading, hasError, loadData } = useProducts();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const isOnline = useOnlineStatus();
 
   const handleCheckoutConfirm = () => {
     clearCart();
@@ -42,11 +41,7 @@ export const CartPage = () => {
   return (
     <div className="cart-page container">
       <div className="cart-page__top-bar">
-        <BackHeader
-          catalogTitle="Cart"
-          hasError={hasError}
-          isOnline={isOnline}
-        />
+        <BackHeader catalogTitle="Cart" />
         <ThemeToggle className="product-details__theme-btn" />
       </div>
       <AsyncData hasError={hasError} onRetry={loadData}>

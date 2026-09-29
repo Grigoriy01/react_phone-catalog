@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { AsyncData } from '../AsyncData';
-import { useProducts } from '@/modules/HomePage/hooks/useProducts';
+import { useProducts } from '@/shared/context/ProductsContext';
+
 import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 import { Product } from '@/shared/types';

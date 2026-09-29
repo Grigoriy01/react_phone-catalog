@@ -1,4 +1,6 @@
-import { useProducts } from './hooks/useProducts';
+import { useMemo } from 'react';
+import { useProducts } from '@/shared/context/ProductsContext';
+
 import { getProductsWithHotPrices, sortByYear } from '@/utils';
 
 import { Hero } from './components/Hero';
@@ -6,7 +8,6 @@ import { ProductsSlider } from '@/shared/components/ProductsSlider';
 import { ShopByCategory } from './components/ShopByCategory';
 
 import './HomePage.scss';
-import { useMemo } from 'react';
 
 export const HomePage = () => {
   const { products, loadData, hasError } = useProducts();

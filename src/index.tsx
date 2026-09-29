@@ -7,17 +7,20 @@ import { App } from './App';
 
 import './styles/index.scss';
 import { ThemeProvider } from './shared/context/ThemeContext';
+import { ProductsProvider } from './shared/context/ProductsContext';
 
 const container = document.getElementById('root') as HTMLDivElement;
 
 createRoot(container).render(
   <Router>
     <ThemeProvider>
-      <FavoritesProvider>
-        <CartProvider>
-          <App />
-        </CartProvider>
-      </FavoritesProvider>
+      <ProductsProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </FavoritesProvider>
+      </ProductsProvider>
     </ThemeProvider>
   </Router>,
 );

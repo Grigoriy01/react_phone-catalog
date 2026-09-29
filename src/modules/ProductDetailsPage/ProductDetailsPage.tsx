@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import { useProducts } from '@/shared/context/ProductsContext';
 import { useProductDetails } from './hooks';
-import { useProducts } from '../HomePage/hooks/useProducts';
-import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 import { AsyncData } from '@/shared/components/AsyncData';
 import { getSuggestedProducts } from '@/utils';
@@ -18,12 +16,11 @@ import { ProductDetailsSkeleton } from './ProductDetailsSkeleton';
 import { ProductsSlider } from '@/shared/components/ProductsSlider';
 import { ProductSpecsItem } from '@/shared/components/ProductSpecsItem';
 import { ImageWithFallback } from '@/shared/components/ImageWithFallback';
-
+import { ThemeToggle } from '@/shared/components/ThemeToggle';
 import { FallbackImg, QuestionImg } from '@/shared/assets/error-img';
 
 import cn from 'classnames';
 import './ProductDetailsPage.scss';
-import { ThemeToggle } from '@/shared/components/ThemeToggle';
 
 const normalizeForUrl = (str: string): string => {
   return str.toLowerCase().trim().replace(/\s+/g, '-');
@@ -35,12 +32,12 @@ export const ProductDetailsPage = () => {
     productId: string;
     category: string;
   }>();
-  const isOnline = useOnlineStatus();
-  const { products, hasError } = useProducts();
-  const { isLoadingDetails, hasErrorDetails, product, loadData } =
-    useProductDetails(productId, category);
 
-  const hasAnyError = hasError || hasErrorDetails;
+  const { products, loadData } = useProducts();
+  const { isLoadingDetails, hasErrorDetails, product } = useProductDetails(
+    productId,
+    category,
+  );
 
   const navigate = useNavigate();
   const [selectedImg, setSelectedImg] = useState('');
@@ -136,7 +133,7 @@ export const ProductDetailsPage = () => {
           />
         )}
 
-        <AsyncData hasError={hasAnyError} onRetry={loadData}>
+        <AsyncData hasError={hasErrorDetails} onRetry={loadData}>
           <div className="product-details__main">
             <section className="product-details__gallery">
               <div className="product-details__thumbnails">
@@ -357,15 +354,12 @@ export const ProductDetailsPage = () => {
         </AsyncData>
       </div>
 
-      {!hasError && isOnline && (
-        <section className="product-details__recommended">
-          <ProductsSlider
-            title="You may also like"
-            products={product ? getSuggestedProducts(products, product.id) : []}
-            onRetry={loadData}
-          />
-        </section>
-      )}
+      <ProductsSlider
+        className="product-details__recommended"
+        title="You may also like"
+        products={product ? getSuggestedProducts(products, product.id) : []}
+        onRetry={loadData}
+      />
     </>
   );
 };

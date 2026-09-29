@@ -1,14 +1,15 @@
 import React from 'react';
 import cn from 'classnames';
+import { useProducts } from '@/shared/context/ProductsContext';
+import { useProductDetails } from '@/modules/ProductDetailsPage/hooks';
 import { useTheme } from '@/shared/context/ThemeContext';
 import { IconButton } from '../Buttons/components/IconButton';
 
 import { ThemeIcon } from '@/shared/assets/icons';
 
 import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
-import { useProducts } from '@/modules/HomePage/hooks/useProducts';
+
 import './ThemeToggle.scss';
-import { useProductDetails } from '@/modules/ProductDetailsPage/hooks';
 
 type Props = {
   className?: string;
