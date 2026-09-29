@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import type { Swiper as SwiperClass } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { AsyncData } from '../AsyncData';
+import { useProducts } from '@/modules/HomePage/hooks/useProducts';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 import { Product } from '@/shared/types';
 
@@ -13,15 +15,11 @@ import { ArrowIcon } from '@/shared/assets/icons';
 
 import cn from 'classnames';
 import './ProductsSlider.scss';
-import { useProducts } from '@/modules/HomePage/hooks/useProducts';
-import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 type Props = {
-  isLoading: boolean;
   className?: string;
   title: string;
   products: Product[] | null;
-  hasError: boolean;
   onRetry: () => void;
 };
 

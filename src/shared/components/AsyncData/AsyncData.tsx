@@ -15,6 +15,7 @@ export const AsyncData: React.FC<Props> = ({
   isOnline: isOnlineProp,
 }) => {
   const isOnlineHook = useOnlineStatus();
+
   const isOnline = isOnlineProp ?? isOnlineHook;
 
   //#region save prev-status for auto reload page if internet connected

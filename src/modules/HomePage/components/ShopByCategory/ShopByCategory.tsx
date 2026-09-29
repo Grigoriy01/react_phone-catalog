@@ -35,7 +35,7 @@ export const ShopByCategory: React.FC<Props> = ({
           return (
             <Link
               className={cn('shop-by-category__link', {
-                'shop-by-category__link--disabled': hasError,
+                'shop-by-category__link--disabled': hasError || !isOnline,
               })}
               to={path}
               key={id}
@@ -59,7 +59,7 @@ export const ShopByCategory: React.FC<Props> = ({
                 )}
               </div>
               <h3 className="shop-by-category__subtitle">{title}</h3>
-              {(!hasError && isOnline) && (
+              {!hasError && isOnline && (
                 <div className="shop-by-category__count-models">
                   {count} {itemsText(count)}
                 </div>

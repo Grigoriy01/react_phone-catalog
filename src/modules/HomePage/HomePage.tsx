@@ -9,7 +9,7 @@ import './HomePage.scss';
 import { useMemo } from 'react';
 
 export const HomePage = () => {
-  const { products, isLoading, loadData, hasError } = useProducts();
+  const { products, loadData, hasError } = useProducts();
 
   const visibleNewModels = useMemo(() => sortByYear(products), [products]);
 
@@ -27,25 +27,21 @@ export const HomePage = () => {
   return (
     <div className="home-page">
       <h1 className="visually-hidden">Product Catalog</h1>
-      <Hero hasError={hasError} isLoading={isLoading} />
+      <Hero hasError={hasError} />
 
       <ProductsSlider
         title="Brand New Models"
-        isLoading={isLoading}
         products={visibleNewModels}
         onRetry={loadData}
-        hasError={hasError}
       />
 
       <ShopByCategory categoriesCount={categoriesCount} hasError={hasError} />
 
       <ProductsSlider
         title="Hot prices"
-        isLoading={isLoading}
         className="home-page__section"
         products={visibleHotPrices}
         onRetry={loadData}
-        hasError={hasError}
       />
     </div>
   );

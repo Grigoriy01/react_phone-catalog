@@ -36,11 +36,11 @@ export const ProductDetailsPage = () => {
     category: string;
   }>();
   const isOnline = useOnlineStatus();
-  const { products } = useProducts();
-  const { isLoading, hasError, product, loadData } = useProductDetails(
-    productId,
-    category,
-  );
+  const { products, hasError } = useProducts();
+  const { isLoadingDetails, hasErrorDetails, product, loadData } =
+    useProductDetails(productId, category);
+
+  const hasAnyError = hasError || hasErrorDetails;
 
   const navigate = useNavigate();
   const [selectedImg, setSelectedImg] = useState('');
@@ -118,14 +118,13 @@ export const ProductDetailsPage = () => {
     <>
       <div className="product-details container ">
         <div className="product-details__top-bar">
-          <BreadcrumbsNav isLoading={isLoading} productName={product?.name} />
-          <ThemeToggle
-            className="product-details__theme-btn"
-            isLoading={isLoading}
-            hasError={hasError}
+          <BreadcrumbsNav
+            isLoading={isLoadingDetails}
+            productName={product?.name}
           />
+          <ThemeToggle className="product-details__theme-btn" />
         </div>
-        {isLoading ? (
+        {isLoadingDetails ? (
           <>
             <BackHeaderSkeleton className="product-details__header" />
             <ProductDetailsSkeleton />
@@ -134,12 +133,10 @@ export const ProductDetailsPage = () => {
           <BackHeader
             catalogTitle={product?.name ?? categoryName}
             className="product-details__header"
-            hasError={hasError}
-            isOnline={isOnline}
           />
         )}
 
-        <AsyncData hasError={hasError} onRetry={loadData}>
+        <AsyncData hasError={hasAnyError} onRetry={loadData}>
           <div className="product-details__main">
             <section className="product-details__gallery">
               <div className="product-details__thumbnails">
@@ -360,20 +357,15 @@ export const ProductDetailsPage = () => {
         </AsyncData>
       </div>
 
-      {!hasError ||
-        (isOnline && (
-          <section className="product-details__recommended">
-            <ProductsSlider
-              title="You may also like"
-              products={
-                product ? getSuggestedProducts(products, product.id) : []
-              }
-              hasError={hasError}
-              onRetry={loadData}
-              isLoading={isLoading}
-            />
-          </section>
-        ))}
+      {!hasError && isOnline && (
+        <section className="product-details__recommended">
+          <ProductsSlider
+            title="You may also like"
+            products={product ? getSuggestedProducts(products, product.id) : []}
+            onRetry={loadData}
+          />
+        </section>
+      )}
     </>
   );
 };

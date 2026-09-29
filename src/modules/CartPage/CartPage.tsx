@@ -15,9 +15,9 @@ import { Modal } from './components/Modal';
 import { EmptyCartImg } from '@/shared/assets/cart-img';
 import { itemsText } from '@/utils';
 
-import './CartPage.scss';
 import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 import { ThemeToggle } from '@/shared/components/ThemeToggle';
+import './CartPage.scss';
 
 const CHECKOUT_SKELETON = (
   <div className="checkout-block checkout-block--skeleton">
@@ -47,11 +47,7 @@ export const CartPage = () => {
           hasError={hasError}
           isOnline={isOnline}
         />
-        <ThemeToggle
-          className="product-details__theme-btn"
-          isLoading={isLoading}
-          hasError={hasError}
-        />
+        <ThemeToggle className="product-details__theme-btn" />
       </div>
       <AsyncData hasError={hasError} onRetry={loadData}>
         {isLoading || cartItems.length > 0 ? (

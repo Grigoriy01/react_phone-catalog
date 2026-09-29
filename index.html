@@ -11,6 +11,21 @@
       content="width=device-width, initial-scale=1.0 viewport-fit=cover"
     />
     <title>Nice Gadgets Store</title>
+    <!-- Synchronous script for immediate theme application before React rendering. -->
+    <script>
+      (function () {
+        try {
+          const savedTheme = localStorage.getItem('app_theme');
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+          if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

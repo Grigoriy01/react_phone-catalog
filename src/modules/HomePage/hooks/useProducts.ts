@@ -9,6 +9,10 @@ export function useProducts() {
   const [hasError, setHasError] = useState(false);
 
   const fetchData = async () => {
+    if (!navigator.onLine) {
+      return;
+    }
+
     setIsLoading(true);
     setHasError(false);
 

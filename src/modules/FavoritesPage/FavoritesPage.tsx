@@ -30,18 +30,13 @@ export const FavoritesPage = () => {
     <div className="favorites-page container">
       <div className="favorites-page__top-bar">
         <BreadcrumbsNav isLoading={isLoading} />
-        <ThemeToggle
-          className="favorites-page__theme-btn"
-          isLoading={isLoading}
-          hasError={hasError}
-        />
+        <ThemeToggle className="favorites-page__theme-btn" />
       </div>
 
       <CatalogHeader
         catalogName="Favorites"
         countProduct={totalCount}
-        isLoading={isLoading}
-        hasError={hasError}
+
         className="favorites-page__header"
       />
 

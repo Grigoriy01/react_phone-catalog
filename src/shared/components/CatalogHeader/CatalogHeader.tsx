@@ -1,25 +1,25 @@
 import React from 'react';
 import { itemsText } from '@/utils';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
+import { useProducts } from '@/modules/HomePage/hooks/useProducts';
 
 import cn from 'classnames';
 import './CatalogHeader.scss';
-import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 
 type Props = {
   countProduct: number;
   catalogName: string;
   className?: string;
-  isLoading?: boolean;
-  hasError?: boolean;
 };
 export const CatalogHeader: React.FC<Props> = ({
   countProduct,
   catalogName,
-  isLoading,
-  hasError,
+
   className,
 }) => {
   const isOnline = useOnlineStatus();
+
+  const { isLoading, hasError } = useProducts();
 
   return (
     <div className={cn('catalog-header', className)}>

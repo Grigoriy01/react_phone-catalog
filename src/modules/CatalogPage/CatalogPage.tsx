@@ -117,18 +117,9 @@ export const CatalogPage: React.FC = () => {
     <div className="catalog-page container">
       <div className="catalog-page__top-bar">
         <BreadcrumbsNav isLoading={isLoading} />
-        <ThemeToggle
-          className="catalog-page__theme-btn"
-          isLoading={isLoading}
-          hasError={hasError}
-        />
+        <ThemeToggle className="catalog-page__theme-btn" />
       </div>
-      <CatalogHeader
-        catalogName={categoryTitle}
-        countProduct={totalCount}
-        isLoading={isLoading}
-        hasError={hasError}
-      />
+      <CatalogHeader catalogName={categoryTitle} countProduct={totalCount} />
 
       <AsyncData hasError={hasError} onRetry={loadData}>
         <div className="catalog-page__controls">

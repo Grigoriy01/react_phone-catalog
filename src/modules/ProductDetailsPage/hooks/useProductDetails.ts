@@ -4,16 +4,16 @@ import { getProductDetails } from '@/services/products';
 
 export function useProductDetails(productId?: string, category?: string) {
   const [product, setProduct] = useState<ProductDetails | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const [isLoadingDetails, setIsLoadingDetails] = useState(true);
+  const [hasErrorDetails, setHasErrorDetails] = useState(false);
 
   const loadData = useCallback(async () => {
     if (!productId || !category) {
       return;
     }
 
-    setIsLoading(true);
-    setHasError(false);
+    setIsLoadingDetails(true);
+    setHasErrorDetails(false);
 
     try {
       const products = await getProductDetails(category);
@@ -22,12 +22,12 @@ export function useProductDetails(productId?: string, category?: string) {
       if (found) {
         setProduct(found as unknown as ProductDetails);
       } else {
-        setHasError(true);
+        setHasErrorDetails(true);
       }
     } catch {
-      setHasError(true);
+      setHasErrorDetails(true);
     } finally {
-      setIsLoading(false);
+      setIsLoadingDetails(false);
     }
   }, [productId, category]);
 
@@ -37,8 +37,8 @@ export function useProductDetails(productId?: string, category?: string) {
 
   return {
     product,
-    isLoading,
-    hasError,
+    isLoadingDetails,
+    hasErrorDetails,
     loadData,
   };
 }

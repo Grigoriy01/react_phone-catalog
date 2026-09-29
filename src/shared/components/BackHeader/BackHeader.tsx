@@ -1,24 +1,28 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
+import { useProducts } from '@/modules/HomePage/hooks/useProducts';
 
 import { ArrowIcon } from '@/shared/assets/icons';
 
 import './BackHeader.scss';
+import { useProductDetails } from '@/modules/ProductDetailsPage/hooks';
 
 type Props = {
   catalogTitle?: string;
   className?: string;
-  hasError?: boolean;
-  isOnline?: boolean;
 };
 
 export const BackHeader: React.FC<Props> = ({
   catalogTitle,
   className = '',
-  hasError,
-  isOnline,
 }) => {
   const navigate = useNavigate();
+  const isOnline = useOnlineStatus();
+  const { hasError } = useProducts();
+  const { hasErrorDetails } = useProductDetails();
+
+  const hasAnyError = hasError || hasErrorDetails;
 
   const handleBack = () => {
     navigate(-1);
@@ -26,7 +30,7 @@ export const BackHeader: React.FC<Props> = ({
 
   return (
     <div className={`back-header ${className}`.trim()}>
-      {!hasError && isOnline && (
+      {!hasAnyError && isOnline && (
         <button className="back-header__btn" type="button" onClick={handleBack}>
           <ArrowIcon className="back-header__btn-arrow" />
           <span className="back-header__btn-item">Back</span>
