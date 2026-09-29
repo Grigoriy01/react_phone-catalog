@@ -5,11 +5,13 @@ import { useOnlineStatus } from '@/shared/hooks/useOnlineStatus';
 type Props = {
   hasError: boolean;
   isOnline?: boolean;
+  hasData?: boolean;
   onRetry?: () => void;
   children: React.ReactNode;
 };
 export const AsyncData: React.FC<Props> = ({
   hasError,
+  hasData = false,
   onRetry,
   children,
   isOnline: isOnlineProp,
@@ -34,10 +36,13 @@ export const AsyncData: React.FC<Props> = ({
   }, [isOnline, onRetry]);
   //#endregion
 
-  if (hasError || !isOnline) {
-    return (
-      <FetchError onRetry={onRetry} type={!isOnline ? 'offline' : 'server'} />
-    );
+  // error (500/504)
+  if (hasError) {
+    return <FetchError onRetry={onRetry} type="server" />;
+  }
+  // disconnect - not Data
+  if (!isOnline && !hasData) {
+    return <FetchError onRetry={onRetry} type="offline" />;
   }
 
   return <>{children}</>;

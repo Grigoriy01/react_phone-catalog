@@ -34,10 +34,12 @@ export const ProductDetailsPage = () => {
   }>();
 
   const { products, loadData } = useProducts();
-  const { isLoadingDetails, hasErrorDetails, product } = useProductDetails(
-    productId,
-    category,
-  );
+  const {
+    isLoadingDetails,
+    hasErrorDetails,
+    product,
+    loadData: loadDetailsData,
+  } = useProductDetails(productId, category);
 
   const navigate = useNavigate();
   const [selectedImg, setSelectedImg] = useState('');
@@ -133,7 +135,11 @@ export const ProductDetailsPage = () => {
           />
         )}
 
-        <AsyncData hasError={hasErrorDetails} onRetry={loadData}>
+        <AsyncData
+          hasError={hasErrorDetails}
+          onRetry={loadDetailsData}
+          hasData={Boolean(product)}
+        >
           <div className="product-details__main">
             <section className="product-details__gallery">
               <div className="product-details__thumbnails">
