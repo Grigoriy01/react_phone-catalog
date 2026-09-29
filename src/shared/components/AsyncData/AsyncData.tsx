@@ -40,6 +40,7 @@ export const AsyncData: React.FC<Props> = ({
   if (hasError) {
     return <FetchError onRetry={onRetry} type="server" />;
   }
+
   // disconnect - not Data
   if (!isOnline && !hasData) {
     return <FetchError onRetry={onRetry} type="offline" />;

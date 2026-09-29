@@ -28,14 +28,17 @@
     @extend %button-text;
 
     cursor: pointer;
+
+    padding-top: 1px;
+
     font-weight: 600;
     color: $color-primary;
+
     background-color: $color-white;
 
     @include on-desktop {
       line-height: 0;
     }
-
 
     &--active {
       border-color: $color-primary;
