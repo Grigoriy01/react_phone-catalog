@@ -29,23 +29,24 @@ export const ProductsProvider: React.FC<{ children: React.ReactNode }> = ({
   const [hasError, setHasError] = useState(false);
 
   const fetchData = useCallback(async () => {
-  if (!navigator.onLine) {
-    return;
-  }
+    if (!navigator.onLine) {
+      return;
+    }
 
-  setIsLoading(true);
-  setHasError(false);
-
-  try {
-    const data = await getProducts();
-    setProducts(data);
+    setIsLoading(true);
     setHasError(false);
-  } catch {
-    setHasError(true);
-  } finally {
-    setIsLoading(false);
-  }
-}, []);
+
+    try {
+      const data = await getProducts();
+
+      setProducts(data);
+      setHasError(false);
+    } catch {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     fetchData();
